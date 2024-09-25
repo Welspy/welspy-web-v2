@@ -1,9 +1,19 @@
-const Modal = () => {
-    return(
-        <div>
+import * as S from "./style";
 
-        </div>
-    )
+interface Props {
+  setModal: React.Dispatch<React.SetStateAction<boolean>>;
+  modal: boolean;
 }
 
-export default Modal
+const Modal = ({ setModal, modal }: Props) => {
+  const ClickModal = () => {
+    setModal(!modal);
+  };
+  return (
+    <S.Wrapper onClick={ClickModal}>
+      <S.MainWrapper></S.MainWrapper>
+    </S.Wrapper>
+  );
+};
+
+export default Modal;
