@@ -12,7 +12,7 @@ const UseAllChallenge = () => {
       const token = Cookies.get("accessToken");
       console.log("AccessToken:", token);
 
-      const page = 0;
+      const page = 1;
       const size = 10;
 
       const res = await axios.get(`${CONFIG.serverUrl}/room/list`, {
