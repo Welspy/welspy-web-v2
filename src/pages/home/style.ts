@@ -126,6 +126,7 @@ export const TitleWrapper = styled.div`
   width: 100%;
   height: auto;
   display: flex;
+  align-items: center;
 `;
 
 export const TitleSpan = styled.span`
@@ -244,4 +245,26 @@ export const AccountLogItemDescriptionWrapper = styled.div`
 
 export const AccountLogSpan = styled.span`
   font-size: 13px;
+`;
+
+export const CategoryWrapper = styled.div`
+  width: auto;
+  height: 80%;
+  display: flex;
+  border-radius: 1rem;
+  margin-left: 2%;
+  align-items: center;
+  justify-content: center;
+  background-color: #6b7684;
+`;
+
+export const RoomTypeWrapper = styled.div`
+  width: 20%;
+  height: 15%;
+  display: flex;
+
+  margin-left: 2%;
+  align-items: center;
+  justify-content: center;
+  background-color: #5b94f3;
 `;

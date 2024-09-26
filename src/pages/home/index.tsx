@@ -6,17 +6,18 @@ import { AllChallengeProps } from "src/type/challenge.types";
 import MakeModal from "src/modal/makemodal";
 import UseAccountLog from "src/hooks/home/useAccountLog";
 import UseMyChallenge from "src/hooks/home/useMyChallenge";
+import MyChallengeModal from "src/modal/mychallengemodal";
 
 const Home = () => {
   const [modal, setModal] = useState<boolean>(false);
   const [makemodal, setMakeModal] = useState<boolean>(false);
-  
+  const [mymodal, setMyModal] = useState<boolean>(false);
 
   const [roomdata, setRoomData] = useState<AllChallengeProps>();
   const { challenge, AllChallenge } = UseAllChallenge();
   const { accountlog, AccountLog } = UseAccountLog();
   const { mychallenge, MyChallenge } = UseMyChallenge();
- 
+
   const ClickModal = (item: AllChallengeProps) => {
     setModal(!modal);
     setRoomData(item);
@@ -24,6 +25,10 @@ const Home = () => {
 
   const ClickMakeModal = () => {
     setMakeModal(!makemodal);
+  };
+
+  const ClickMyModal = () => {
+    setMyModal(!mymodal);
   };
 
   useEffect(() => {
@@ -44,14 +49,24 @@ const Home = () => {
             </S.ChallengeTitleWrapper>
             <S.MyChallengeWrapper>
               <S.MyChallengeSpan>내 챌린지</S.MyChallengeSpan>
-              <S.MyChallengeItemWrapper>
-                
-                <S.MyChallenge></S.MyChallenge>
-                <S.MyChallenge></S.MyChallenge>
-                <S.MyChallenge></S.MyChallenge>
-                <S.MyChallenge></S.MyChallenge>
-                <S.MyChallenge></S.MyChallenge>
-                <S.MyChallenge></S.MyChallenge>
+              <S.MyChallengeItemWrapper onClick={ClickMyModal}>
+                <S.OtherChallenge>
+                  <S.OtherChallengeImgWrapper src="/" alt="challenge" />
+                  <S.OtherChallengeDescriptionWrapper>
+                    <S.DescriptionMainWrapper>
+                      <S.TitleWrapper>
+                        <S.TitleSpan></S.TitleSpan>
+                        <S.CategoryWrapper>
+                          <span style={{ fontSize: 10, color: "white" }}></span>
+                        </S.CategoryWrapper>
+                      </S.TitleWrapper>
+                      <S.RoomTypeWrapper>
+                        <span style={{ fontSize: 10, color: "white" }}></span>
+                      </S.RoomTypeWrapper>
+                      <S.ContentWrapper></S.ContentWrapper>
+                    </S.DescriptionMainWrapper>
+                  </S.OtherChallengeDescriptionWrapper>
+                </S.OtherChallenge>
               </S.MyChallengeItemWrapper>
             </S.MyChallengeWrapper>
             <S.OtherChallengeWrapper>
@@ -64,7 +79,13 @@ const Home = () => {
                       <S.DescriptionMainWrapper>
                         <S.TitleWrapper>
                           <S.TitleSpan>{item.title}</S.TitleSpan>
+                          <S.CategoryWrapper>
+                            <span style={{ fontSize: 10, color: "white" }}>#{item.category}</span>
+                          </S.CategoryWrapper>
                         </S.TitleWrapper>
+                        <S.RoomTypeWrapper>
+                          <span style={{ fontSize: 10, color: "white" }}>{item.roomType}</span>
+                        </S.RoomTypeWrapper>
                         <S.ContentWrapper>{item.description}</S.ContentWrapper>
                       </S.DescriptionMainWrapper>
                     </S.OtherChallengeDescriptionWrapper>
@@ -94,12 +115,14 @@ const Home = () => {
                 <S.AccountLogSpan>{`${accountlog?.money} 원`}</S.AccountLogSpan>
               </S.AccountLogItemDescriptionWrapper>
             </S.AccountLogItemWrapper>
-            <S.AccountLogItemWrapper></S.AccountLogItemWrapper>
-            <S.AccountLogItemWrapper></S.AccountLogItemWrapper>
-            <S.AccountLogItemWrapper></S.AccountLogItemWrapper>
           </S.AccountLogWrapper>
         </S.SideBarHeaderMainWrapper>
       </S.SideBarWrapper>
+      {mymodal === true ? (
+        <MyChallengeModal RoomData={roomdata} setModal={setMyModal} modal={mymodal}></MyChallengeModal>
+      ) : (
+        <></>
+      )}
       {makemodal === true ? <MakeModal ClickMakeModal={ClickMakeModal}></MakeModal> : <></>}
       {modal === true ? <OtherChallengeModal RoomData={roomdata} setModal={setModal} modal={modal} /> : <></>}
     </S.Wrapper>

@@ -70,6 +70,14 @@ export const GoalMoneyWrapper = styled.div`
   justify-content: space-between;
 `;
 
+export const MemberWrapper = styled.div`
+  width: 30%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
 export const GoalMoneySpan = styled.span`
   font-size: 15px;
 `;
@@ -154,7 +162,7 @@ export const MakeDescriptionWrapper = styled.div`
   justify-content: space-between;
 `;
 
-export const MakeDescription = styled.textarea`
+export const MakeDescription = styled.input`
   width: 100%;
   height: 100%;
 `;
@@ -195,3 +203,50 @@ export const MakeChallengeButton = styled.button`
   border: none;
 `;
 
+export const CurrentMemberSpan = styled.span`
+  font-size: 15px;
+`;
+
+export const ProductNameSpan = styled.span`
+  font-size: 15px;
+`;
+
+export const ChallengeJoinButton = styled.button`
+  width: 50%;
+  height: 10%;
+  font-size: 14px;
+  background-color: black;
+  color: #fff;
+  border: none;
+  align-self: center;
+  border-radius: 10px;
+`;
+
+export const MakeModalBigTitleWrapper = styled.div`
+  width: 100%;
+  height: 10%;
+  display: flex;
+  margin-top: 5%;
+
+  align-items: center;
+`;
+
+export const CategorySpanWrapper = styled.div`
+  width: 14%;
+  height: 70%;
+  background-color: #aeaeae;
+  border-radius: 1rem;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  margin-left: 3%;
+`;
+
+export const CategorySpan = styled.span`
+  font-size: 15px;
+`;
+
+export const ProductImgInput = styled.input`
+  width: 100%;
+  height: 100%;
+`;

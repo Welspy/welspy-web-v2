@@ -1,19 +1,17 @@
-import { AllChallengeProps } from "src/type/challenge.types";
 import * as S from "../style";
-import { useEffect, useState } from "react";
+import { AllChallengeProps } from "src/type/challenge.types";
 import UseProduct from "src/hooks/modal/useProduct";
-import UseJoinChallenge from "src/hooks/modal/useJoinChallenge";
+import { SetStateAction, useEffect, useState } from "react";
 
 interface Props {
-  setModal: React.Dispatch<React.SetStateAction<boolean>>;
-  modal: boolean;
   RoomData: AllChallengeProps | undefined;
+  setModal: React.Dispatch<SetStateAction<boolean>>;
+  modal: boolean;
 }
 
-const OtherChallengeModal = ({ setModal, modal, RoomData }: Props) => {
+const MyChallengeModal = ({ RoomData, setModal, modal }: Props) => {
   const [productview, setProductView] = useState<boolean>(true);
   const { product, Product } = UseProduct({ RoomData });
-  const { JoinChallengeButton } = UseJoinChallenge({ RoomData });
 
   const ClickModal = () => {
     setModal(!modal);
@@ -23,16 +21,14 @@ const OtherChallengeModal = ({ setModal, modal, RoomData }: Props) => {
     Product();
   }, []);
 
-
-
   const Title = JSON.stringify(product?.name);
+
+
   const price = JSON.stringify(product?.price);
   const disPrice = JSON.stringify(product?.discountedPrice);
   const discount = JSON.stringify(product?.discount);
   const description = JSON.stringify(product?.description);
   const imgUrl = JSON.stringify(product?.imageUrl);
-
-
 
   return (
     <S.Wrapper>
@@ -60,7 +56,6 @@ const OtherChallengeModal = ({ setModal, modal, RoomData }: Props) => {
                 </S.ChallengeImgWrapper>
                 <S.DescriptionWrapper>{RoomData?.description}</S.DescriptionWrapper>
               </S.ContenWrapper>
-              <S.ChallengeJoinButton onClick={JoinChallengeButton}>챌린지 가입</S.ChallengeJoinButton>
             </S.MainContentWrapper>
           </S.MainWrapper>
           <button onClick={() => setProductView(!productview)}>제품 정보</button>
@@ -97,4 +92,4 @@ const OtherChallengeModal = ({ setModal, modal, RoomData }: Props) => {
   );
 };
 
-export default OtherChallengeModal;
+export default MyChallengeModal;
