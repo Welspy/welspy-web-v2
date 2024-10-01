@@ -1,11 +1,16 @@
 import axios from "axios";
 import CONFIG from "src/config/config.json";
 import Cookies from "js-cookie";
-import { useState} from "react";
+import { useState } from "react";
 import { AllChallengeProps } from "src/type/challenge.types";
+import { pick } from "lodash";
+import { ProductProps } from "src/type/product.types";
 
 const UseAllChallenge = () => {
   const [challenge, setChallenge] = useState<AllChallengeProps[]>([]);
+  const [productData, setProductData] = useState<ProductProps>();
+
+  console.log("data", productData);
 
   const AllChallenge = async () => {
     try {
@@ -29,15 +34,29 @@ const UseAllChallenge = () => {
 
       if (res.status === 200) {
         setChallenge(res.data.data);
-        console.log(res.data.data);
+
+        await axios
+          .get(`${CONFIG.serverUrl}/product?idx=${pick(challenge, ["productId"])}`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          })
+          .then((res) => {
+            setProductData(res.data.data);
+          });
       }
     } catch (error: any) {
-      console.error("Error occurred:", error?.response || error);
+      if (error instanceof Response) {
+        if (error.status === 409) {
+          alert("이미 가입된 방입니다");
+        } else {
+          console.error(`HTTP error: ${error.status}`);
+        }
+      } else {
+        console.error(`General error: ${error.message}`);
+      }
     }
   };
-
-
-  
 
   return {
     AllChallenge,

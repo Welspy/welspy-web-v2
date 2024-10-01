@@ -37,6 +37,7 @@ export const ModalDeleteButtonWrapper = styled.div`
 
   display: flex;
   flex-direction: row-reverse;
+  cursor: pointer;
 `;
 
 export const MainContentWrapper = styled.div`
@@ -95,6 +96,8 @@ export const ContenWrapper = styled.div`
 `;
 
 export const ChallengeImgWrapper = styled.div`
+  display: flex;
+  justify-content: center;
   width: 100%;
   height: 40%;
 `;

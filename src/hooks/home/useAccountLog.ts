@@ -24,7 +24,6 @@ const UseAccountLog = () => {
       });
       if (res.status === 200) {
         setAccountLog(res.data);
-        console.log("rea", res.data);
       }
     } catch (error) {
       console.error(error);

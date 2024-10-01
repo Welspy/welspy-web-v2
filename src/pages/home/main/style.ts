@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Img from "src/assets/image 5.png";
 
 export const Wrapper = styled.div`
   width: 100vw;
@@ -19,8 +20,11 @@ export const MainWrapper = styled.div`
 
 export const HeaderNav = styled.div`
   width: 100%;
-  height: 7%;
+  height: 8%;
   display: flex;
+
+  justify-content: center;
+  align-items: center;
 `;
 
 export const ChallengeMainWrapper = styled.div`
@@ -35,6 +39,7 @@ export const ChallengeContentWrapper = styled.div`
   width: 100%;
   height: auto;
   display: flex;
+
   flex-direction: column;
 `;
 
@@ -48,7 +53,7 @@ export const ChallengeTitleWrapper = styled.div`
 
 export const MyChallengeWrapper = styled.div`
   width: 100%;
-  height: 25%;
+  height: 40%;
   display: flex;
   margin-top: 3%;
   justify-content: space-between;
@@ -62,12 +67,13 @@ export const MyChallengeSpan = styled.span`
 
 export const MyChallengeItemWrapper = styled.div`
   width: 100%;
-  height: 90%;
+  height: 100%;
   display: flex;
   gap: 1%;
   align-items: center;
   overflow-x: auto;
   overflow-y: hidden;
+  margin-top: 1.5%;
 `;
 
 export const MyChallenge = styled.div`
@@ -81,20 +87,17 @@ export const MyChallenge = styled.div`
 
 export const OtherChallengeWrapper = styled.div`
   width: 100%;
-  height: 40%;
+  height: 50%;
   display: flex;
   justify-content: space-between;
   flex-direction: column;
-  margin-top: 2%;
 `;
 
 export const OtherChallenge = styled.div`
   width: 24%;
-  height: 80%;
+  height: 100%;
   min-width: 230px;
-
   display: flex;
-  border: 1px solid black;
   border-radius: 10px;
   flex-direction: column;
   justify-content: space-between;
@@ -102,12 +105,13 @@ export const OtherChallenge = styled.div`
 
 export const OtherChallengeImgWrapper = styled.img`
   width: 100%;
-  height: 35%;
+  height: 45%;
+  border-radius: 10px;
 `;
 
 export const OtherChallengeDescriptionWrapper = styled.div`
   width: 100%;
-  height: 65%;
+  height: 60%;
   display: flex;
 
   justify-content: center;
@@ -115,8 +119,8 @@ export const OtherChallengeDescriptionWrapper = styled.div`
 `;
 
 export const DescriptionMainWrapper = styled.div`
-  width: 90%;
-  height: 60%;
+  width: 95%;
+  height: 70%;
   display: flex;
 
   flex-direction: column;
@@ -130,30 +134,33 @@ export const TitleWrapper = styled.div`
 `;
 
 export const TitleSpan = styled.span`
-  font-size: 18px;
+  font-size: 17px;
 `;
 
 export const ContentWrapper = styled.div`
   width: 100%;
-  height: auto;
+  height: 100%;
   display: flex;
-
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 5px;
   font-size: 14px;
-  color: #6b7684;
 `;
 
 export const CategorrySpanWrapper = styled.div`
-  width: 15%;
+  width: 20%;
   height: 80%;
   align-items: center;
-
   display: flex;
   justify-content: space-between;
 `;
 
-export const CategorrySpan = styled.span`
+export const CategorrySpan = styled.button<{ clicked: boolean }>`
   font-size: 26px;
   font-weight: 700;
+  border: none;
+  background-color: white;
+  color: ${({ clicked }) => (clicked === true ? "black" : "#aeaeae")};
 `;
 
 export const SideBarWrapper = styled.div`
@@ -248,7 +255,7 @@ export const AccountLogSpan = styled.span`
 `;
 
 export const CategoryWrapper = styled.div`
-  width: auto;
+  width: 20%;
   height: 80%;
   display: flex;
   border-radius: 1rem;
@@ -260,11 +267,100 @@ export const CategoryWrapper = styled.div`
 
 export const RoomTypeWrapper = styled.div`
   width: 20%;
-  height: 15%;
+  height: 25%;
   display: flex;
-
-  margin-left: 2%;
+  border-radius: 5px;
   align-items: center;
   justify-content: center;
-  background-color: #5b94f3;
+`;
+
+export const MainChallengeComponent = styled.div`
+  width: 100%;
+  height: 70%;
+  display: flex;
+
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 2%;
+`;
+
+export const DisCountWrapper = styled.div`
+  display: flex;
+  width: 45%;
+  height: 100%;
+  flex-direction: column;
+`;
+
+export const MyChallengeContentWrapper = styled.div`
+  width: 24%;
+  height: 100%;
+  min-width: 230px;
+  display: flex;
+  border-radius: 10px;
+  flex-direction: column;
+  justify-content: space-between;
+`;
+
+export const MyChallengeImgWrapper = styled.div`
+  width: 100%;
+  height: 80%;
+  border-radius: 10px;
+  display: flex;
+`;
+
+export const MyChallengeImg = styled.img`
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+`;
+
+export const BlurOveray = styled.div`
+  display: flex;
+  position: absolute;
+  width: 17.3%;
+  height: 16.8%;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(3deg, rgba(0, 0, 0, 0.64) 3.49%, rgba(102, 102, 102, 0) 84.55%);
+`;
+
+export const BlurMainWrapper = styled.div`
+  display: flex;
+  flex-direction: column-reverse;
+  width: 90%;
+  height: 80%;
+`;
+
+export const BlurSpan = styled.span`
+  color: white;
+  font-size: 16px;
+`;
+
+export const SearchWrapper = styled.div`
+  width: 30%;
+  height: 60%;
+`;
+
+export const SearchInput = styled.input`
+  width: 90%;
+  height: 100%;
+  border-radius: 2rem;
+  border: none;
+  background-color: rgba(2, 32, 71, 0.09);
+  padding-left: 10%;
+`;
+
+export const MysteryBox = styled.div`
+  width: 10%;
+  height: 100%;
+  background-color: #aeaeae;
+`;
+
+export const HeaderContentWrapper = styled.div`
+  width: 97%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 `;

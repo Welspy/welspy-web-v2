@@ -1,20 +1,20 @@
-import axios from "axios";
 import { useState } from "react";
-import { AllChallengeProps, MyChallengeProps } from "src/type/challenge.types";
+import { MyChallengeProps } from "src/type/challenge.types";
 import { ProductProps } from "src/type/product.types";
-import CONFIG from "src/config/config.json";
 import Cookies from "js-cookie";
+import axios from "axios";
+import CONFIG from "src/config/config.json";
 
 interface Props {
-  RoomData: AllChallengeProps | undefined;
+  MyRoomData: MyChallengeProps | undefined;
 }
 
-const UseProduct = ({ RoomData }: Props) => {
-  const [product, setProduct] = useState<ProductProps>();
-  const idx = RoomData?.productId;
+const UseMyProduct = ({ MyRoomData }: Props) => {
+  const [myproduct, setMyProduct] = useState<ProductProps>();
+  const idx = MyRoomData?.roomId;
   const Token = Cookies.get("accessToken");
 
-  const Product = async () => {
+  const MyProduct = async () => {
     try {
       const res = await axios.get(`${CONFIG.serverUrl}/product?idx=${idx}`, {
         headers: {
@@ -22,8 +22,7 @@ const UseProduct = ({ RoomData }: Props) => {
         },
       });
       if (res.status === 200) {
-       
-        setProduct(res.data.data);
+        setMyProduct(res.data.data);
       }
     } catch (error) {
       console.error(error);
@@ -31,9 +30,9 @@ const UseProduct = ({ RoomData }: Props) => {
   };
 
   return {
-    product,
-    Product,
+    myproduct,
+    MyProduct,
   };
 };
 
-export default UseProduct;
+export default UseMyProduct;

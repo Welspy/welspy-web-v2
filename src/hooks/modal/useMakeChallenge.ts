@@ -2,7 +2,6 @@ import axios from "axios";
 import { useState } from "react";
 import CONFIG from "src/config/config.json";
 import { useCallback } from "react";
-import { title } from "process";
 
 interface MakeChellengeProps {
   title: string | undefined;

@@ -9,7 +9,7 @@ const MakeModal = ({ ClickMakeModal }: Props) => {
   const { MakeChallengeButton, MakeChallengeHandle, makeChallenge } = UseMakeChallenge();
   return (
     <S.Wrapper>
-      <button style={{ position: "absolute", right: 500, top: 100 }} onClick={ClickMakeModal}>
+      <button style={{ position: "absolute", right: 500, top: 100, cursor: "pointer" }} onClick={ClickMakeModal}>
         x
       </button>
       <S.PositionWrapper>

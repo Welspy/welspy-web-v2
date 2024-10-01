@@ -1,8 +1,9 @@
-import { AllChallengeProps } from "src/type/challenge.types";
+import { AllChallengeProps, MyChallengeProps } from "src/type/challenge.types";
 import * as S from "../style";
 import { useEffect, useState } from "react";
 import UseProduct from "src/hooks/modal/useProduct";
 import UseJoinChallenge from "src/hooks/modal/useJoinChallenge";
+import Img from "src/assets/image 5.png";
 
 interface Props {
   setModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -22,17 +23,6 @@ const OtherChallengeModal = ({ setModal, modal, RoomData }: Props) => {
   useEffect(() => {
     Product();
   }, []);
-
-
-
-  const Title = JSON.stringify(product?.name);
-  const price = JSON.stringify(product?.price);
-  const disPrice = JSON.stringify(product?.discountedPrice);
-  const discount = JSON.stringify(product?.discount);
-  const description = JSON.stringify(product?.description);
-  const imgUrl = JSON.stringify(product?.imageUrl);
-
-
 
   return (
     <S.Wrapper>
@@ -56,7 +46,7 @@ const OtherChallengeModal = ({ setModal, modal, RoomData }: Props) => {
               </S.GoalMoneyWrapper>
               <S.ContenWrapper>
                 <S.ChallengeImgWrapper>
-                  <img src={RoomData?.imageUrl} alt="" />
+                  <img src={RoomData?.imageUrl} style={{ width: "100%", height: "100%" }} alt="" />
                 </S.ChallengeImgWrapper>
                 <S.DescriptionWrapper>{RoomData?.description}</S.DescriptionWrapper>
               </S.ContenWrapper>
@@ -75,19 +65,23 @@ const OtherChallengeModal = ({ setModal, modal, RoomData }: Props) => {
                 <S.TitleSpan>제품 정보</S.TitleSpan>
               </S.ContentTitleWrapper>
               <S.ContentTitleWrapper>
-                <S.ProductNameSpan>{Title}</S.ProductNameSpan>
+                <S.ProductNameSpan>{product?.name}</S.ProductNameSpan>
               </S.ContentTitleWrapper>
               <S.ChallengeImgWrapper>
-                <img src={imgUrl} alt="" />
+                <img style={{ width: "40%", height: "100%" }} src={product?.imageUrl} alt="" />
               </S.ChallengeImgWrapper>
               <S.GoalMoneyWrapper>
-                <S.GoalMoneySpan style={{ color: "red" }}>가격 : {disPrice}</S.GoalMoneySpan>
+                <S.GoalMoneySpan style={{ color: "red" }}>가격 : {product?.discountedPrice}</S.GoalMoneySpan>
                 <S.MemberWrapper style={{ flexDirection: "column" }}>
-                  <S.MemberLimitSpan>원가 : {price}</S.MemberLimitSpan>
-                  <S.CurrentMemberSpan style={{ color: " blue " }}>할인율 : {discount}</S.CurrentMemberSpan>
+                  <S.MemberLimitSpan>원가 : {product?.price}</S.MemberLimitSpan>
+                  <S.CurrentMemberSpan style={{ color: " blue " }}>할인율 : {product?.discount}</S.CurrentMemberSpan>
                 </S.MemberWrapper>
               </S.GoalMoneyWrapper>
-              <S.DescriptionWrapper style={{ height: "40%", marginTop: 20 }}>{description}</S.DescriptionWrapper>
+              <S.DescriptionWrapper
+                style={{ height: "40%", marginTop: 20, whiteSpace: "pre-line", wordBreak: "break-word" }}
+              >
+                {product?.description}
+              </S.DescriptionWrapper>
             </S.MainContentWrapper>
           </S.MainWrapper>
           <button onClick={() => setProductView(!productview)}>챌린지 정보</button>

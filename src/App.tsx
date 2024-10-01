@@ -1,4 +1,4 @@
-import Home from "./pages/home";
+import Home from "./pages/home/main";
 import "./App.css";
 import Router from "./components/routes";
 

@@ -24,7 +24,7 @@ const UseJoinChallenge = ({ RoomData }: Props) => {
         }
       );
       if (res.status === 201) {
-        console.log(res.data);
+      
         alert("챌린지에 가입 성공하였습니다");
       }
     } catch (error) {

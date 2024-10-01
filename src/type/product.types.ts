@@ -7,3 +7,4 @@ export interface ProductProps {
   discountedPrice: number;
   imageUrl: string;
 }
+

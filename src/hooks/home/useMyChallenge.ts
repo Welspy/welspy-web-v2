@@ -5,7 +5,7 @@ import CONFIG from "src/config/config.json";
 import Cookies from "js-cookie";
 
 const UseMyChallenge = () => {
-  const [mychallenge, setMyChallenge] = useState<MyChallengeProps>();
+  const [mychallenge, setMyChallenge] = useState<MyChallengeProps[]>([]);
   const Token = Cookies.get("accessToken");
   const page = 1;
   const size = 10;
@@ -19,11 +19,11 @@ const UseMyChallenge = () => {
           page,
           size,
         },
-      })
-      if(res.status === 200) {
-        console.log("sdfasdfas",res.data)
-        
-      };
+      });
+      if (res.status === 200) {
+      
+        setMyChallenge(res.data.data);
+      }
     } catch (error) {
       console.error(error);
     }
