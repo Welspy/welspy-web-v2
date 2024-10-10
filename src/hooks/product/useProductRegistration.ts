@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import axios from 'axios';
+import { useState, useEffect } from 'react';
+import axios, { AxiosError } from 'axios';
 import Cookies from 'js-cookie';
-import CONFIG from '../../config/config.json';
-import { ProductProps } from '../../type/product.types';
+import CONFIG from 'src/config/config.json';
+import { ProductProps } from 'src/type/product.types';
 
 const useProductRegistration = () => {
     const [productData, setProductData] = useState<ProductProps>({
@@ -12,55 +12,80 @@ const useProductRegistration = () => {
         discount: 0,
         imageUrl: '',
     });
-    const [error, setError] = useState<string | null>(null);
-    const [loading, setLoading] = useState<boolean>(false);
-    const token = Cookies.get("token");
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        const { name, value } = e.target;
-        setProductData(prevState => ({
-            ...prevState,
-            [name]: name === 'price' || name === 'discount' || name === 'discountedPrice' ? Number(value) : value
+    const [token, setToken] = useState<string | undefined>(Cookies.get("token"));
+
+    useEffect(() => {
+        const storedToken = Cookies.get("token");
+        setToken(storedToken);
+    }, []);
+
+    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (file) {
+            const newImageUrl = URL.createObjectURL(file);
+            setProductData((prevData) => ({
+                ...prevData,
+                imageUrl: newImageUrl,
+            }));
+        }
+    };
+
+    const removeImage = () => {
+        setProductData((prevData) => ({
+            ...prevData,
+            imageUrl: '',
         }));
     };
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        setLoading(true);
-        setError(null);
+    const productPost = async (data: ProductProps) => {
+        if (!data.name || !data.description || data.price <= 0 || data.discount < 0 || !data.imageUrl) {
+            window.alert("정보를 다 등록해주세요.");
+            return;
+        }
+
+        if (!token) {
+            window.alert("인증되지 않은 사용자입니다. 로그인 해주세요.");
+            return;
+        }
 
         try {
-            const res = await axios.post(`${CONFIG.serverUrl}/product`, productData, {
+            const formData = new FormData();
+            formData.append('name', data.name);
+            formData.append('description', data.description);
+            formData.append('price', data.price.toString());
+            formData.append('discount', data.discount.toString());
+
+            // 이미지 파일 추가
+            const response = await axios.post(`${CONFIG.serverUrl}/product`, formData, {
                 headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
+                    "Content-Type": "multipart/form-data",
+                    "Authorization": `Bearer ${token}`
                 }
             });
+            return response.data;
+        } catch (error) {
+            const axiosError = error as AxiosError;
 
-            if (res.status === 201) {
-                alert('제품 등록 성공!');
-                setProductData({
-                    name: "",
-                    description: '',
-                    price: 0,
-                    discount: 0,
-                    imageUrl: '',
-                });
+            if (axiosError.response) {
+                console.error('Response error:', axiosError.response.data);
+                if (axiosError.response.status === 401) {
+                    window.alert("인증 실패. 다시 로그인 해주세요.");
+                }
+            } else {
+                console.error('Request error:', error);
+                window.alert("서버와의 통신에 문제가 발생했습니다.");
             }
-        } catch (err) {
-            setError('제품 등록에 실패했습니다.');
-            console.error(err);
-        } finally {
-            setLoading(false);
+            throw error;
         }
     };
 
     return {
         productData,
-        error,
-        loading,
-        handleChange,
-        handleSubmit
+        setProductData,
+        productPost,
+        handleImageChange,
+        removeImage,
     };
 };
 
