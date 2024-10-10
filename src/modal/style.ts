@@ -6,7 +6,7 @@ export const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(0, 0, 0, 0.56);
+  background-color: rgba(0, 0, 0, .2);
   position: absolute;
 `;
 
@@ -88,7 +88,7 @@ export const MemberLimitSpan = styled.span`
 `;
 export const ContenWrapper = styled.div`
   width: 100%;
-  height: 90%;
+  height: 85%;
   display: flex;
 
   flex-direction: column;

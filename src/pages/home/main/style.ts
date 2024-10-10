@@ -63,6 +63,7 @@ export const MyChallengeWrapper = styled.div`
 export const MyChallengeSpan = styled.span`
   font-size: 20px;
   font-weight: 700;
+  
 `;
 
 export const MyChallengeItemWrapper = styled.div`
@@ -106,6 +107,7 @@ export const OtherChallenge = styled.div`
 export const OtherChallengeImgWrapper = styled.img`
   width: 100%;
   height: 45%;
+  object-fit: cover;
   border-radius: 10px;
 `;
 
@@ -201,7 +203,7 @@ export const SideBarHeaderText = styled.span`
 
 export const AccountLogWrapper = styled.div`
   width: 100%;
-  height: 100%;
+  height: 86%;
   display: flex;
 
   flex-direction: column;
@@ -276,7 +278,7 @@ export const RoomTypeWrapper = styled.div`
 
 export const MainChallengeComponent = styled.div`
   width: 100%;
-  height: 70%;
+  height: 80%;
   display: flex;
 
   flex-direction: column;
@@ -303,7 +305,7 @@ export const MyChallengeContentWrapper = styled.div`
 
 export const MyChallengeImgWrapper = styled.div`
   width: 100%;
-  height: 80%;
+  height: 70%;
   border-radius: 10px;
   display: flex;
 `;
@@ -317,8 +319,8 @@ export const MyChallengeImg = styled.img`
 export const BlurOveray = styled.div`
   display: flex;
   position: absolute;
-  width: 17.3%;
-  height: 16.8%;
+  width: 13.8%;
+  height: 17.2%;
   border-radius: 10px;
   justify-content: center;
   align-items: center;
@@ -354,7 +356,6 @@ export const SearchInput = styled.input`
 export const MysteryBox = styled.div`
   width: 10%;
   height: 100%;
-  background-color: #aeaeae;
 `;
 
 export const HeaderContentWrapper = styled.div`
@@ -363,4 +364,64 @@ export const HeaderContentWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+`;
+
+export const SkelethoneBox = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #aeaeae;
+  border-radius: 10px;
+  
+`;
+
+export const ChallengeTextWrapper = styled.div`
+  width: 100%;
+
+  height: 100px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+`;
+
+export const ChallengeText = styled.div`
+  width: 49%;
+  height: auto;
+  display: flex;
+  text-align: center;
+`;
+
+export const ChallengeTextSpan = styled.span`
+  font-size: 14px;
+  color: #333d4b;
+  margin-right: 2%;
+`;
+
+export const SubTextSpan = styled.span`
+  font-size: 12px;
+  color: #aeaeae;
+`;
+
+export const Footer = styled.div`
+  width: 100%;
+  height: 400px;
+  background-color: #fff;
+`;
+
+export const AccountUndefined = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  background-color: #aeaeae;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1rem;
+`;
+
+export const UndefinedSpan = styled.div`
+  font-size: 25px;
+  font-family: "pretendard";
+  font-weight: 600;
 `;

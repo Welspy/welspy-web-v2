@@ -14,6 +14,14 @@ const UseSignIn = () => {
   const [signin, setSignIn] = useState<SignIn>({ email: "", password: "" });
   const navigator = useNavigate();
 
+  const axiosInstance = axios.create({
+    baseURL: CONFIG.serverUrl,
+    timeout: 5000, 
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { value, name } = e.target;
     setSignIn((prev) => ({ ...prev, [name]: value }));
@@ -21,24 +29,25 @@ const UseSignIn = () => {
 
   const SignInButton = async () => {
     try {
-      const res = await axios.post(
-        `${CONFIG.serverUrl}/auth/sign-in`,
-        {
-          email: signin.email,
-          password: signin.password,
-        },
-        {
-          headers: {
-            "Content-Type": `application/json`,
+      await axiosInstance
+        .post(
+          `${CONFIG.serverUrl}/auth/sign-in`,
+          {
+            email: signin.email,
+            password: signin.password,
           },
-        }
-      );
-      if (res.status === 200) {
-        alert("로그인 성공");
-        navigator("/home");
-        console.log(res.data);
-        Cookies.set("accessToken", res.data.data.accessToken);
-      }
+          {
+            headers: {
+              "Content-Type": `application/json`,
+            },
+          }
+        )
+        .then((res) => {
+          alert("로그인 성공");
+          navigator("/home");
+          console.log(res.data);
+          Cookies.set("accessToken", res.data.data.accessToken);
+        });
     } catch (error) {
       console.error(error);
     }

@@ -5,6 +5,7 @@ import Cookies from "js-cookie";
 import axios from "axios";
 import CONFIG from "src/config/config.json";
 
+
 interface Props {
   MyRoomData: MyChallengeProps | undefined;
 }
@@ -13,6 +14,7 @@ const UseMyProduct = ({ MyRoomData }: Props) => {
   const [myproduct, setMyProduct] = useState<ProductProps>();
   const idx = MyRoomData?.roomId;
   const Token = Cookies.get("accessToken");
+  
 
   const MyProduct = async () => {
     try {
@@ -23,6 +25,7 @@ const UseMyProduct = ({ MyRoomData }: Props) => {
       });
       if (res.status === 200) {
         setMyProduct(res.data.data);
+
       }
     } catch (error) {
       console.error(error);

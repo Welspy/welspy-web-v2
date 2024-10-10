@@ -25,15 +25,16 @@ const UseHomeProduct = ({ productid }: Props) => {
     const HomeProduct = async () => {
       if (id !== undefined) {
         try {
-          const res = await axios.get(`${CONFIG.serverUrl}/product?idx=${id}`, {
-            headers: {
-              Authorization: `Bearer ${Token}`,
-            },
-          });
-          if (res.status === 200) {
-            console.log("homeproduct", res.data.data);
-            setHomeProduct(res.data.data);
-          }
+          await axios
+            .get(`${CONFIG.serverUrl}/product?idx=${id}`, {
+              headers: {
+                Authorization: `Bearer ${Token}`,
+              },
+            })
+            .then((res) => {
+              console.log("homeproduct", res.data.data);
+              setHomeProduct(res.data.data);
+            });
         } catch (error) {
           console.error(error);
         }

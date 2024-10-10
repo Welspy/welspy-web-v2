@@ -11,19 +11,19 @@ const UseMyChallenge = () => {
   const size = 10;
   const MyChallenge = async () => {
     try {
-      const res = await axios.get(`${CONFIG.serverUrl}/room/my-room`, {
-        headers: {
-          Authorization: `Bearer ${Token}`,
-        },
-        params: {
-          page,
-          size,
-        },
-      });
-      if (res.status === 200) {
-      
-        setMyChallenge(res.data.data);
-      }
+     await axios
+        .get(`${CONFIG.serverUrl}/room/my-room`, {
+          headers: {
+            Authorization: `Bearer ${Token}`,
+          },
+          params: {
+            page,
+            size,
+          },
+        })
+        .then((res) => {
+          setMyChallenge(res.data.data);
+        });
     } catch (error) {
       console.error(error);
     }

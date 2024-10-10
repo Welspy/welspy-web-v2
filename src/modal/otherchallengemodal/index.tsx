@@ -1,9 +1,8 @@
-import { AllChallengeProps, MyChallengeProps } from "src/type/challenge.types";
+import { AllChallengeProps} from "src/type/challenge.types";
 import * as S from "../style";
 import { useEffect, useState } from "react";
 import UseProduct from "src/hooks/modal/useProduct";
 import UseJoinChallenge from "src/hooks/modal/useJoinChallenge";
-import Img from "src/assets/image 5.png";
 
 interface Props {
   setModal: React.Dispatch<React.SetStateAction<boolean>>;
