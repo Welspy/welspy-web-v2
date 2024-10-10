@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import useProductRegistration from 'src/hooks/product/useProductRegistration';
-import * as S from "../style"
+import * as S from '../style';
 
 interface ModalProps {
     onClose: () => void;
@@ -36,7 +36,7 @@ const ProductRegistrationModal: React.FC<ModalProps> = ({ onClose }) => {
     }
 
     return ReactDOM.createPortal(
-        <S.Wrapper> {/* S. 접두어 사용 */}
+        <S.Wrapper>
             <S.MainWrapper>
                 <S.ModalTitle>제품 등록하기</S.ModalTitle>
                 <S.FormContainer onSubmit={handleSubmit}>

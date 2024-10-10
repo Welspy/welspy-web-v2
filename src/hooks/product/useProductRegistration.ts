@@ -13,7 +13,7 @@ const useProductRegistration = () => {
         imageUrl: '',
     });
 
-    const [token, setToken] = useState<string | undefined>(Cookies.get("token"));
+    const [token, setToken] = useState<string | undefined>(undefined);
 
     useEffect(() => {
         const storedToken = Cookies.get("token");
@@ -45,6 +45,7 @@ const useProductRegistration = () => {
         }
 
         if (!token) {
+            console.error("No token found. User is not authenticated."); // 디버깅을 위한 로그 추가
             window.alert("인증되지 않은 사용자입니다. 로그인 해주세요.");
             return;
         }
