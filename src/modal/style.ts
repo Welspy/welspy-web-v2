@@ -250,3 +250,66 @@ export const ProductImgInput = styled.input`
   width: 100%;
   height: 100%;
 `;
+export const Button = styled.button`
+  width: 100%;
+  padding: 10px;
+  font-size: 18px;
+  color: white;
+  background-color: black;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #333;
+  }
+`;
+
+export const CancelButton = styled(Button)`
+  background-color: #ccc;
+
+  &:hover {
+    background-color: #aaa;
+  }
+`;
+export const ModalTitle = styled.span`
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+`;
+
+export const FormContainer = styled.form`
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+export const FormField = styled.div`
+  width: 100%;
+  margin-bottom: 15px;
+`;
+
+export const FieldLabel = styled.label`
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+`;
+
+export const SubmitButton = styled.button`
+  width: 100%;
+  padding: 10px;
+  font-size: 18px;
+  color: white;
+  background-color: black;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #333;
+  }
+`;
