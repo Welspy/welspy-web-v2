@@ -1,14 +1,24 @@
-import React, {useEffect, useState} from 'react'
-import axios from "axios";
-import CONFIG from '../../config/config.json'
-import * as S from "./style";
-import useProductRegistration from "../../hooks/product/useProductRegistration";
+import React, { useState } from 'react';
+import ProductRegistrationModal from 'src/modal/productRegistrationModal';
+import * as S from "./style"
 
-const Product = () => {
-    const {productData, error, loading, handleChange, handleSubmit} = useProductRegistration();
+const ProductRegistrationForm = () => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const handleOpenModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+    };
+
     return (
-        <>
-            
-        </>
-    )
-}
+        <S.FormWrapper>
+            <S.RegisterButton onClick={handleOpenModal}>제품 등록</S.RegisterButton>
+            {isModalOpen && <ProductRegistrationModal onClose={handleCloseModal} />}
+        </S.FormWrapper>
+    );
+};
+
+export default ProductRegistrationForm;
