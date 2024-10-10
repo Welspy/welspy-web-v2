@@ -63,7 +63,6 @@ export const MyChallengeWrapper = styled.div`
 export const MyChallengeSpan = styled.span`
   font-size: 20px;
   font-weight: 700;
-  
 `;
 
 export const MyChallengeItemWrapper = styled.div`
@@ -132,7 +131,8 @@ export const TitleWrapper = styled.div`
   width: 100%;
   height: auto;
   display: flex;
-  align-items: center;
+
+  flex-direction: column;
 `;
 
 export const TitleSpan = styled.span`
@@ -258,7 +258,7 @@ export const AccountLogSpan = styled.span`
 
 export const CategoryWrapper = styled.div`
   width: 20%;
-  height: 80%;
+  height: 100%;
   display: flex;
   border-radius: 1rem;
   margin-left: 2%;
@@ -319,8 +319,8 @@ export const MyChallengeImg = styled.img`
 export const BlurOveray = styled.div`
   display: flex;
   position: absolute;
-  width: 13.8%;
-  height: 17.2%;
+  width: 17.2%;
+  height: 15.7%;
   border-radius: 10px;
   justify-content: center;
   align-items: center;
@@ -372,18 +372,18 @@ export const SkelethoneBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #aeaeae;
+  background: #c7c7c7;
   border-radius: 10px;
-  
 `;
 
 export const ChallengeTextWrapper = styled.div`
   width: 100%;
-
   height: 100px;
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+
+  
 `;
 
 export const ChallengeText = styled.div`
@@ -414,7 +414,7 @@ export const AccountUndefined = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
-  background-color: #aeaeae;
+  background-color: #c7c7c7;
   align-items: center;
   justify-content: center;
   border-radius: 1rem;

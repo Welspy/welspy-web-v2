@@ -38,8 +38,8 @@ const Profile = () => {
               <S.ProfileChallengeInformation>{`현재 참여중인 챌린지 : ${mychallenge.length}`}</S.ProfileChallengeInformation>
             </S.ProfileContentMainWrapper>
           </S.ProfileContentWrapper>
-          <S.ProfileStaticsWrapper>
-            {/* <S.ProfileStaticsMainWrapper>
+          {/* <S.ProfileStaticsWrapper>
+            <S.ProfileStaticsMainWrapper>
               <S.StaticTitleSpan>진행상황</S.StaticTitleSpan>
               <S.StatisticsWrapper>
                 <S.StatisticsItemWrapper>
@@ -49,8 +49,8 @@ const Profile = () => {
                 <S.StatisticsItemWrapper></S.StatisticsItemWrapper>
                 <S.StatisticsItemWrapper></S.StatisticsItemWrapper>
               </S.StatisticsWrapper>
-            </S.ProfileStaticsMainWrapper> */}
-          </S.ProfileStaticsWrapper>
+            </S.ProfileStaticsMainWrapper>
+          </S.ProfileStaticsWrapper> */}
         </S.ProfileWrapper>
         <S.ProfileChallengeWrapper>
           <S.ProfileChallengeBankWrapper>
@@ -75,7 +75,7 @@ const Profile = () => {
                         <img
                           src={item.imageUrl}
                           alt="img"
-                          style={{ width: "100%", height: "100%", borderRadius: 10 }}
+                          style={{ width: "100%", height: "100%", borderRadius: 10, objectFit: "cover" }}
                         />
                       </S.ProfileChallengeItemPicture>
                       <S.ProfileChallengeItemDesWrapper>

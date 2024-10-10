@@ -67,7 +67,7 @@ const OtherChallengeModal = ({ setModal, modal, RoomData }: Props) => {
                 <S.ProductNameSpan>{product?.name}</S.ProductNameSpan>
               </S.ContentTitleWrapper>
               <S.ChallengeImgWrapper>
-                <img style={{ width: "40%", height: "100%" }} src={product?.imageUrl} alt="" />
+                <img style={{ width: "40%", height: "100%",objectFit: "cover"}} src={product?.imageUrl} alt="" />
               </S.ChallengeImgWrapper>
               <S.GoalMoneyWrapper>
                 <S.GoalMoneySpan style={{ color: "red" }}>가격 : {product?.discountedPrice}</S.GoalMoneySpan>

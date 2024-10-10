@@ -13,8 +13,9 @@ export const ProfileWrapper = styled.div`
   width: 30%;
   height: 70%;
   display: flex;
-
+  align-self: center;
   flex-direction: column;
+  margin-top: 100px;
 `;
 
 export const ProfliePictureWrapper = styled.div`
@@ -26,7 +27,6 @@ export const ProfliePictureWrapper = styled.div`
 export const ProfileContentWrapper = styled.div`
   width: 100%;
   height: 30%;
-
   display: flex;
   align-items: center;
   justify-content: center;
@@ -263,7 +263,7 @@ export const UndefinedChallenge = styled.div`
   justify-content: center;
   align-items: center;
   display: flex;
-  background-color: #aeaeae;
+  background-color: #c7c7c7;
   border-radius: 10px;
 `;
 

@@ -100,6 +100,8 @@ export const ChallengeImgWrapper = styled.div`
   justify-content: center;
   width: 100%;
   height: 40%;
+  
+  
 `;
 
 export const DescriptionWrapper = styled.div`

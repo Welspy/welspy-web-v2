@@ -59,7 +59,8 @@ const Home = () => {
     setProductId(challenge.map((item) => item.productId));
   }, [challenge]);
 
-  console.log(challenge.filter((item) => item.imageUrl !== null));
+  console.log("challenge", challenge);
+  console.log("mychallenge", mychallenge);
 
   return (
     <>
@@ -93,7 +94,7 @@ const Home = () => {
               {page === "main" && (
                 <S.MainChallengeComponent>
                   <S.MyChallengeWrapper>
-                    <S.MyChallengeSpan style={{marginBottom: 20}}>내 챌린지</S.MyChallengeSpan>
+                    <S.MyChallengeSpan style={{ marginBottom: 20 }}>내 챌린지</S.MyChallengeSpan>
                     {mychallenge.length !== 0 ? (
                       <S.MyChallengeItemWrapper>
                         {mychallenge.slice(0, 5).map((item, idx) => (
@@ -107,7 +108,7 @@ const Home = () => {
                               <S.MyChallengeImg src={DummyImg} alt="img" />
                               <S.BlurOveray>
                                 <S.BlurMainWrapper>
-                                  <S.BlurSpan>챌린지 제목</S.BlurSpan>
+                                  <S.BlurSpan>{item.title}</S.BlurSpan>
                                 </S.BlurMainWrapper>
                               </S.BlurOveray>
                             </S.MyChallengeImgWrapper>
@@ -162,7 +163,7 @@ const Home = () => {
                         {challenge.slice(4, 7).map((item, idx) => (
                           <S.ChallengeText key={idx}>
                             <S.ChallengeTextSpan onClick={() => ClickModal(item)}>
-                              {item.title}, {item.description}
+                              {item.title}, {item.description.slice(0, 10)}...
                             </S.ChallengeTextSpan>
                             <S.SubTextSpan>{item.category}</S.SubTextSpan>
                           </S.ChallengeText>
@@ -170,7 +171,7 @@ const Home = () => {
                         {challenge.slice(7, 10).map((item, idx) => (
                           <S.ChallengeText key={idx}>
                             <S.ChallengeTextSpan onClick={() => ClickModal(item)}>
-                              {item.title}, {item.description}
+                              {item.title}, {item.description.slice(0, 10)}...
                             </S.ChallengeTextSpan>
                             <S.SubTextSpan>{item.category}</S.SubTextSpan>
                           </S.ChallengeText>

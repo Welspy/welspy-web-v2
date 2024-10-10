@@ -39,12 +39,15 @@ const MyChallengeModal = ({ MyRoomData, setModal, modal }: MyProps) => {
               </S.ContentTitleWrapper>
               <S.GoalMoneyWrapper>
                 <S.GoalMoneySpan>목표금액 : {MyRoomData?.goalMoney}</S.GoalMoneySpan>
-                <S.MemberWrapper>
-                </S.MemberWrapper>
+                <S.MemberWrapper></S.MemberWrapper>
               </S.GoalMoneyWrapper>
               <S.ContenWrapper>
                 <S.ChallengeImgWrapper>
-                  <img src={MyRoomData?.imageUrl} alt="" />
+                  <img
+                    src={MyRoomData?.imageUrl}
+                    style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                    alt=""
+                  />
                 </S.ChallengeImgWrapper>
                 <S.DescriptionWrapper>{MyRoomData?.description}</S.DescriptionWrapper>
               </S.ContenWrapper>

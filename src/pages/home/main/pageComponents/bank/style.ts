@@ -128,6 +128,7 @@ export const BankLogInfoItemWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  ma
 `;
 
 export const BankLogInfoPic = styled.img`
@@ -135,6 +136,7 @@ export const BankLogInfoPic = styled.img`
   height: 50px;
   background-color: #aeaeae;
   border-radius: 100px;
+  margin-left: 10px;
 `;
 
 export const BankLogInfoContent = styled.div`
