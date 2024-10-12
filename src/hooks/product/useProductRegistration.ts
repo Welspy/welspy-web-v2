@@ -45,7 +45,7 @@ const useProductRegistration = () => {
         }
 
         if (!token) {
-            console.error("No token found. User is not authenticated."); // 디버깅을 위한 로그 추가
+            console.error("No token found. User is not authenticated.");
             window.alert("인증되지 않은 사용자입니다. 로그인 해주세요.");
             return;
         }
@@ -57,7 +57,6 @@ const useProductRegistration = () => {
             formData.append('price', data.price.toString());
             formData.append('discount', data.discount.toString());
 
-            // 이미지 파일 추가
             const response = await axios.post(`${CONFIG.serverUrl}/product`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
