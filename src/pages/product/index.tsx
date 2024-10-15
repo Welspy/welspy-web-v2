@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import ProductRegistrationModal from 'src/modal/productRegistrationModal';
+import ProductRegistrationModal from 'src/modal/productModal';
 import * as S from "./style"
 
 const ProductRegistrationForm = () => {
