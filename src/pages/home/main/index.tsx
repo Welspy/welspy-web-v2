@@ -237,7 +237,7 @@ const Home = () => {
                 </S.SideBarWrapper>
                 {search === true ? <SearchModal setSearch={setSearch} search={search}></SearchModal> : <></>}
                 {mymodal === true ?
-                    <MyChallengeModal RoomData={myroomdata} setModal={setMyModal} modal={mymodal}/> : <></>}
+                    <MyChallengeModal MyRoomData={myroomdata} setModal={setMyModal} modal={mymodal}/> : <></>}
                 {makemodal === true ? <MakeModal ClickMakeModal={ClickMakeModal}></MakeModal> : <></>}
                 {modal === true ? <OtherChallengeModal RoomData={roomdata} setModal={setModal} modal={modal}/> : <></>}
             </S.Wrapper>
