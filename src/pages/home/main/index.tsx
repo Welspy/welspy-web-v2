@@ -13,6 +13,7 @@ import UseHomeProduct from "src/hooks/home/useHomeProduct";
 import DummyImg from "src/assets/rotion_dummy.png";
 import Logo from "src/assets/Logo.svg";
 import SearchModal from "src/modal/searchModal";
+import ProductModal from "src/modal/productModal";
 
 const Home = () => {
     const [modal, setModal] = useState<boolean>(false);
@@ -42,6 +43,7 @@ const Home = () => {
     };
 
     const ClickProductModal = () => {
+        console.log("click ProductModal")
         setProductModal(!productmodal);
     }
 
@@ -64,8 +66,8 @@ const Home = () => {
         setProductId(challenge.map((item) => item.productId));
     }, [challenge]);
 
-    console.log("challenge", challenge);
-    console.log("mychallenge", mychallenge);
+    // console.log("challenge", challenge);
+    // console.log("mychallenge", mychallenge);
 
     return (
         <>
@@ -81,7 +83,7 @@ const Home = () => {
                         </S.HeaderContentWrapper>
                     </S.HeaderNav>
                     <S.ChallengeMainWrapper>
-                    <S.ChallengeContentWrapper>
+                        <S.ChallengeContentWrapper>
                             <S.ChallengeTitleWrapper>
                                 <S.CategorrySpanWrapper>
                                     <S.CategorrySpan onClick={() => setPage("main")}
@@ -240,6 +242,7 @@ const Home = () => {
                     <MyChallengeModal MyRoomData={myroomdata} setModal={setMyModal} modal={mymodal}/> : <></>}
                 {makemodal === true ? <MakeModal ClickMakeModal={ClickMakeModal}></MakeModal> : <></>}
                 {modal === true ? <OtherChallengeModal RoomData={roomdata} setModal={setModal} modal={modal}/> : <></>}
+                {productmodal === true ? <ProductModal ClickProductModal={ClickProductModal} /> : <></>}
             </S.Wrapper>
         </>
     );
