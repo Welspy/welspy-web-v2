@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
-import { AllChallengeProps } from "src/type/challenge.types";
+import { AllChallengeProps, MyChallengeProps } from "src/type/challenge.types";
 import { ProductProps } from "src/type/product.types";
 import CONFIG from "src/config/config.json";
 import Cookies from "js-cookie";
@@ -22,8 +22,8 @@ const UseProduct = ({ RoomData }: Props) => {
         },
       });
       if (res.status === 200) {
-        console.log("product", res.data);
-        setProduct(res.data);
+
+        setProduct(res.data.data);
       }
     } catch (error) {
       console.error(error);

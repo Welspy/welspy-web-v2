@@ -13,18 +13,18 @@ const UseJoinChallenge = ({ RoomData }: Props) => {
   const JoinChallengeButton = async () => {
     try {
       const res = await axios.post(
-        `${CONFIG.serverUrl}/room/join`,
-        {
-          roomId: roomId,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${Token}`,
+          `${CONFIG.serverUrl}/room/join`,
+          {
+            roomId: roomId,
           },
-        }
+          {
+            headers: {
+              Authorization: `Bearer ${Token}`,
+            },
+          }
       );
       if (res.status === 201) {
-        console.log(res.data);
+
         alert("챌린지에 가입 성공하였습니다");
       }
     } catch (error) {

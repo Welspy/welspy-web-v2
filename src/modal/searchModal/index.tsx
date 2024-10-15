@@ -2,42 +2,42 @@ import { SetStateAction } from "react";
 import styled from "styled-components";
 
 interface Props {
-  serch: boolean;
-  setSearch: React.Dispatch<SetStateAction<boolean>>;
+    search: boolean;
+    setSearch: React.Dispatch<SetStateAction<boolean>>;
 }
 
-const SearchModal = ({ setSearch, serch }: Props) => {
-  return (
-      <Wrapper
-          onClick={(e) => {
-            if (e.target === e.currentTarget) {
-              setSearch(!serch);
-            }
-          }}
-      >
-        <SearchWrapper>
-          <SearchInput placeholder="검색어를 입력해주세요"></SearchInput>
-          <SearchContetentWrapper>
-            <SearchTitleWrapper>
-              <TitleSpan>인기검색</TitleSpan>
-              <TitleSpan>오늘 14:38기준</TitleSpan>
-            </SearchTitleWrapper>
-            <SearchContentWrapper>
-              <SearchContentItemWrapper>
-                <SearchContentItemNumberWrppaer>
-                  <NumberSpan>1</NumberSpan>
-                  <SearchContentItemNumberProfileWrapper>
-                    <ProfileImg />
-                    <NumberSpan>자동차 사기</NumberSpan>
-                  </SearchContentItemNumberProfileWrapper>
-                </SearchContentItemNumberWrppaer>
-                <SearchContentItemInfoWrapper></SearchContentItemInfoWrapper>
-              </SearchContentItemWrapper>
-            </SearchContentWrapper>
-          </SearchContetentWrapper>
-        </SearchWrapper>
-      </Wrapper>
-  );
+const SearchModal = ({ setSearch, search }: Props) => {
+    return (
+        <Wrapper
+            onClick={(e) => {
+                if (e.target === e.currentTarget) {
+                    setSearch(!search);
+                }
+            }}
+        >
+            <SearchWrapper>
+                <SearchInput placeholder="검색어를 입력해주세요"></SearchInput>
+                <SearchContetentWrapper>
+                    <SearchTitleWrapper>
+                        <TitleSpan>인기검색</TitleSpan>
+                        <TitleSpan>오늘 14:38기준</TitleSpan>
+                    </SearchTitleWrapper>
+                    <SearchContentWrapper>
+                        <SearchContentItemWrapper>
+                            <SearchContentItemNumberWrppaer>
+                                <NumberSpan>1</NumberSpan>
+                                <SearchContentItemNumberProfileWrapper>
+                                    <ProfileImg />
+                                    <NumberSpan>자동차 사기</NumberSpan>
+                                </SearchContentItemNumberProfileWrapper>
+                            </SearchContentItemNumberWrppaer>
+                            <SearchContentItemInfoWrapper></SearchContentItemInfoWrapper>
+                        </SearchContentItemWrapper>
+                    </SearchContentWrapper>
+                </SearchContetentWrapper>
+            </SearchWrapper>
+        </Wrapper>
+    );
 };
 
 export default SearchModal;
