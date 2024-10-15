@@ -1,9 +1,7 @@
-export interface ProductProps {
-    idx: number,
+export interface ProductRegistrationProps {
     name: string,
     description: string,
     price: number,
     discount: number,
-    discountedPrice: number,
     imageUrl: string
 }
