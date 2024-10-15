@@ -1,14 +1,14 @@
 import UseAllChallenge from "src/hooks/home/useAllChallenge";
-import * as S from "./stlye";
-import { useEffect, useState } from "react";
+import * as S from "./style";
+import {useEffect, useState} from "react";
 import OtherChallengeModal from "src/modal/otherchallengemodal";
-import { AllChallengeProps, MyChallengeProps } from "src/type/challenge.types";
+import {AllChallengeProps, MyChallengeProps} from "src/type/challenge.types";
 import MakeModal from "src/modal/makemodal";
 import UseAccountLog from "src/hooks/home/useAccountLog";
 import UseMyChallenge from "src/hooks/home/useMyChallenge";
 import MyChallengeModal from "src/modal/mychallengemodal";
 import Bank from "./pageComponent/bank";
-import Profile from "./pageComponent/bank";
+import Profile from "./pageComponent/profile";
 import UseHomeProduct from "src/hooks/home/useHomeProduct";
 import DummyImg from "src/assets/rotion_dummy.png";
 import Logo from "src/assets/Logo.svg";
@@ -17,6 +17,7 @@ import SearchModal from "src/modal/searchModal";
 const Home = () => {
     const [modal, setModal] = useState<boolean>(false);
     const [makemodal, setMakeModal] = useState<boolean>(false);
+    const [productmodal, setProductModal] = useState<boolean>(false);
     const [mymodal, setMyModal] = useState<boolean>(false);
     const [search, setSearch] = useState<boolean>(false);
     const [page, setPage] = useState<string>("main");
@@ -26,10 +27,10 @@ const Home = () => {
 
     const [productid, setProductId] = useState<number[]>([]);
 
-    const { challenge, AllChallenge } = UseAllChallenge();
-    const { accountlog, AccountLog } = UseAccountLog();
-    const { mychallenge, MyChallenge } = UseMyChallenge();
-    const { homeproduct } = UseHomeProduct({ productid });
+    const {challenge, AllChallenge} = UseAllChallenge();
+    const {accountlog, AccountLog} = UseAccountLog();
+    const {mychallenge, MyChallenge} = UseMyChallenge();
+    const {homeproduct} = UseHomeProduct({productid});
 
     const ClickModal = (item: AllChallengeProps) => {
         setModal(!modal);
@@ -39,6 +40,10 @@ const Home = () => {
     const ClickMakeModal = () => {
         setMakeModal(!makemodal);
     };
+
+    const ClickProductModal = () => {
+        setProductModal(!productmodal);
+    }
 
     const ClickMyModal = (item: MyChallengeProps) => {
         setMyModal(!mymodal);
@@ -68,24 +73,27 @@ const Home = () => {
                 <S.MainWrapper>
                     <S.HeaderNav>
                         <S.HeaderContentWrapper>
-                            <img src={Logo} alt="logo" />
+                            <img src={Logo} alt="logo"/>
                             <S.SearchWrapper>
-                                <S.SearchInput onClick={ClickSearchModal} placeholder="원하는 챌린지를 검색하세요" />
+                                <S.SearchInput onClick={ClickSearchModal} placeholder="원하는 챌린지를 검색하세요"/>
                             </S.SearchWrapper>
-                            <S.MysteryBox></S.MysteryBox>
+                            <button onClick={ClickProductModal}>제품 등록하기</button>
                         </S.HeaderContentWrapper>
                     </S.HeaderNav>
                     <S.ChallengeMainWrapper>
-                        <S.ChallengeContentWrapper>
+                    <S.ChallengeContentWrapper>
                             <S.ChallengeTitleWrapper>
                                 <S.CategorrySpanWrapper>
-                                    <S.CategorrySpan onClick={() => setPage("main")} clicked={page === "main" ? true : false}>
+                                    <S.CategorrySpan onClick={() => setPage("main")}
+                                                     clicked={page === "main" ? true : false}>
                                         챌린지
                                     </S.CategorrySpan>
-                                    <S.CategorrySpan onClick={() => setPage("bank")} clicked={page === "bank" ? true : false}>
+                                    <S.CategorrySpan onClick={() => setPage("bank")}
+                                                     clicked={page === "bank" ? true : false}>
                                         계좌
                                     </S.CategorrySpan>
-                                    <S.CategorrySpan onClick={() => setPage("profile")} clicked={page === "profile" ? true : false}>
+                                    <S.CategorrySpan onClick={() => setPage("profile")}
+                                                     clicked={page === "profile" ? true : false}>
                                         프로필
                                     </S.CategorrySpan>
                                 </S.CategorrySpanWrapper>
@@ -105,7 +113,7 @@ const Home = () => {
                                                         }}
                                                     >
                                                         <S.MyChallengeImgWrapper>
-                                                            <S.MyChallengeImg src={item.imageUrl} alt="img" />
+                                                            <S.MyChallengeImg src={item.imageUrl} alt="img"/>
                                                             <S.BlurOveray>
                                                                 <S.BlurMainWrapper>
                                                                     <S.BlurSpan>{item.title}</S.BlurSpan>
@@ -117,7 +125,7 @@ const Home = () => {
                                             </S.MyChallengeItemWrapper>
                                         ) : (
                                             <S.SkelethoneBox>
-                                                <span style={{ fontSize: 24 }}>챌린지를 등록해보세요!</span>
+                                                <span style={{fontSize: 24}}>챌린지를 등록해보세요!</span>
                                             </S.SkelethoneBox>
                                         )}
                                     </S.MyChallengeWrapper>
@@ -127,13 +135,17 @@ const Home = () => {
                                             {challenge.length > 0 ? (
                                                 challenge.slice(0, 4).map((item, idx) => (
                                                     <S.OtherChallenge onClick={() => ClickModal(item)} key={idx}>
-                                                        <S.OtherChallengeImgWrapper src={item.imageUrl} alt="challenge" />
+                                                        <S.OtherChallengeImgWrapper src={item.imageUrl}
+                                                                                    alt="challenge"/>
                                                         <S.OtherChallengeDescriptionWrapper>
                                                             <S.DescriptionMainWrapper>
                                                                 <S.TitleWrapper>
                                                                     <S.TitleSpan>{item.title}</S.TitleSpan>
                                                                     <S.CategoryWrapper>
-                                                                        <span style={{ fontSize: 10, color: "white" }}>#{item.category}</span>
+                                                                        <span style={{
+                                                                            fontSize: 10,
+                                                                            color: "white"
+                                                                        }}>#{item.category}</span>
                                                                     </S.CategoryWrapper>
                                                                 </S.TitleWrapper>
                                                                 <S.RoomTypeWrapper>
@@ -141,12 +153,18 @@ const Home = () => {
                                                                 </S.RoomTypeWrapper>
                                                                 <S.ContentWrapper>
                                                                     <S.DisCountWrapper>
-                                    <span style={{ fontSize: 11, textDecoration: "line-through", color: "#aeaeae" }}>
+                                    <span style={{fontSize: 11, textDecoration: "line-through", color: "#aeaeae"}}>
                                       {homeproduct?.price}원
                                     </span>
-                                                                        <span style={{ fontSize: 20, marginTop: 5 }}>{homeproduct?.discountedPrice}원</span>
+                                                                        <span style={{
+                                                                            fontSize: 20,
+                                                                            marginTop: 5
+                                                                        }}>{homeproduct?.discountedPrice}원</span>
                                                                     </S.DisCountWrapper>
-                                                                    <span style={{ fontSize: 29, color: "red" }}>{homeproduct?.discount}%</span>
+                                                                    <span style={{
+                                                                        fontSize: 29,
+                                                                        color: "red"
+                                                                    }}>{homeproduct?.discount}%</span>
                                                                 </S.ContentWrapper>
                                                             </S.DescriptionMainWrapper>
                                                         </S.OtherChallengeDescriptionWrapper>
@@ -154,7 +172,7 @@ const Home = () => {
                                                 ))
                                             ) : (
                                                 <S.SkelethoneBox>
-                                                    <span style={{ fontSize: 24 }}>챌린지가 없습니다</span>
+                                                    <span style={{fontSize: 24}}>챌린지가 없습니다</span>
                                                 </S.SkelethoneBox>
                                             )}
                                         </S.MyChallengeItemWrapper>
@@ -183,8 +201,8 @@ const Home = () => {
                                     )}
                                 </S.MainChallengeComponent>
                             )}
-                            {page === "bank" && <Bank />} {/* 계좌 페이지 */}
-                            {page === "profile" && <Profile />} {/* 프로필 페이지 */}
+                            {page === "bank" && <Bank/>} {/* 계좌 페이지 */}
+                            {page === "profile" && <Profile/>} {/* 프로필 페이지 */}
                         </S.ChallengeContentWrapper>
                     </S.ChallengeMainWrapper>
                 </S.MainWrapper>
@@ -206,7 +224,7 @@ const Home = () => {
                                 {mychallenge.map((item, idx) => (
                                     <S.AccountLogItemWrapper key={idx}>
                                         <S.AccountLogProfileWrapper>
-                                            <S.AccountLogProfileImg src={item.imageUrl} alt="img" />
+                                            <S.AccountLogProfileImg src={item.imageUrl} alt="img"/>
                                         </S.AccountLogProfileWrapper>
                                         <S.AccountLogItemDescriptionWrapper>
                                             <S.AccountLogProfileSpan>{item.title}</S.AccountLogProfileSpan>
@@ -218,9 +236,10 @@ const Home = () => {
                     </S.SideBarHeaderMainWrapper>
                 </S.SideBarWrapper>
                 {search === true ? <SearchModal setSearch={setSearch} search={search}></SearchModal> : <></>}
-                {mymodal === true ? <MyChallengeModal RoomData={myroomdata} setModal={setMyModal} modal={mymodal} /> : <></>}
+                {mymodal === true ?
+                    <MyChallengeModal RoomData={myroomdata} setModal={setMyModal} modal={mymodal}/> : <></>}
                 {makemodal === true ? <MakeModal ClickMakeModal={ClickMakeModal}></MakeModal> : <></>}
-                {modal === true ? <MyChallengeModal RoomData={roomdata} setModal={setModal} modal={modal} /> : <></>}
+                {modal === true ? <OtherChallengeModal RoomData={roomdata} setModal={setModal} modal={modal}/> : <></>}
             </S.Wrapper>
         </>
     );
