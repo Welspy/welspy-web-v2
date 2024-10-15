@@ -1,155 +1,93 @@
-import { SetStateAction } from "react";
-import styled from "styled-components";
+import { AllChallengeProps} from "src/type/challenge.types";
+import * as S from "../style";
+import { useEffect, useState } from "react";
+import UseProduct from "src/hooks/modal/useProduct";
+import UseJoinChallenge from "src/hooks/modal/useJoinChallenge";
 
 interface Props {
-  serch: boolean;
-  setSearch: React.Dispatch<SetStateAction<boolean>>;
+  setModal: React.Dispatch<React.SetStateAction<boolean>>;
+  modal: boolean;
+  RoomData: AllChallengeProps | undefined;
 }
 
-const SearchModal = ({ setSearch, serch }: Props) => {
+const OtherChallengeModal = ({ setModal, modal, RoomData }: Props) => {
+  const [productview, setProductView] = useState<boolean>(true);
+  const { product, Product } = UseProduct({ RoomData });
+  const { JoinChallengeButton } = UseJoinChallenge({ RoomData });
+
+  const ClickModal = () => {
+    setModal(!modal);
+  };
+
+  useEffect(() => {
+    Product();
+  }, []);
+
   return (
-      <Wrapper
-          onClick={(e) => {
-            if (e.target === e.currentTarget) {
-              setSearch(!serch);
-            }
-          }}
-      >
-        <SearchWrapper>
-          <SearchInput placeholder="검색어를 입력해주세요"></SearchInput>
-          <SearchContetentWrapper>
-            <SearchTitleWrapper>
-              <TitleSpan>인기검색</TitleSpan>
-              <TitleSpan>오늘 14:38기준</TitleSpan>
-            </SearchTitleWrapper>
-            <SearchContentWrapper>
-              <SearchContentItemWrapper>
-                <SearchContentItemNumberWrppaer>
-                  <NumberSpan>1</NumberSpan>
-                  <SearchContentItemNumberProfileWrapper>
-                    <ProfileImg />
-                    <NumberSpan>자동차 사기</NumberSpan>
-                  </SearchContentItemNumberProfileWrapper>
-                </SearchContentItemNumberWrppaer>
-                <SearchContentItemInfoWrapper></SearchContentItemInfoWrapper>
-              </SearchContentItemWrapper>
-            </SearchContentWrapper>
-          </SearchContetentWrapper>
-        </SearchWrapper>
-      </Wrapper>
+      <S.Wrapper>
+        {productview === true ? (
+            <S.PositionWrapper>
+              <S.MainWrapper>
+                <S.ModalDeleteButtonWrapper onClick={ClickModal}>X</S.ModalDeleteButtonWrapper>
+                <S.MainContentWrapper>
+                  <S.ContentTitleWrapper>
+                    <S.TitleSpan>{RoomData?.title}</S.TitleSpan>
+                    <S.CategorySpanWrapper>
+                      <S.CategorySpan>#{RoomData?.category}</S.CategorySpan>
+                    </S.CategorySpanWrapper>
+                  </S.ContentTitleWrapper>
+                  <S.GoalMoneyWrapper>
+                    <S.GoalMoneySpan>목표금액 : {RoomData?.goalMoney}</S.GoalMoneySpan>
+                    <S.MemberWrapper>
+                      <S.MemberLimitSpan>멤버 제한 : {RoomData?.memberLimit}</S.MemberLimitSpan>
+                      <S.CurrentMemberSpan>현재 멤버 : {RoomData?.currentMember}</S.CurrentMemberSpan>
+                    </S.MemberWrapper>
+                  </S.GoalMoneyWrapper>
+                  <S.ContenWrapper>
+                    <S.ChallengeImgWrapper>
+                      <img src={RoomData?.imageUrl} style={{ width: "100%", height: "100%" }} alt="" />
+                    </S.ChallengeImgWrapper>
+                    <S.DescriptionWrapper>{RoomData?.description}</S.DescriptionWrapper>
+                  </S.ContenWrapper>
+                  <S.ChallengeJoinButton onClick={JoinChallengeButton}>챌린지 가입</S.ChallengeJoinButton>
+                </S.MainContentWrapper>
+              </S.MainWrapper>
+              <button onClick={() => setProductView(!productview)}>제품 정보</button>
+            </S.PositionWrapper>
+        ) : (
+            <S.PositionWrapper>
+              <S.MainWrapper>
+                <S.ModalDeleteButtonWrapper onClick={ClickModal}>X</S.ModalDeleteButtonWrapper>
+
+                <S.MainContentWrapper>
+                  <S.ContentTitleWrapper>
+                    <S.TitleSpan>제품 정보</S.TitleSpan>
+                  </S.ContentTitleWrapper>
+                  <S.ContentTitleWrapper>
+                    <S.ProductNameSpan>{product?.name}</S.ProductNameSpan>
+                  </S.ContentTitleWrapper>
+                  <S.ChallengeImgWrapper>
+                    <img style={{ width: "40%", height: "100%",objectFit: "cover"}} src={product?.imageUrl} alt="" />
+                  </S.ChallengeImgWrapper>
+                  <S.GoalMoneyWrapper>
+                    <S.GoalMoneySpan style={{ color: "red" }}>가격 : {product?.discountedPrice}</S.GoalMoneySpan>
+                    <S.MemberWrapper style={{ flexDirection: "column" }}>
+                      <S.MemberLimitSpan>원가 : {product?.price}</S.MemberLimitSpan>
+                      <S.CurrentMemberSpan style={{ color: " blue " }}>할인율 : {product?.discount}</S.CurrentMemberSpan>
+                    </S.MemberWrapper>
+                  </S.GoalMoneyWrapper>
+                  <S.DescriptionWrapper
+                      style={{ height: "40%", marginTop: 20, whiteSpace: "pre-line", wordBreak: "break-word" }}
+                  >
+                    {product?.description}
+                  </S.DescriptionWrapper>
+                </S.MainContentWrapper>
+              </S.MainWrapper>
+              <button onClick={() => setProductView(!productview)}>챌린지 정보</button>
+            </S.PositionWrapper>
+        )}
+      </S.Wrapper>
   );
 };
 
-export default SearchModal;
-
-export const Wrapper = styled.div`
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-
-  justify-content: center;
-  background-color: rgba(0, 0, 0, 0.2);
-  position: absolute;
-`;
-
-export const SearchWrapper = styled.div`
-  width: 38%;
-  height: 500px;
-  display: flex;
-  background-color: #fff;
-  margin-right: 150px;
-  margin-top: 10px;
-  border-radius: 20px;
-  flex-direction: column;
-  align-items: center;
-`;
-
-export const SearchInput = styled.input`
-  width: 90%;
-  height: 40px;
-  background-color: #f3f4f5;
-  margin-top: 10px;
-  border-radius: 20px;
-  padding-left: 5%;
-  border: none;
-  color: #191f28;
-`;
-
-export const SearchContetentWrapper = styled.div`
-  width: 90%;
-  height: 280px;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 20px;
-  justify-content: space-between;
-`;
-
-export const SearchTitleWrapper = styled.div`
-  width: 95%;
-  height: auto;
-  display: flex;
-  justify-content: space-between;
-`;
-
-export const TitleSpan = styled.span`
-  font-size: 13px;
-  font-weight: bold;
-  font-family: "pretendard";
-`;
-
-export const SearchContentWrapper = styled.div`
-  width: 100%;
-  height: 90%;
-
-  display: flex;
-  flex-direction: column;
-`;
-
-export const SearchContentItemWrapper = styled.div`
-  width: 100%;
-  height: 35px;
-  display: flex;
-
-  justify-content: space-between;
-`;
-
-export const SearchContentItemNumberWrppaer = styled.div`
-  width: 20%;
-  height: 100%;
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-export const SearchContentItemNumberProfileWrapper = styled.div`
-  width: 80%;
-  height: 100%;
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-export const NumberSpan = styled.span`
-  font-size: 13px;
-  font-weight: bold;
-  font-family: "pretendard";
-`;
-
-export const ProfileImg = styled.img`
-  width: 25px;
-  height: 25px;
-  border-radius: 100px;
-  background-color: #aeaeae;
-`;
-
-export const SearchContentItemInfoWrapper = styled.div`
-  width: 30%;
-  height: 100%;
-  border: 1px solid black;
-  display: flex;
-  align-items: center;
-`;
+export default OtherChallengeModal;
