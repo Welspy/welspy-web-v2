@@ -22,7 +22,7 @@ const UseAllChallenge = () => {
           page,
           size,
         },
-        // withCredentials: true,
+
       })
       .then((res) => {
         setChallenge(res.data.data);

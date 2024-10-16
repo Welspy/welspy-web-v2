@@ -16,7 +16,7 @@ const UseSignIn = () => {
 
   const axiosInstance = axios.create({
     baseURL: CONFIG.serverUrl,
-    timeout: 5000, 
+    timeout: 5000,
     headers: {
       "Content-Type": "application/json",
     },
@@ -28,29 +28,28 @@ const UseSignIn = () => {
   };
 
   const SignInButton = async () => {
-    try {
-      await axiosInstance
-        .post(
-          `${CONFIG.serverUrl}/auth/sign-in`,
-          {
-            email: signin.email,
-            password: signin.password,
+    await axiosInstance
+      .post(
+        `${CONFIG.serverUrl}/auth/sign-in`,
+        {
+          email: signin.email,
+          password: signin.password,
+        },
+        {
+          headers: {
+            "Content-Type": `application/json`,
           },
-          {
-            headers: {
-              "Content-Type": `application/json`,
-            },
-          }
-        )
-        .then((res) => {
-          alert("로그인 성공");
-          navigator("/home");
-          console.log(res.data);
-          Cookies.set("accessToken", res.data.data.accessToken);
-        });
-    } catch (error) {
-      console.error(error);
-    }
+        }
+      )
+      .then((res) => {
+        alert("로그인 성공");
+        navigator("/home");
+        console.log(res.data);
+        Cookies.set("accessToken", res.data.data.accessToken);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   };
   return {
     handleInputChange,

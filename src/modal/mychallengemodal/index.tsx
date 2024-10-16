@@ -1,12 +1,11 @@
 import * as S from "../style";
 import { MyChallengeProps } from "src/type/challenge.types";
-
 import { SetStateAction, useEffect, useState } from "react";
 import UseMyProduct from "src/hooks/modal/useMyProduct";
-import Img from "src/assets/image 5.png";
 import ExitButton from "src/components/common/exitbutton";
 import SavingButton from "src/components/common/savingbutton/indexl";
 import Arrow from "src/assets/bottomArrow.svg";
+import SavingModal from "./savingModal";
 
 interface MyProps {
   MyRoomData: MyChallengeProps | undefined;
@@ -15,8 +14,8 @@ interface MyProps {
 }
 
 const MyChallengeModal = ({ MyRoomData, setModal, modal }: MyProps) => {
-  const [productview, setProductView] = useState<boolean>(true);
-  const { myproduct, MyProduct } = UseMyProduct({ MyRoomData });
+  const { myproduct, MyProduct } = UseMyProduct();
+  const [chargemodal, setChalgeModal] = useState<boolean>(false);
 
   const RoomId = MyRoomData?.roomId;
   const ClickModal = () => {
@@ -27,6 +26,8 @@ const MyChallengeModal = ({ MyRoomData, setModal, modal }: MyProps) => {
     MyProduct();
   }, []);
 
+  console.log("modal",chargemodal)
+
   return (
     <S.Wrapper>
       <S.PositionWrapper>
@@ -34,31 +35,26 @@ const MyChallengeModal = ({ MyRoomData, setModal, modal }: MyProps) => {
           <S.ModalDeleteButtonWrapper onClick={ClickModal}>X</S.ModalDeleteButtonWrapper>
           <S.MainContentWrapper>
             <S.ContentTitleWrapper>
-              <S.TitleSpan>챌린지 타이틀</S.TitleSpan>
-              <S.TypeSpan>(공개)</S.TypeSpan>
+              <S.TitleSpan>{MyRoomData?.title}</S.TitleSpan>
             </S.ContentTitleWrapper>
-            <S.ChallengeTypeWrapper>
-              <S.ChallengeCategorryWrapper>
-                <S.ChallengeCategorrySpan>#가전제품</S.ChallengeCategorrySpan>
-              </S.ChallengeCategorryWrapper>
-              <S.ChallengeCurrentSpan>현재멤버 : 7/10</S.ChallengeCurrentSpan>
-            </S.ChallengeTypeWrapper>
-            <S.ChallengeImgWrapper src={Img} alt="img" />
+
+            <S.ChallengeImgWrapper src={MyRoomData?.imageUrl} alt="img" />
             <S.ChallengeContentWrapper>
               <S.ChallengeContentMainWrapper>
                 <S.GoalMoneyWrapper>
-                  <S.GoalMoneySpan>저금된 금액 : 1,000,000 / 500,000 원</S.GoalMoneySpan>
+                  <S.GoalMoneySpan>
+                    저금된 금액 : {MyRoomData?.balance} /{" "}
+                    {MyRoomData?.goalMoney.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")} 원
+                  </S.GoalMoneySpan>
                 </S.GoalMoneyWrapper>
                 <S.DescriptionWrapper>
-                  <S.DescriptionSpan>
-                    박상민 귀여워 박상민 귀여워 박상민 귀여워 박상민 귀여워 박상민 귀여워 박상민 귀여워
-                  </S.DescriptionSpan>
+                  <S.DescriptionSpan>{MyRoomData?.description}</S.DescriptionSpan>
                 </S.DescriptionWrapper>
               </S.ChallengeContentMainWrapper>
             </S.ChallengeContentWrapper>
             <S.ChallengeButtonWrapper>
-              <ExitButton RoomId={RoomId}></ExitButton>
-              <SavingButton></SavingButton>
+              <ExitButton RoomId={RoomId} /> 
+              <SavingButton state={chargemodal} setState={setChalgeModal} />
             </S.ChallengeButtonWrapper>
             <S.ChallengeCommentWrapper>
               <S.ChallengeCommentClickWrapper>
@@ -69,6 +65,7 @@ const MyChallengeModal = ({ MyRoomData, setModal, modal }: MyProps) => {
             <S.TextBox />
           </S.MainContentWrapper>
         </S.MainWrapper>
+        {chargemodal === true && <SavingModal />}
       </S.PositionWrapper>
     </S.Wrapper>
   );

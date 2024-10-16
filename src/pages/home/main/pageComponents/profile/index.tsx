@@ -29,7 +29,7 @@ const Profile = () => {
             <img
               src={profile?.imageUrl}
               alt="proflie"
-              style={{ width: "100%", height: "100%", borderRadius: 10, objectFit: "contain", background: "gray" }}
+              style={{ width: "100%", height: "100%", borderRadius: 10, objectFit: "contain", background: "#aeaeae" }}
             />
           </S.ProfliePictureWrapper>
           <S.ProfileContentWrapper>
@@ -42,19 +42,6 @@ const Profile = () => {
               <S.ProfileChallengeInformation>{`현재 참여중인 챌린지 : ${mychallenge.length}`}</S.ProfileChallengeInformation>
             </S.ProfileContentMainWrapper>
           </S.ProfileContentWrapper>
-          {/* <S.ProfileStaticsWrapper>
-            <S.ProfileStaticsMainWrapper>
-              <S.StaticTitleSpan>진행상황</S.StaticTitleSpan>
-              <S.StatisticsWrapper>
-                <S.StatisticsItemWrapper>
-                  <S.StatisticsItemMainWrapper></S.StatisticsItemMainWrapper>
-                </S.StatisticsItemWrapper>
-                <S.StatisticsItemWrapper></S.StatisticsItemWrapper>
-                <S.StatisticsItemWrapper></S.StatisticsItemWrapper>
-                <S.StatisticsItemWrapper></S.StatisticsItemWrapper>
-              </S.StatisticsWrapper>
-            </S.ProfileStaticsMainWrapper>
-          </S.ProfileStaticsWrapper> */}
         </S.ProfileWrapper>
         <S.ProfileChallengeWrapper>
           <S.ProfileChallengeBankWrapper>
@@ -63,7 +50,9 @@ const Profile = () => {
               <S.ProfileChallengeBankMainWrapper>
                 <S.ProfileChallengeInfoWrapper>
                   <S.InfoSpan>{`${bank?.email} 님의 계좌`}</S.InfoSpan>
-                  <S.InfoSpan>{`${bank?.balance} 원`}</S.InfoSpan>
+                  <S.InfoSpan>{`${bank?.balance
+                    .toString()
+                    .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")} 원`}</S.InfoSpan>
                 </S.ProfileChallengeInfoWrapper>
               </S.ProfileChallengeBankMainWrapper>
             </S.ProfileChallengeBankContentWrapper>
@@ -84,7 +73,7 @@ const Profile = () => {
               </S.ProfileChallengeGoalContentWrapper>
             ) : (
               <S.UndefinedChallenge>
-                <S.UndefinedSpan>현재 진행중인 챌린지가 없습니다</S.UndefinedSpan>
+                <S.UndefinedSpan>남긴 댓글이 없습니다</S.UndefinedSpan>
               </S.UndefinedChallenge>
             )}
           </S.ProfileChallengeGoalWrapper>

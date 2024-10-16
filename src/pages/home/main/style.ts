@@ -196,6 +196,7 @@ export const SideBarHeaderText = styled.span`
   font-size: 18px;
   font-weight: 600;
   color: #333d4b;
+  font-family: "pretendard";
 `;
 
 export const AccountLogWrapper = styled.div`
@@ -272,6 +273,9 @@ export const AccountLogContentImgDescription = styled.div`
 export const AccountLogContentImgDescriptionSpan = styled.div`
   font-size: 15px;
   font-family: "pretendard";
+  span {
+    color: blue;
+  }
 `;
 
 export const AccountLogStatusBar = styled.div`

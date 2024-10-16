@@ -15,7 +15,9 @@ const Bank = () => {
           <S.MyBankMainWrapper>
             <S.MyBankInfoWrapper>
               <S.TitleSpan>{`${bank?.email} 님의 계좌`}</S.TitleSpan>
-              <S.InfoSpan>{`${bank?.balance} 원`}</S.InfoSpan>
+              <S.InfoSpan>{`${bank?.balance
+                .toString()
+                .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")} 원`}</S.InfoSpan>
             </S.MyBankInfoWrapper>
             <S.ChargeButton>충전</S.ChargeButton>
           </S.MyBankMainWrapper>
@@ -67,7 +69,6 @@ const Bank = () => {
           </S.BankLogItemWrapper>
         </S.BankLogWrapper>
       </S.BankWrapper>
-    
     </S.Wrapper>
   );
 };

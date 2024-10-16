@@ -12,6 +12,7 @@ import Profile from "./pageComponents/profile";
 import UseHomeProduct from "src/hooks/home/useHomeProduct";
 import Logo from "src/assets/Logo.svg";
 import SearchModal from "src/modal/searchmodal";
+import UseMyProduct from "src/hooks/modal/useMyProduct";
 
 const Home = () => {
   const [modal, setModal] = useState<boolean>(false);
@@ -22,9 +23,10 @@ const Home = () => {
 
   const [roomdata, setRoomData] = useState<AllChallengeProps>();
   const [myroomdata, setMyRoomData] = useState<MyChallengeProps>();
+  const [challengeList, setChallengeList] = useState<any[]>([]);
 
   const [productid, setProductId] = useState<number[]>([]);
-
+  const { MyProduct, myproduct } = UseMyProduct();
   const { challenge, AllChallenge } = UseAllChallenge();
   const { accountlog, AccountLog } = UseAccountLog();
   const { mychallenge, MyChallenge } = UseMyChallenge();
@@ -52,14 +54,27 @@ const Home = () => {
     MyChallenge();
     AllChallenge();
     AccountLog();
+    MyProduct();
   }, []);
 
   useEffect(() => {
     setProductId(challenge.map((item) => item.productId));
   }, [challenge]);
 
-  console.log("challenge", challenge);
-  console.log("mychallenge", mychallenge);
+  useEffect(() => {
+    setChallengeList(
+      challenge.map((item) => {
+        return {
+          challenge: challenge.filter((i) => i.roomId === item.roomId)[0],
+          product: myproduct.filter((i) => Number(i.idx) === Number(item.productId))[0],
+        };
+      })
+    );
+  }, [challenge, myproduct]);
+
+  useEffect(() => {
+    console.log("test!", challengeList);
+  }, [challengeList]);
 
   return (
     <>
@@ -124,25 +139,25 @@ const Home = () => {
                     <S.MyChallengeSpan>챌린지 리스트</S.MyChallengeSpan>
                     <S.MyChallengeItemWrapper>
                       {challenge.length > 0 ? (
-                        challenge.slice(0, 4).map((item, idx) => (
-                          <S.OtherChallenge onClick={() => ClickModal(item)} key={idx}>
-                            <S.OtherChallengeImgWrapper src={item.imageUrl} alt="challenge" />
+                        challengeList.slice(0, 4).map((item, idx) => (
+                          <S.OtherChallenge onClick={() => ClickModal(item.challenge)} key={idx}>
+                            <S.OtherChallengeImgWrapper src={item.challenge.imageUrl} alt="challenge" />
                             <S.OtherChallengeDescriptionWrapper>
                               <S.DescriptionMainWrapper>
                                 <S.TitleWrapper>
-                                  <S.TitleSpan>{item.title}</S.TitleSpan>
+                                  <S.TitleSpan>{item.challenge.title}</S.TitleSpan>
                                   <S.CategoryWrapper>
-                                    <span style={{ fontSize: 10, color: "white" }}>#{item.category}</span>
+                                    <span style={{ fontSize: 10, color: "white" }}>#{item.challenge.category}</span>
                                   </S.CategoryWrapper>
                                 </S.TitleWrapper>
                                 <S.ContentWrapper>
                                   <S.DisCountWrapper>
                                     <span style={{ fontSize: 11, textDecoration: "line-through", color: "#aeaeae" }}>
-                                      {homeproduct?.price}원
+                                      {item.product.price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}원
                                     </span>
-                                    <span style={{ fontSize: 20, marginTop: 5 }}>{homeproduct?.discountedPrice}원</span>
+                                    <span style={{ fontSize: 20, marginTop: 5 }}>{item.product.discountedPrice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}원</span>
                                   </S.DisCountWrapper>
-                                  <span style={{ fontSize: 29, color: "red" }}>{homeproduct?.discount}%</span>
+                                  <span style={{ fontSize: 29, color: "red" }}>{item.product.discount}%</span>
                                 </S.ContentWrapper>
                               </S.DescriptionMainWrapper>
                             </S.OtherChallengeDescriptionWrapper>
@@ -208,8 +223,8 @@ const Home = () => {
                         <S.AccountLogContentImg src={item.imageUrl} alt="img" />
                         <S.AccountLogContentImgDescription>
                           <S.AccountLogContentImgDescriptionSpan>{item.title}</S.AccountLogContentImgDescriptionSpan>
-                          <S.AccountLogContentImgDescriptionSpan style={{ color: "blue" }}>
-                            {item.goalMoney}
+                          <S.AccountLogContentImgDescriptionSpan>
+                            목표금액: <span>{item.goalMoney.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}</span> 원
                           </S.AccountLogContentImgDescriptionSpan>
                         </S.AccountLogContentImgDescription>
                       </S.AccountLogContentWrapper>

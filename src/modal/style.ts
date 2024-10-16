@@ -17,7 +17,6 @@ export const MainWrapper = styled.div`
   display: flex;
   background-color: white;
 
-
   justify-content: space-between;
   flex-direction: column;
   flex-shrink: 0; /* 크기 축소 방지 */
@@ -49,7 +48,6 @@ export const MainContentWrapper = styled.div`
 
   display: flex;
 
-
   align-self: center;
   flex-direction: column;
 `;
@@ -76,7 +74,7 @@ export const ChallengeTypeWrapper = styled.div`
   width: 70%;
   height: 10%;
   display: flex;
-  margin-bottom: 5%;
+
   align-self: center;
   align-items: center;
   justify-content: space-between;
@@ -119,7 +117,7 @@ export const ChallengeContentWrapper = styled.div`
 `;
 
 export const ChallengeContentMainWrapper = styled.div`
-  width: 90%;
+  width: 100%;
   height: 100px;
   display: flex;
 
@@ -157,7 +155,7 @@ export const DescriptionWrapper = styled.div`
 `;
 
 export const DescriptionSpan = styled.span`
-  font-size: 23px;
+  font-size: 22px;
   font-family: "pretendard";
 `;
 
@@ -165,11 +163,22 @@ export const ChallengeButtonWrapper = styled.div`
   width: 70%;
   height: 8%;
   display: flex;
-  margin-top: 5%;
+  margin-top: 20%;
 
   align-self: center;
   margin-bottom: 10%;
   justify-content: space-between;
+`;
+
+export const OtherChallengeButtonWrapper = styled.div`
+  width: 70%;
+  height: 8%;
+  display: flex;
+  margin-top: 20%;
+
+  align-self: center;
+  margin-bottom: 10%;
+  justify-content: center;
 `;
 
 export const ChallengeCommentWrapper = styled.div`
@@ -198,7 +207,7 @@ export const TextBox = styled.div`
   width: 100px;
   height: 1200px;
   display: flex;
-  background-color: blue;
+  background-color: white;
 `;
 
 export const MemberLimitSpan = styled.span`

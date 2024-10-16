@@ -271,7 +271,7 @@ export const UndefinedChallenge = styled.div`
   justify-content: center;
   align-items: center;
   display: flex;
-  background-color: #c7c7c7;
+  background-color: #f5f5f5;
   border-radius: 10px;
 `;
 

@@ -25,7 +25,8 @@ export const ExitButtonItem = styled.button`
   width: 100%;
   height: 100%;
   color: #fff;
-  background-color: red;
+  background-color: #ff6060;
   border-radius: 10px;
+  font-size: 20px;
   border: none;
 `;

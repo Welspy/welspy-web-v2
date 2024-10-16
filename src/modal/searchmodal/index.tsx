@@ -44,7 +44,9 @@ const SearchModal = ({ setSearch, serch }: Props) => {
                 </SearchContentItemNumberWrppaer>
                 <SearchContentItemInfoWrapper>
                   <span style={{ fontSize: 12 }}> 목표금액 :</span>
-                  <span style={{ fontSize: 12, color: " red" }}>{item.goalMoney}</span>
+                  <span style={{ fontSize: 12, color: " red" }}>
+                    {item.goalMoney.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}
+                ₩</span> 
                 </SearchContentItemInfoWrapper>
               </SearchContentItemWrapper>
             ))}
@@ -168,4 +170,5 @@ export const SearchContentItemInfoWrapper = styled.div`
   height: 100%;
   display: flex;
   align-items: center;
+  justify-content: center;
 `;

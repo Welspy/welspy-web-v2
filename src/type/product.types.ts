@@ -8,3 +8,4 @@ export interface ProductProps {
   imageUrl: string;
 }
 
+
