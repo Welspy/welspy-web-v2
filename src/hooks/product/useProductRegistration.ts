@@ -2,17 +2,22 @@ import { useState, useEffect } from 'react';
 import axios, { AxiosError } from 'axios';
 import Cookies from 'js-cookie';
 import CONFIG from 'src/config/config.json';
-import { ProductProps } from 'src/type/product.types';
+import { ProductRegistrationProps } from 'src/type/productRegistration.types';
+
+interface APIErrorResponse {
+    message: string;
+}
 
 const useProductRegistration = () => {
-    const [productData, setProductData] = useState<ProductProps>({
+    const [productData, setProductData] = useState<ProductRegistrationProps>({
         name: "",
-        description: '',
+        description: "",
         price: 0,
         discount: 0,
-        imageUrl: '',
+        imageUrl: ""
     });
 
+    const [discountPercentage, setDiscountPercentage] = useState<number>(0);
     const [token, setToken] = useState<string | undefined>(undefined);
 
     useEffect(() => {
@@ -23,10 +28,9 @@ const useProductRegistration = () => {
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (file) {
-            const newImageUrl = URL.createObjectURL(file);
             setProductData((prevData) => ({
                 ...prevData,
-                imageUrl: newImageUrl,
+                imageUrl: URL.createObjectURL(file),
             }));
         }
     };
@@ -38,14 +42,21 @@ const useProductRegistration = () => {
         }));
     };
 
-    const productPost = async (data: ProductProps) => {
-        if (!data.name || !data.description || data.price <= 0 || data.discount < 0 || !data.imageUrl) {
-            window.alert("정보를 다 등록해주세요.");
+    useEffect(() => {
+        if (productData.price > 0 && productData.discount > 0) {
+            const calculatedDiscountPercentage = ((productData.price - productData.discount) / productData.price) * 100;
+            setDiscountPercentage(parseFloat(calculatedDiscountPercentage.toFixed(2)));
+        }
+    }, [productData.price, productData.discount]);
+
+    const productPost = async (data: ProductRegistrationProps) => {
+        if (!data.name || !data.description || data.price <= 0 || data.discount <= 0 || !data.imageUrl) {
+            window.alert("모든 정보를 정확하게 입력해주세요.");
             return;
         }
 
+        const token = Cookies.get("token");
         if (!token) {
-            console.error("No token found. User is not authenticated.");
             window.alert("인증되지 않은 사용자입니다. 로그인 해주세요.");
             return;
         }
@@ -57,20 +68,45 @@ const useProductRegistration = () => {
             formData.append('price', data.price.toString());
             formData.append('discount', data.discount.toString());
 
+            // 이미지 파일 추가
+            const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
+            const file = fileInput?.files?.[0];
+            if (file) {
+                formData.append('image', file);
+            } else {
+                window.alert("이미지를 선택해 주세요.");
+                return;
+            }
+
             const response = await axios.post(`${CONFIG.serverUrl}/product`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                     "Authorization": `Bearer ${token}`
                 }
             });
+
+            window.alert("제품이 성공적으로 등록되었습니다.");
+
+            setProductData({
+                name: "",
+                description: "",
+                price: 0,
+                discount: 0,
+                imageUrl: "",
+            });
+
+            setDiscountPercentage(0);
+
             return response.data;
         } catch (error) {
-            const axiosError = error as AxiosError;
+            const axiosError = error as AxiosError<APIErrorResponse>;
 
             if (axiosError.response) {
                 console.error('Response error:', axiosError.response.data);
                 if (axiosError.response.status === 401) {
                     window.alert("인증 실패. 다시 로그인 해주세요.");
+                } else {
+                    window.alert("오류 발생: " + axiosError.response.data.message);
                 }
             } else {
                 console.error('Request error:', error);
@@ -84,6 +120,7 @@ const useProductRegistration = () => {
         productData,
         setProductData,
         productPost,
+        discountPercentage,
         handleImageChange,
         removeImage,
     };
