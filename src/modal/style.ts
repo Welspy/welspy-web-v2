@@ -20,9 +20,12 @@ export const MainWrapper = styled.div`
     flex-direction: column;
 `;
 
+export const ModalCloseButton = styled.button`
+`
+
 export const PositionWrapper = styled.div`
-    width: 50%;
-    height: 90%;
+    width: 40%;
+    height: 70%;
     display: flex;
     background-color: white;
     border-radius: 1.2rem;
@@ -135,6 +138,37 @@ export const ChallengeLimitWrapper = styled.div`
     justify-content: space-between;
 `;
 
+export const ProductDescriptionWrapper = styled.div`
+    
+`
+
+export const ProductDescriptionInput = styled.input`
+    
+`
+export const ProductPriceWrapper = styled.div`
+    
+`
+
+export const ProductPriceInput = styled.input`
+    
+`
+
+export const ProductDiscountWrapper = styled.div`
+    
+`
+
+export const ProductDiscountInput = styled.input`
+    
+`
+
+export const ProductImgWrapper = styled.div`
+    
+`
+
+export const ProductImgInput = styled.input`
+    
+`
+
 export const LimitInput = styled.input`
     width: 30%;
     height: 100%;
@@ -155,6 +189,10 @@ export const CategoryInput = styled.input`
     width: 100%;
     height: 100%;
 `;
+
+export const PriceMoneyWrapper = styled.div`
+
+`
 
 export const MakeDescriptionWrapper = styled.div`
     width: 81%;
@@ -249,9 +287,4 @@ export const CategorySpanWrapper = styled.div`
 
 export const CategorySpan = styled.span`
     font-size: 15px;
-`;
-
-export const ProductImgInput = styled.input`
-    width: 100%;
-    height: 100%;
 `;
