@@ -3,7 +3,7 @@ import Img from "src/assets/rotion_dummy.png";
 
 export const Wrapper = styled.div`
   width: 100%;
-  height: 80%;
+  height: 90%;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -137,14 +137,13 @@ export const ProfileChallengeBankTitleSpan = styled.span`
   font-size: 28px;
   font-weight: 500;
   font-family: "pretendard";
-  margin-bottom: 1%;
+  margin-bottom: 2%;
 `;
 
 export const ProfileChallengeBankContentWrapper = styled.div`
   width: 100%;
   height: 70%;
 
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -177,7 +176,7 @@ export const ProfileChallengeGoalWrapper = styled.div`
   width: 100%;
   height: 65%;
   display: flex;
-
+  margin-top: 1%;
   flex-direction: column;
 `;
 
@@ -185,7 +184,7 @@ export const ProfileChallengeGoalTitleSpan = styled.span`
   font-size: 28px;
   font-weight: 500;
   font-family: "pretendard";
-  margin-bottom: 1%;
+  margin-bottom: 2%;
 `;
 
 export const ProfileChallengeGoalContentWrapper = styled.div`
@@ -193,7 +192,7 @@ export const ProfileChallengeGoalContentWrapper = styled.div`
   height: 90%;
   display: flex;
   flex-direction: column;
-  border: 1px solid #aeaeae;
+  background-color: #f5f5f5;
   border-radius: 10px;
 `;
 
@@ -211,7 +210,6 @@ export const ProfileChallengeGoalMainWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  border-bottom: 1px solid #aeaeae;
 `;
 
 export const ProfileChallengeItemWrapper = styled.div`
@@ -238,7 +236,7 @@ export const ProfileChallengeItemDesWrapper = styled.div`
 `;
 
 export const ProfileChallengeTitleSpan = styled.span`
-  font-size: 20px;
+  font-size: 18px;
   font-family: "pretendard";
   font-weight: 500;
 `;

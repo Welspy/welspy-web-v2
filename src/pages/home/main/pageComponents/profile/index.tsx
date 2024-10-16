@@ -84,7 +84,10 @@ const Profile = () => {
                           <S.ProfileChallengeTitleSpan>진행률 : 20%</S.ProfileChallengeTitleSpan>
                         </div>
 
-                        <S.PofileChallengeItemDesSpan>{`${item.description}`}</S.PofileChallengeItemDesSpan>
+                        <S.PofileChallengeItemDesSpan>{`${item.description.slice(
+                          0,
+                          40
+                        )}...`}</S.PofileChallengeItemDesSpan>
                         <S.ProfileChallengeStatusBar></S.ProfileChallengeStatusBar>
                       </S.ProfileChallengeItemDesWrapper>
                     </S.ProfileChallengeItemWrapper>

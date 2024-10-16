@@ -94,7 +94,7 @@ const Home = () => {
               {page === "main" && (
                 <S.MainChallengeComponent>
                   <S.MyChallengeWrapper>
-                    <S.MyChallengeSpan style={{ marginBottom: 20 }}>내 챌린지</S.MyChallengeSpan>
+                    <S.MyChallengeSpan>내 챌린지</S.MyChallengeSpan>
                     {mychallenge.length !== 0 ? (
                       <S.MyChallengeItemWrapper>
                         {mychallenge.slice(0, 5).map((item, idx) => (
@@ -105,7 +105,7 @@ const Home = () => {
                             }}
                           >
                             <S.MyChallengeImgWrapper>
-                              <S.MyChallengeImg src={DummyImg} alt="img" />
+                              <S.MyChallengeImg src={item.imageUrl} alt="img" />
                               <S.BlurOveray>
                                 <S.BlurMainWrapper>
                                   <S.BlurSpan>{item.title}</S.BlurSpan>
@@ -158,29 +158,29 @@ const Home = () => {
                         </S.SkelethoneBox>
                       )}
                     </S.MyChallengeItemWrapper>
-                    {challenge.length > 5 ? (
-                      <S.ChallengeTextWrapper>
-                        {challenge.slice(4, 7).map((item, idx) => (
-                          <S.ChallengeText key={idx}>
-                            <S.ChallengeTextSpan onClick={() => ClickModal(item)}>
-                              {item.title}, {item.description.slice(0, 10)}...
-                            </S.ChallengeTextSpan>
-                            <S.SubTextSpan>{item.category}</S.SubTextSpan>
-                          </S.ChallengeText>
-                        ))}
-                        {challenge.slice(7, 10).map((item, idx) => (
-                          <S.ChallengeText key={idx}>
-                            <S.ChallengeTextSpan onClick={() => ClickModal(item)}>
-                              {item.title}, {item.description.slice(0, 10)}...
-                            </S.ChallengeTextSpan>
-                            <S.SubTextSpan>{item.category}</S.SubTextSpan>
-                          </S.ChallengeText>
-                        ))}
-                      </S.ChallengeTextWrapper>
-                    ) : (
-                      <></>
-                    )}
                   </S.OtherChallengeWrapper>
+                  {challenge.length > 5 ? (
+                    <S.ChallengeTextWrapper>
+                      {challenge.slice(4, 7).map((item, idx) => (
+                        <S.ChallengeText key={idx}>
+                          <S.ChallengeTextSpan onClick={() => ClickModal(item)}>
+                            {item.title}, {item.description.slice(0, 10)}...
+                          </S.ChallengeTextSpan>
+                          <S.SubTextSpan>{item.category}</S.SubTextSpan>
+                        </S.ChallengeText>
+                      ))}
+                      {challenge.slice(7, 10).map((item, idx) => (
+                        <S.ChallengeText key={idx}>
+                          <S.ChallengeTextSpan onClick={() => ClickModal(item)}>
+                            {item.title}, {item.description.slice(0, 10)}...
+                          </S.ChallengeTextSpan>
+                          <S.SubTextSpan>{item.category}</S.SubTextSpan>
+                        </S.ChallengeText>
+                      ))}
+                    </S.ChallengeTextWrapper>
+                  ) : (
+                    <></>
+                  )}
                 </S.MainChallengeComponent>
               )}
               {page === "bank" && <Bank />} {/* 계좌 페이지 */}
@@ -192,26 +192,27 @@ const Home = () => {
           <S.SideBarHeaderMainWrapper>
             <S.SideBarHeader>
               <S.SideBarHeaderTextWrapper>
-                <S.SideBarHeaderText>거래 내역</S.SideBarHeaderText>
+                <S.SideBarHeaderText>내 챌린지 현황</S.SideBarHeaderText>
               </S.SideBarHeaderTextWrapper>
             </S.SideBarHeader>
-            {accountlog?.money === undefined ? (
+            {mychallenge.length === 0 ? (
               <S.AccountLogWrapper>
-                <S.AccountUndefined>
-                  <S.UndefinedSpan>거래 내역이 없습니다</S.UndefinedSpan>
-                </S.AccountUndefined>
+               
+                  <S.UndefinedSpan>가입된 챌린지가 없습니다.</S.UndefinedSpan>
+            
               </S.AccountLogWrapper>
             ) : (
               <S.AccountLogWrapper>
-                <S.AccountLogItemWrapper>
-                  <S.AccountLogProfileWrapper>
-                    <S.AccountLogProfileImg />
-                    <S.AccountLogProfileSpan>{accountlog?.accountNumber}</S.AccountLogProfileSpan>
-                  </S.AccountLogProfileWrapper>
-                  <S.AccountLogItemDescriptionWrapper>
-                    <S.AccountLogSpan>{`${accountlog?.money} 원`}</S.AccountLogSpan>
-                  </S.AccountLogItemDescriptionWrapper>
-                </S.AccountLogItemWrapper>
+                {mychallenge.map((item, idx) => (
+                  <S.AccountLogItemWrapper key={idx}>
+                    <S.AccountLogProfileWrapper>
+                      <S.AccountLogProfileImg src={item.imageUrl} alt="img" />
+                    </S.AccountLogProfileWrapper>
+                    <S.AccountLogItemDescriptionWrapper>
+                      <S.AccountLogProfileSpan>{item.title}</S.AccountLogProfileSpan>
+                    </S.AccountLogItemDescriptionWrapper>
+                  </S.AccountLogItemWrapper>
+                ))}
               </S.AccountLogWrapper>
             )}
           </S.SideBarHeaderMainWrapper>

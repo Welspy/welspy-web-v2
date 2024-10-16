@@ -18,7 +18,7 @@ export const ChallengePaidWrapper = styled.div`
 `;
 
 export const BankWrapper = styled.div`
-  width: 50%;
+  width: 100%;
   height: 100%;
   display: flex;
 
@@ -29,13 +29,13 @@ export const BankWrapper = styled.div`
 export const MyBankWrapper = styled.div`
   margin-top: 5px;
   background-color: #f5f5f5;
-  width: 100%;
+  width: 48%;
   height: 28%;
   display: flex;
   border-radius: 1rem;
   align-items: center;
+  align-self: center;
   justify-content: center;
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 `;
 
 export const MyBankMainWrapper = styled.div`
@@ -127,8 +127,7 @@ export const BankLogInfoItemWrapper = styled.div`
   border-radius: 10px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  ma
+  justify-content: space-around;
 `;
 
 export const BankLogInfoPic = styled.img`
@@ -136,7 +135,6 @@ export const BankLogInfoPic = styled.img`
   height: 50px;
   background-color: #aeaeae;
   border-radius: 100px;
-  margin-left: 10px;
 `;
 
 export const BankLogInfoContent = styled.div`

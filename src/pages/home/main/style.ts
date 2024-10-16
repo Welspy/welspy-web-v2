@@ -53,7 +53,7 @@ export const ChallengeTitleWrapper = styled.div`
 
 export const MyChallengeWrapper = styled.div`
   width: 100%;
-  height: 40%;
+  height: 38%;
   display: flex;
   margin-top: 3%;
   justify-content: space-between;
@@ -61,8 +61,8 @@ export const MyChallengeWrapper = styled.div`
 `;
 
 export const MyChallengeSpan = styled.span`
-  font-size: 20px;
-  font-weight: 700;
+  font-size: 22px;
+  font-weight: 500;
 `;
 
 export const MyChallengeItemWrapper = styled.div`
@@ -100,7 +100,6 @@ export const OtherChallenge = styled.div`
   display: flex;
   border-radius: 10px;
   flex-direction: column;
-  justify-content: space-between;
 `;
 
 export const OtherChallengeImgWrapper = styled.img`
@@ -114,7 +113,6 @@ export const OtherChallengeDescriptionWrapper = styled.div`
   width: 100%;
   height: 60%;
   display: flex;
-
   justify-content: center;
   align-items: center;
 `;
@@ -123,34 +121,32 @@ export const DescriptionMainWrapper = styled.div`
   width: 95%;
   height: 70%;
   display: flex;
-
   flex-direction: column;
 `;
 
 export const TitleWrapper = styled.div`
   width: 100%;
-  height: auto;
+  height: 40%;
   display: flex;
-
   flex-direction: column;
 `;
 
 export const TitleSpan = styled.span`
-  font-size: 17px;
+  font-size: 16px;
 `;
 
 export const ContentWrapper = styled.div`
   width: 100%;
-  height: 100%;
+  height: auto;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-top: 5px;
+
+  justify-content: space-between;
   font-size: 14px;
 `;
 
 export const CategorrySpanWrapper = styled.div`
-  width: 20%;
+  width: 18%;
   height: 80%;
   align-items: center;
   display: flex;
@@ -170,7 +166,8 @@ export const SideBarWrapper = styled.div`
   height: auto;
   display: flex;
   flex-direction: column;
-  border-left: 1px solid black;
+  border-left: 1px solid #dddddd;
+  background-color: #f5f5f5;
   align-items: center;
 `;
 
@@ -178,7 +175,7 @@ export const SideBarHeader = styled.div`
   width: 100%;
   height: 7%;
   display: flex;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #dddddd;
   align-items: center;
   justify-content: center;
 `;
@@ -198,12 +195,13 @@ export const SideBarHeaderTextWrapper = styled.div`
 `;
 export const SideBarHeaderText = styled.span`
   font-size: 18px;
-  font-weight: 700;
+  font-weight: 600;
+  color: #333d4b;
 `;
 
 export const AccountLogWrapper = styled.div`
   width: 100%;
-  height: 86%;
+  height: 85%;
   display: flex;
 
   flex-direction: column;
@@ -212,7 +210,7 @@ export const AccountLogWrapper = styled.div`
 
 export const AccountLogItemWrapper = styled.div`
   width: 100%;
-  height: 6%;
+  height: 20%;
   background-color: #fff;
   display: flex;
   border-radius: 10px;
@@ -224,9 +222,9 @@ export const AccountLogItemWrapper = styled.div`
 `;
 
 export const AccountLogProfileWrapper = styled.div`
-  width: 28%;
+  width: 10%;
   height: 100%;
-
+  word-break: normal;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -236,6 +234,7 @@ export const AccountLogProfileImg = styled.img`
   width: 40px;
   height: 40px;
   border-radius: 100px;
+  object-fit: cover;
   background-color: #aeaeae;
 `;
 
@@ -243,7 +242,7 @@ export const AccountLogProfileSpan = styled.span`
   font-size: 13px;
 `;
 export const AccountLogItemDescriptionWrapper = styled.div`
-  width: 40%;
+  width: 60%;
   height: 100%;
 
   align-items: center;
@@ -257,14 +256,11 @@ export const AccountLogSpan = styled.span`
 `;
 
 export const CategoryWrapper = styled.div`
-  width: 20%;
-  height: 100%;
+  width: 100%;
+  height: 30%;
   display: flex;
-  border-radius: 1rem;
-  margin-left: 2%;
-  align-items: center;
-  justify-content: center;
-  background-color: #6b7684;
+
+  margin-top: 3%;
 `;
 
 export const RoomTypeWrapper = styled.div`
@@ -290,6 +286,7 @@ export const DisCountWrapper = styled.div`
   display: flex;
   width: 45%;
   height: 100%;
+
   flex-direction: column;
 `;
 
@@ -320,7 +317,7 @@ export const BlurOveray = styled.div`
   display: flex;
   position: absolute;
   width: 17.2%;
-  height: 15.7%;
+  height: 16.1%;
   border-radius: 10px;
   justify-content: center;
   align-items: center;
@@ -372,7 +369,7 @@ export const SkelethoneBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #c7c7c7;
+
   border-radius: 10px;
 `;
 
@@ -380,10 +377,9 @@ export const ChallengeTextWrapper = styled.div`
   width: 100%;
   height: 100px;
   display: flex;
+
   justify-content: space-between;
   flex-wrap: wrap;
-
-  
 `;
 
 export const ChallengeText = styled.div`
@@ -421,7 +417,24 @@ export const AccountUndefined = styled.div`
 `;
 
 export const UndefinedSpan = styled.div`
-  font-size: 25px;
   font-family: "pretendard";
   font-weight: 600;
+`;
+
+export const CateGorry = styled.div`
+  width: 30%;
+  height: 100%;
+  background-color: #6b7684;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const RoomType = styled.div`
+  height: 100%;
+  width: 30%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: blue;
 `;

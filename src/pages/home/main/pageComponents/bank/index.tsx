@@ -24,7 +24,7 @@ const Bank = () => {
           <S.BankLogItemWrapper>
             <S.BankLogItemTitle>
               <S.BankLogTitleSpan>오늘</S.BankLogTitleSpan>
-              <div style={{ width: "90%", height: "5%", background: "black" }}></div>
+              <div style={{ width: "90%", height: "5%", background: "lightgray" }}></div>
             </S.BankLogItemTitle>
             <S.BankLogInfoWrapper>
               <S.BankLogInfoItemWrapper>
@@ -46,7 +46,7 @@ const Bank = () => {
           <S.BankLogItemWrapper style={{ marginTop: 28 }}>
             <S.BankLogItemTitle>
               <S.BankLogTitleSpan>어제</S.BankLogTitleSpan>
-              <div style={{ width: "90%", height: "5%", background: "black" }}></div>
+              <div style={{ width: "90%", height: "5%", background: "lightgray" }}></div>
             </S.BankLogItemTitle>
             <S.BankLogInfoWrapper>
               <S.BankLogInfoItemWrapper>
@@ -67,7 +67,7 @@ const Bank = () => {
           </S.BankLogItemWrapper>
         </S.BankLogWrapper>
       </S.BankWrapper>
-      <S.ChallengePaidWrapper></S.ChallengePaidWrapper>
+    
     </S.Wrapper>
   );
 };

@@ -3,6 +3,7 @@ import { MyChallengeProps } from "src/type/challenge.types";
 
 import { SetStateAction, useEffect, useState } from "react";
 import UseMyProduct from "src/hooks/modal/useMyProduct";
+import ExitButton from "src/components/common/exitbutton";
 
 interface MyProps {
   MyRoomData: MyChallengeProps | undefined;
@@ -14,6 +15,7 @@ const MyChallengeModal = ({ MyRoomData, setModal, modal }: MyProps) => {
   const [productview, setProductView] = useState<boolean>(true);
   const { myproduct, MyProduct } = UseMyProduct({ MyRoomData });
 
+  const RoomId = MyRoomData?.roomId;
   const ClickModal = () => {
     setModal(!modal);
   };
@@ -22,13 +24,12 @@ const MyChallengeModal = ({ MyRoomData, setModal, modal }: MyProps) => {
     MyProduct();
   }, []);
 
-  console.log(myproduct);
-
   return (
     <S.Wrapper>
       {productview === true ? (
         <S.PositionWrapper>
           <S.MainWrapper>
+            <ExitButton RoomId={RoomId} />
             <S.ModalDeleteButtonWrapper onClick={ClickModal}>X</S.ModalDeleteButtonWrapper>
             <S.MainContentWrapper>
               <S.ContentTitleWrapper>
