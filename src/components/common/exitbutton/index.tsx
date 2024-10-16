@@ -17,8 +17,8 @@ const ExitButton = ({ RoomId }: Props) => {
 export default ExitButton;
 
 export const ButtonWrapper = styled.div`
-  width: 100px;
-  height: 50px;
+  width: 30%;
+  height: 70px;
 `;
 
 export const ExitButtonItem = styled.button`

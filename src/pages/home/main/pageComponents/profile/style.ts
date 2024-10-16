@@ -205,10 +205,14 @@ export const MoreProfileChallenge = styled.div`
 `;
 
 export const ProfileChallengeGoalMainWrapper = styled.div`
-  width: 100%;
+  width: 96%;
+  border-radius: 5px;
   height: 30%;
+  align-self: center;
+  margin-top: 2%;
   display: flex;
   justify-content: center;
+  background-color: #fff;
   align-items: center;
 `;
 
@@ -244,8 +248,14 @@ export const ProfileChallengeTitleSpan = styled.span`
 export const ProfileChallengeStatusBar = styled.div`
   width: 80%;
   height: 15%;
-  background-color: black;
+  background-color: #dddddd;
   border-radius: 30px;
+`;
+export const Status = styled.div<{ statusBar: number }>`
+  width: ${({ statusBar }) => statusBar}%;
+  height: 100%;
+  background-color: #5184d6;
+  border-radius: 10px;
 `;
 
 export const PofileChallengeItemDesSpan = styled.span`

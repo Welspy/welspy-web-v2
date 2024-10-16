@@ -1,4 +1,5 @@
-import { SetStateAction } from "react";
+import { SetStateAction, useEffect, useState } from "react";
+import UseSearch from "src/hooks/modal/useSearch";
 import styled from "styled-components";
 
 interface Props {
@@ -7,6 +8,14 @@ interface Props {
 }
 
 const SearchModal = ({ setSearch, serch }: Props) => {
+  const { setTitle, SearchChallenge, title, searchData } = UseSearch();
+
+  useEffect(() => {
+    SearchChallenge();
+  }, [title]);
+
+  console.log(searchData);
+
   return (
     <Wrapper
       onClick={(e) => {
@@ -16,23 +25,29 @@ const SearchModal = ({ setSearch, serch }: Props) => {
       }}
     >
       <SearchWrapper>
-        <SearchInput placeholder="검색어를 입력해주세요"></SearchInput>
+        <SearchInput placeholder="검색어를 입력해주세요" onChange={(e) => setTitle(e.target.value)}></SearchInput>
         <SearchContetentWrapper>
           <SearchTitleWrapper>
-            <TitleSpan>인기검색</TitleSpan>
+            {title.length <= 0 ? <TitleSpan>전체 챌린지</TitleSpan> : <TitleSpan>검색 내용</TitleSpan>}
+
             <TitleSpan>오늘 14:38기준</TitleSpan>
           </SearchTitleWrapper>
           <SearchContentWrapper>
-            <SearchContentItemWrapper>
-              <SearchContentItemNumberWrppaer>
-                <NumberSpan>1</NumberSpan>
-                <SearchContentItemNumberProfileWrapper>
-                  <ProfileImg />
-                  <NumberSpan>자동차 사기</NumberSpan>
-                </SearchContentItemNumberProfileWrapper>
-              </SearchContentItemNumberWrppaer>
-              <SearchContentItemInfoWrapper></SearchContentItemInfoWrapper>
-            </SearchContentItemWrapper>
+            {searchData.map((item, idx) => (
+              <SearchContentItemWrapper key={idx}>
+                <SearchContentItemNumberWrppaer>
+                  <NumberSpan>{idx + 1}</NumberSpan>
+                  <SearchContentItemNumberProfileWrapper>
+                    <ProfileImg src={item.imageUrl} alt="img" />
+                    <NumberSpan style={{ marginLeft: "5%", fontSize: 14 }}>{item.title}</NumberSpan>
+                  </SearchContentItemNumberProfileWrapper>
+                </SearchContentItemNumberWrppaer>
+                <SearchContentItemInfoWrapper>
+                  <span style={{ fontSize: 12 }}> 목표금액 :</span>
+                  <span style={{ fontSize: 12, color: " red" }}>{item.goalMoney}</span>
+                </SearchContentItemInfoWrapper>
+              </SearchContentItemWrapper>
+            ))}
           </SearchContentWrapper>
         </SearchContetentWrapper>
       </SearchWrapper>
@@ -54,7 +69,7 @@ export const Wrapper = styled.div`
 
 export const SearchWrapper = styled.div`
   width: 38%;
-  height: 500px;
+  height: 600px;
   display: flex;
   background-color: #fff;
   margin-right: 150px;
@@ -109,27 +124,28 @@ export const SearchContentWrapper = styled.div`
 
 export const SearchContentItemWrapper = styled.div`
   width: 100%;
-  height: 35px;
+  height: 45px;
   display: flex;
 
   justify-content: space-between;
 `;
 
 export const SearchContentItemNumberWrppaer = styled.div`
-  width: 20%;
+  width: 68%;
   height: 100%;
 
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 10%;
 `;
 
 export const SearchContentItemNumberProfileWrapper = styled.div`
-  width: 80%;
+  width: 90%;
   height: 100%;
 
   display: flex;
-  justify-content: space-between;
+
   align-items: center;
 `;
 
@@ -144,12 +160,12 @@ export const ProfileImg = styled.img`
   height: 25px;
   border-radius: 100px;
   background-color: #aeaeae;
+  object-fit: cover;
 `;
 
 export const SearchContentItemInfoWrapper = styled.div`
   width: 30%;
   height: 100%;
-  border: 1px solid black;
   display: flex;
   align-items: center;
 `;

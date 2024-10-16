@@ -6,69 +6,138 @@ export const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(0, 0, 0, .2);
+  background-color: rgba(0, 0, 0, 0.2);
   position: absolute;
 `;
 
 export const MainWrapper = styled.div`
-  width: 100%;
-  height: 90%;
+  width: 90%;
+  height: 900px;
+  overflow-y: scroll;
   display: flex;
   background-color: white;
-  border-radius: 1.2rem;
-  align-items: center;
+
+
+  justify-content: space-between;
   flex-direction: column;
+  flex-shrink: 0; /* 크기 축소 방지 */
 `;
 
 export const PositionWrapper = styled.div`
   width: 50%;
-  height: 90%;
+  height: 900px;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  overflow-y: scroll;
   display: flex;
   background-color: white;
   border-radius: 1.2rem;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  flex-shrink: 0; /* 크기 축소 방지 */
 `;
 
 export const ModalDeleteButtonWrapper = styled.div`
-  width: 90%;
-  height: 5%;
-
   display: flex;
-  flex-direction: row-reverse;
   cursor: pointer;
 `;
 
 export const MainContentWrapper = styled.div`
-  width: 80%;
-  height: 80%;
+  width: 85%;
+  height: auto;
+
   display: flex;
 
+
+  align-self: center;
   flex-direction: column;
 `;
 
 export const ContentTitleWrapper = styled.div`
   width: 100%;
-  height: 5%;
-
+  height: auto;
   display: flex;
-
+  justify-content: center;
   align-items: center;
+  flex-direction: column;
 `;
 
 export const TitleSpan = styled.span`
-  font-size: 24px;
+  font-size: 35px;
+  font-family: "pretendard";
+  font-weight: 700;
+`;
+
+export const TypeSpan = styled.span`
+  font-size: 20px;
+`;
+export const ChallengeTypeWrapper = styled.div`
+  width: 70%;
+  height: 10%;
+  display: flex;
+  margin-bottom: 5%;
+  align-self: center;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+export const ChallengeCategorryWrapper = styled.div`
+  width: auto;
+  height: auto;
+  padding: 2%;
+  background-color: #ccdefb;
+  border-radius: 30px;
+`;
+
+export const ChallengeCategorrySpan = styled.span`
+  font-size: 25px;
+  font-family: "pretendard";
+`;
+
+export const ChallengeCurrentSpan = styled.span`
+  font-size: 25px;
+  font-family: "pretendard";
+`;
+
+export const ChallengeImgWrapper = styled.img`
+  display: flex;
+  align-self: center;
+  width: 75%;
+  height: 300px;
+  margin-bottom: 2%;
+`;
+
+export const ChallengeContentWrapper = styled.div`
+  display: flex;
+  width: 70%;
+  height: 18%;
+
+  align-self: center;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const ChallengeContentMainWrapper = styled.div`
+  width: 90%;
+  height: 100px;
+  display: flex;
+
+  flex-direction: column;
 `;
 
 export const GoalMoneyWrapper = styled.div`
   width: 100%;
-  height: 5%;
+  height: 30%;
 
   display: flex;
+  margin-bottom: 5%;
+  justify-content: center;
+`;
 
-  align-items: center;
-  justify-content: space-between;
+export const GoalMoneySpan = styled.span`
+  font-size: 23px;
+  font-family: "pretendard";
 `;
 
 export const MemberWrapper = styled.div`
@@ -79,8 +148,57 @@ export const MemberWrapper = styled.div`
   align-items: center;
 `;
 
-export const GoalMoneySpan = styled.span`
-  font-size: 15px;
+export const DescriptionWrapper = styled.div`
+  width: 100%;
+  height: auto;
+  display: flex;
+
+  justify-content: center;
+`;
+
+export const DescriptionSpan = styled.span`
+  font-size: 23px;
+  font-family: "pretendard";
+`;
+
+export const ChallengeButtonWrapper = styled.div`
+  width: 70%;
+  height: 8%;
+  display: flex;
+  margin-top: 5%;
+
+  align-self: center;
+  margin-bottom: 10%;
+  justify-content: space-between;
+`;
+
+export const ChallengeCommentWrapper = styled.div`
+  width: 70%;
+  height: 10%;
+  display: flex;
+
+  align-self: center;
+  flex-direction: column-reverse;
+`;
+
+export const ChallengeCommentClickWrapper = styled.div`
+  width: 22%;
+  height: auto;
+  display: flex;
+  align-self: center;
+  justify-content: space-between;
+`;
+
+export const ChallengeCommentClickSpan = styled.span`
+  font-size: 20px;
+  font-family: "pretendard";
+`;
+
+export const TextBox = styled.div`
+  width: 100px;
+  height: 1200px;
+  display: flex;
+  background-color: blue;
 `;
 
 export const MemberLimitSpan = styled.span`
@@ -93,20 +211,6 @@ export const ContenWrapper = styled.div`
 
   flex-direction: column;
   justify-content: space-between;
-`;
-
-export const ChallengeImgWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  height: 40%;
-  
-  
-`;
-
-export const DescriptionWrapper = styled.div`
-  width: 100%;
-  height: 60%;
 `;
 
 export const MakeModalTitleWrapper = styled.div`

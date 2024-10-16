@@ -3,7 +3,10 @@ import { MyChallengeProps } from "src/type/challenge.types";
 
 import { SetStateAction, useEffect, useState } from "react";
 import UseMyProduct from "src/hooks/modal/useMyProduct";
+import Img from "src/assets/image 5.png";
 import ExitButton from "src/components/common/exitbutton";
+import SavingButton from "src/components/common/savingbutton/indexl";
+import Arrow from "src/assets/bottomArrow.svg";
 
 interface MyProps {
   MyRoomData: MyChallengeProps | undefined;
@@ -26,65 +29,47 @@ const MyChallengeModal = ({ MyRoomData, setModal, modal }: MyProps) => {
 
   return (
     <S.Wrapper>
-      {productview === true ? (
-        <S.PositionWrapper>
-          <S.MainWrapper>
-            <ExitButton RoomId={RoomId} />
-            <S.ModalDeleteButtonWrapper onClick={ClickModal}>X</S.ModalDeleteButtonWrapper>
-            <S.MainContentWrapper>
-              <S.ContentTitleWrapper>
-                <S.TitleSpan>{MyRoomData?.title}</S.TitleSpan>
-                <S.CategorySpanWrapper>
-                  <S.CategorySpan>#{MyRoomData?.category}</S.CategorySpan>
-                </S.CategorySpanWrapper>
-              </S.ContentTitleWrapper>
-              <S.GoalMoneyWrapper>
-                <S.GoalMoneySpan>목표금액 : {MyRoomData?.goalMoney}</S.GoalMoneySpan>
-                <S.MemberWrapper></S.MemberWrapper>
-              </S.GoalMoneyWrapper>
-              <S.ContenWrapper>
-                <S.ChallengeImgWrapper>
-                  <img
-                    src={MyRoomData?.imageUrl}
-                    style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                    alt=""
-                  />
-                </S.ChallengeImgWrapper>
-                <S.DescriptionWrapper>{MyRoomData?.description}</S.DescriptionWrapper>
-              </S.ContenWrapper>
-            </S.MainContentWrapper>
-          </S.MainWrapper>
-          <button onClick={() => setProductView(!productview)}>제품 정보</button>
-        </S.PositionWrapper>
-      ) : (
-        <S.PositionWrapper>
-          <S.MainWrapper>
-            <S.ModalDeleteButtonWrapper onClick={ClickModal}>X</S.ModalDeleteButtonWrapper>
-            <S.MainContentWrapper>
-              <S.ContentTitleWrapper>
-                <S.TitleSpan>제품 정보</S.TitleSpan>
-              </S.ContentTitleWrapper>
-              <S.ContentTitleWrapper>
-                <S.ProductNameSpan>{myproduct?.name}</S.ProductNameSpan>
-              </S.ContentTitleWrapper>
-              <S.ChallengeImgWrapper>
-                <img src={myproduct?.imageUrl} alt="" />
-              </S.ChallengeImgWrapper>
-              <S.GoalMoneyWrapper>
-                <S.GoalMoneySpan style={{ color: "red" }}>가격 : {myproduct?.discountedPrice}</S.GoalMoneySpan>
-                <S.MemberWrapper style={{ flexDirection: "column" }}>
-                  <S.MemberLimitSpan>원가 : {myproduct?.price}</S.MemberLimitSpan>
-                  <S.CurrentMemberSpan style={{ color: " blue " }}>할인율 : {myproduct?.discount}</S.CurrentMemberSpan>
-                </S.MemberWrapper>
-              </S.GoalMoneyWrapper>
-              <S.DescriptionWrapper style={{ height: "40%", marginTop: 20 }}>
-                {myproduct?.description}
-              </S.DescriptionWrapper>
-            </S.MainContentWrapper>
-          </S.MainWrapper>
-          <button onClick={() => setProductView(!productview)}>챌린지 정보</button>
-        </S.PositionWrapper>
-      )}
+      <S.PositionWrapper>
+        <S.MainWrapper>
+          <S.ModalDeleteButtonWrapper onClick={ClickModal}>X</S.ModalDeleteButtonWrapper>
+          <S.MainContentWrapper>
+            <S.ContentTitleWrapper>
+              <S.TitleSpan>챌린지 타이틀</S.TitleSpan>
+              <S.TypeSpan>(공개)</S.TypeSpan>
+            </S.ContentTitleWrapper>
+            <S.ChallengeTypeWrapper>
+              <S.ChallengeCategorryWrapper>
+                <S.ChallengeCategorrySpan>#가전제품</S.ChallengeCategorrySpan>
+              </S.ChallengeCategorryWrapper>
+              <S.ChallengeCurrentSpan>현재멤버 : 7/10</S.ChallengeCurrentSpan>
+            </S.ChallengeTypeWrapper>
+            <S.ChallengeImgWrapper src={Img} alt="img" />
+            <S.ChallengeContentWrapper>
+              <S.ChallengeContentMainWrapper>
+                <S.GoalMoneyWrapper>
+                  <S.GoalMoneySpan>저금된 금액 : 1,000,000 / 500,000 원</S.GoalMoneySpan>
+                </S.GoalMoneyWrapper>
+                <S.DescriptionWrapper>
+                  <S.DescriptionSpan>
+                    박상민 귀여워 박상민 귀여워 박상민 귀여워 박상민 귀여워 박상민 귀여워 박상민 귀여워
+                  </S.DescriptionSpan>
+                </S.DescriptionWrapper>
+              </S.ChallengeContentMainWrapper>
+            </S.ChallengeContentWrapper>
+            <S.ChallengeButtonWrapper>
+              <ExitButton RoomId={RoomId}></ExitButton>
+              <SavingButton></SavingButton>
+            </S.ChallengeButtonWrapper>
+            <S.ChallengeCommentWrapper>
+              <S.ChallengeCommentClickWrapper>
+                <img src={Arrow} alt="img" />
+                <S.ChallengeCommentClickSpan>댓글보기</S.ChallengeCommentClickSpan>
+              </S.ChallengeCommentClickWrapper>
+            </S.ChallengeCommentWrapper>
+            <S.TextBox />
+          </S.MainContentWrapper>
+        </S.MainWrapper>
+      </S.PositionWrapper>
     </S.Wrapper>
   );
 };

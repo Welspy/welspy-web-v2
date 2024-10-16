@@ -9,10 +9,21 @@ export interface AllChallengeProps {
   category: "TRAVEL";
   roomType: "PUBLIC";
   productId: number;
-
 }
 
 export interface MyChallengeProps {
+  idx: number;
+  roomId: number;
+  email: string;
+  balance: number;
+  name: string;
+  title: string;
+  description: string;
+  goalMoney: number;
+  imageUrl: string;
+}
+
+export interface SearchProps {
   roomId: number;
   title: string;
   description: string;
@@ -23,5 +34,4 @@ export interface MyChallengeProps {
   category: string;
   roomType: string;
   productId: number;
- 
 }

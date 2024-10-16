@@ -10,7 +10,6 @@ import MyChallengeModal from "src/modal/mychallengemodal";
 import Bank from "./pageComponents/bank";
 import Profile from "./pageComponents/profile";
 import UseHomeProduct from "src/hooks/home/useHomeProduct";
-import DummyImg from "src/assets/rotion_dummy.png";
 import Logo from "src/assets/Logo.svg";
 import SearchModal from "src/modal/searchmodal";
 
@@ -136,9 +135,6 @@ const Home = () => {
                                     <span style={{ fontSize: 10, color: "white" }}>#{item.category}</span>
                                   </S.CategoryWrapper>
                                 </S.TitleWrapper>
-                                <S.RoomTypeWrapper>
-                                  {/* <span style={{ fontSize: 12, fontWeight: 700, color: "#5b94f3" }}>{item.roomType}</span> */}
-                                </S.RoomTypeWrapper>
                                 <S.ContentWrapper>
                                   <S.DisCountWrapper>
                                     <span style={{ fontSize: 11, textDecoration: "line-through", color: "#aeaeae" }}>
@@ -197,20 +193,30 @@ const Home = () => {
             </S.SideBarHeader>
             {mychallenge.length === 0 ? (
               <S.AccountLogWrapper>
-               
-                  <S.UndefinedSpan>가입된 챌린지가 없습니다.</S.UndefinedSpan>
-            
+                <S.UndefinedSpan>가입된 챌린지가 없습니다.</S.UndefinedSpan>
               </S.AccountLogWrapper>
             ) : (
               <S.AccountLogWrapper>
                 {mychallenge.map((item, idx) => (
                   <S.AccountLogItemWrapper key={idx}>
-                    <S.AccountLogProfileWrapper>
-                      <S.AccountLogProfileImg src={item.imageUrl} alt="img" />
-                    </S.AccountLogProfileWrapper>
-                    <S.AccountLogItemDescriptionWrapper>
-                      <S.AccountLogProfileSpan>{item.title}</S.AccountLogProfileSpan>
-                    </S.AccountLogItemDescriptionWrapper>
+                    <S.AccountLogMainWrapper>
+                      <S.AccountLogTextSpanWrapper>
+                        <S.AccountLogSpan>{item.title}</S.AccountLogSpan>
+                        <S.AccountLogDesSpan>{item.description.slice(0, 30)}...</S.AccountLogDesSpan>
+                      </S.AccountLogTextSpanWrapper>
+                      <S.AccountLogContentWrapper>
+                        <S.AccountLogContentImg src={item.imageUrl} alt="img" />
+                        <S.AccountLogContentImgDescription>
+                          <S.AccountLogContentImgDescriptionSpan>{item.title}</S.AccountLogContentImgDescriptionSpan>
+                          <S.AccountLogContentImgDescriptionSpan style={{ color: "blue" }}>
+                            {item.goalMoney}
+                          </S.AccountLogContentImgDescriptionSpan>
+                        </S.AccountLogContentImgDescription>
+                      </S.AccountLogContentWrapper>
+                      <S.AccountLogStatusBar>
+                        <S.Status statusBar={(item.balance / item.goalMoney) * 100} />
+                      </S.AccountLogStatusBar>
+                    </S.AccountLogMainWrapper>
                   </S.AccountLogItemWrapper>
                 ))}
               </S.AccountLogWrapper>

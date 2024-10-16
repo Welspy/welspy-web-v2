@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import Img from "src/assets/image 5.png";
 
 export const Wrapper = styled.div`
   width: 100vw;
@@ -167,7 +166,7 @@ export const SideBarWrapper = styled.div`
   display: flex;
   flex-direction: column;
   border-left: 1px solid #dddddd;
-  background-color: #f5f5f5;
+  background-color: #fbfbfb;
   align-items: center;
 `;
 
@@ -218,47 +217,84 @@ export const AccountLogItemWrapper = styled.div`
   &:hover {
     background-color: #eaecef;
   }
-  justify-content: space-around;
-`;
-
-export const AccountLogProfileWrapper = styled.div`
-  width: 10%;
-  height: 100%;
-  word-break: normal;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-export const AccountLogProfileImg = styled.img`
-  width: 40px;
-  height: 40px;
-  border-radius: 100px;
-  object-fit: cover;
-  background-color: #aeaeae;
-`;
-
-export const AccountLogProfileSpan = styled.span`
-  font-size: 13px;
-`;
-export const AccountLogItemDescriptionWrapper = styled.div`
-  width: 60%;
-  height: 100%;
 
   align-items: center;
+  justify-content: center;
+  margin-bottom: 5%;
+`;
+
+export const AccountLogMainWrapper = styled.div`
+  width: 90%;
+  height: 85%;
   display: flex;
   justify-content: space-between;
-  flex-direction: row-reverse;
+  flex-direction: column;
+`;
+
+export const AccountLogTextSpanWrapper = styled.div`
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
 `;
 
 export const AccountLogSpan = styled.span`
+  font-size: 16px;
+`;
+
+export const AccountLogDesSpan = styled.span`
   font-size: 13px;
+  color: gray;
+`;
+
+export const AccountLogContentWrapper = styled.div`
+  width: 100%;
+  height: 50%;
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const AccountLogContentImg = styled.img`
+  width: 30%;
+  height: 100%;
+  object-fit: cover;
+`;
+
+export const AccountLogContentImgDescription = styled.div`
+  width: 65%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+`;
+
+export const AccountLogContentImgDescriptionSpan = styled.div`
+  font-size: 15px;
+  font-family: "pretendard";
+`;
+
+export const AccountLogStatusBar = styled.div`
+  width: 100%;
+  height: 10%;
+  background-color: #dddddd;
+  border-radius: 10px;
+`;
+
+export const Status = styled.div<{ statusBar: number }>`
+  width: ${({ statusBar }) => statusBar}%;
+  height: 100%;
+  background-color: #5184d6;
+  border-radius: 10px;
 `;
 
 export const CategoryWrapper = styled.div`
-  width: 100%;
-  height: 30%;
+  width: 50%;
+  height: 40%;
   display: flex;
+  background-color: gray;
+  align-items: center;
+  justify-content: center;
 
   margin-top: 3%;
 `;

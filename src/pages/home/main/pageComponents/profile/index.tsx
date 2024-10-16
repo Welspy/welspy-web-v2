@@ -26,7 +26,11 @@ const Profile = () => {
       <S.Wrapper>
         <S.ProfileWrapper>
           <S.ProfliePictureWrapper>
-            <img src={profile?.imageUrl} alt="proflie" style={{ width: "100%", height: "100%", borderRadius: 10 }} />
+            <img
+              src={profile?.imageUrl}
+              alt="proflie"
+              style={{ width: "100%", height: "100%", borderRadius: 10, objectFit: "contain", background: "gray" }}
+            />
           </S.ProfliePictureWrapper>
           <S.ProfileContentWrapper>
             <S.ProfileContentMainWrapper>
@@ -65,33 +69,11 @@ const Profile = () => {
             </S.ProfileChallengeBankContentWrapper>
           </S.ProfileChallengeBankWrapper>
           <S.ProfileChallengeGoalWrapper>
-            <S.ProfileChallengeGoalTitleSpan>진행중인 챌린지</S.ProfileChallengeGoalTitleSpan>
+            <S.ProfileChallengeGoalTitleSpan>내가남긴 댓글</S.ProfileChallengeGoalTitleSpan>
             {mychallenge.length !== 0 ? (
               <S.ProfileChallengeGoalContentWrapper>
                 {mychallenge.slice(0, 3).map((item, idx) => (
-                  <S.ProfileChallengeGoalMainWrapper key={idx}>
-                    <S.ProfileChallengeItemWrapper>
-                      <S.ProfileChallengeItemPicture>
-                        <img
-                          src={item.imageUrl}
-                          alt="img"
-                          style={{ width: "100%", height: "100%", borderRadius: 10, objectFit: "cover" }}
-                        />
-                      </S.ProfileChallengeItemPicture>
-                      <S.ProfileChallengeItemDesWrapper>
-                        <div style={{ width: "100%", height: "20%", display: "flex", justifyContent: "space-between" }}>
-                          <S.ProfileChallengeTitleSpan>{`${item.title}`}</S.ProfileChallengeTitleSpan>
-                          <S.ProfileChallengeTitleSpan>진행률 : 20%</S.ProfileChallengeTitleSpan>
-                        </div>
-
-                        <S.PofileChallengeItemDesSpan>{`${item.description.slice(
-                          0,
-                          40
-                        )}...`}</S.PofileChallengeItemDesSpan>
-                        <S.ProfileChallengeStatusBar></S.ProfileChallengeStatusBar>
-                      </S.ProfileChallengeItemDesWrapper>
-                    </S.ProfileChallengeItemWrapper>
-                  </S.ProfileChallengeGoalMainWrapper>
+                  <S.ProfileChallengeGoalMainWrapper key={idx}></S.ProfileChallengeGoalMainWrapper>
                 ))}
 
                 <S.MoreProfileChallenge>
