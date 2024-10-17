@@ -1,0 +1,1046 @@
+Index: src/pages/home/main/index.tsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import UseAllChallenge from \"src/hooks/home/useAllChallenge\";\nimport * as S from \"./style\";\nimport { useEffect, useState } from \"react\";\nimport OtherChallengeModal from \"src/modal/otherchallengemodal\";\nimport { AllChallengeProps, MyChallengeProps } from \"src/type/challenge.types\";\nimport MakeModal from \"src/modal/makemodal\";\nimport UseAccountLog from \"src/hooks/home/useAccountLog\";\nimport UseMyChallenge from \"src/hooks/home/useMyChallenge\";\nimport MyChallengeModal from \"src/modal/mychallengemodal\";\nimport Bank from \"./pageComponents/bank\";\nimport Profile from \"./pageComponents/profile\";\nimport UseHomeProduct from \"src/hooks/home/useHomeProduct\";\nimport DummyImg from \"src/assets/rotion_dummy.png\";\nimport Logo from \"src/assets/Logo.svg\";\nimport SearchModal from \"src/modal/searchmodal\";\n\nconst Home = () => {\n  const [modal, setModal] = useState<boolean>(false);\n  const [makemodal, setMakeModal] = useState<boolean>(false);\n  const [mymodal, setMyModal] = useState<boolean>(false);\n  const [search, setSearch] = useState<boolean>(false);\n  const [page, setPage] = useState<string>(\"main\");\n\n  const [roomdata, setRoomData] = useState<AllChallengeProps>();\n  const [myroomdata, setMyRoomData] = useState<MyChallengeProps>();\n\n  const [productid, setProductId] = useState<number[]>([]);\n\n  const { challenge, AllChallenge } = UseAllChallenge();\n  const { accountlog, AccountLog } = UseAccountLog();\n  const { mychallenge, MyChallenge } = UseMyChallenge();\n  const { homeproduct } = UseHomeProduct({ productid });\n\n  const ClickModal = (item: AllChallengeProps) => {\n    setModal(!modal);\n    setRoomData(item);\n  };\n\n  const ClickMakeModal = () => {\n    setMakeModal(!makemodal);\n  };\n\n  const ClickMyModal = (item: MyChallengeProps) => {\n    setMyModal(!mymodal);\n    setMyRoomData(item);\n  };\n\n  const ClickSearchModal = () => {\n    setSearch(!search);\n  };\n\n  useEffect(() => {\n    MyChallenge();\n    AllChallenge();\n    AccountLog();\n  }, []);\n\n  useEffect(() => {\n    setProductId(challenge.map((item) => item.productId));\n  }, [challenge]);\n\n  console.log(\"challenge\", challenge);\n  console.log(\"mychallenge\", mychallenge);\n\n  return (\n    <>\n      <S.Wrapper>\n        <S.MainWrapper>\n          <S.HeaderNav>\n            <S.HeaderContentWrapper>\n              <img src={Logo} alt=\"logo\" />\n              <S.SearchWrapper>\n                <S.SearchInput onClick={ClickSearchModal} placeholder=\"원하는 챌린지를 검색하세요\" />\n              </S.SearchWrapper>\n              <S.MysteryBox></S.MysteryBox>\n            </S.HeaderContentWrapper>\n          </S.HeaderNav>\n          <S.ChallengeMainWrapper>\n            <S.ChallengeContentWrapper>\n              <S.ChallengeTitleWrapper>\n                <S.CategorrySpanWrapper>\n                  <S.CategorrySpan onClick={() => setPage(\"main\")} clicked={page === \"main\" ? true : false}>\n                    챌린지\n                  </S.CategorrySpan>\n                  <S.CategorrySpan onClick={() => setPage(\"bank\")} clicked={page === \"bank\" ? true : false}>\n                    계좌\n                  </S.CategorrySpan>\n                  <S.CategorrySpan onClick={() => setPage(\"profile\")} clicked={page === \"profile\" ? true : false}>\n                    프로필\n                  </S.CategorrySpan>\n                </S.CategorrySpanWrapper>\n                <button onClick={ClickMakeModal}>챌린지 생성하기</button>\n              </S.ChallengeTitleWrapper>\n              {page === \"main\" && (\n                <S.MainChallengeComponent>\n                  <S.MyChallengeWrapper>\n                    <S.MyChallengeSpan>내 챌린지</S.MyChallengeSpan>\n                    {mychallenge.length !== 0 ? (\n                      <S.MyChallengeItemWrapper>\n                        {mychallenge.slice(0, 5).map((item, idx) => (\n                          <S.MyChallengeContentWrapper\n                            key={idx}\n                            onClick={() => {\n                              ClickMyModal(item);\n                            }}\n                          >\n                            <S.MyChallengeImgWrapper>\n                              <S.MyChallengeImg src={item.imageUrl} alt=\"img\" />\n                              <S.BlurOveray>\n                                <S.BlurMainWrapper>\n                                  <S.BlurSpan>{item.title}</S.BlurSpan>\n                                </S.BlurMainWrapper>\n                              </S.BlurOveray>\n                            </S.MyChallengeImgWrapper>\n                          </S.MyChallengeContentWrapper>\n                        ))}\n                      </S.MyChallengeItemWrapper>\n                    ) : (\n                      <S.SkelethoneBox>\n                        <span style={{ fontSize: 24 }}>챌린지를 등록해보세요!</span>\n                      </S.SkelethoneBox>\n                    )}\n                  </S.MyChallengeWrapper>\n                  <S.OtherChallengeWrapper>\n                    <S.MyChallengeSpan>챌린지 리스트</S.MyChallengeSpan>\n                    <S.MyChallengeItemWrapper>\n                      {challenge.length > 0 ? (\n                        challenge.slice(0, 4).map((item, idx) => (\n                          <S.OtherChallenge onClick={() => ClickModal(item)} key={idx}>\n                            <S.OtherChallengeImgWrapper src={item.imageUrl} alt=\"challenge\" />\n                            <S.OtherChallengeDescriptionWrapper>\n                              <S.DescriptionMainWrapper>\n                                <S.TitleWrapper>\n                                  <S.TitleSpan>{item.title}</S.TitleSpan>\n                                  <S.CategoryWrapper>\n                                    <span style={{ fontSize: 10, color: \"white\" }}>#{item.category}</span>\n                                  </S.CategoryWrapper>\n                                </S.TitleWrapper>\n                                <S.RoomTypeWrapper>\n                                  {/* <span style={{ fontSize: 12, fontWeight: 700, color: \"#5b94f3\" }}>{item.roomType}</span> */}\n                                </S.RoomTypeWrapper>\n                                <S.ContentWrapper>\n                                  <S.DisCountWrapper>\n                                    <span style={{ fontSize: 11, textDecoration: \"line-through\", color: \"#aeaeae\" }}>\n                                      {homeproduct?.price}원\n                                    </span>\n                                    <span style={{ fontSize: 20, marginTop: 5 }}>{homeproduct?.discountedPrice}원</span>\n                                  </S.DisCountWrapper>\n                                  <span style={{ fontSize: 29, color: \"red\" }}>{homeproduct?.discount}%</span>\n                                </S.ContentWrapper>\n                              </S.DescriptionMainWrapper>\n                            </S.OtherChallengeDescriptionWrapper>\n                          </S.OtherChallenge>\n                        ))\n                      ) : (\n                        <S.SkelethoneBox>\n                          <span style={{ fontSize: 24 }}>챌린지가 없습니다</span>\n                        </S.SkelethoneBox>\n                      )}\n                    </S.MyChallengeItemWrapper>\n                  </S.OtherChallengeWrapper>\n                  {challenge.length > 5 ? (\n                    <S.ChallengeTextWrapper>\n                      {challenge.slice(4, 7).map((item, idx) => (\n                        <S.ChallengeText key={idx}>\n                          <S.ChallengeTextSpan onClick={() => ClickModal(item)}>\n                            {item.title}, {item.description.slice(0, 10)}...\n                          </S.ChallengeTextSpan>\n                          <S.SubTextSpan>{item.category}</S.SubTextSpan>\n                        </S.ChallengeText>\n                      ))}\n                      {challenge.slice(7, 10).map((item, idx) => (\n                        <S.ChallengeText key={idx}>\n                          <S.ChallengeTextSpan onClick={() => ClickModal(item)}>\n                            {item.title}, {item.description.slice(0, 10)}...\n                          </S.ChallengeTextSpan>\n                          <S.SubTextSpan>{item.category}</S.SubTextSpan>\n                        </S.ChallengeText>\n                      ))}\n                    </S.ChallengeTextWrapper>\n                  ) : (\n                    <></>\n                  )}\n                </S.MainChallengeComponent>\n              )}\n              {page === \"bank\" && <Bank />} {/* 계좌 페이지 */}\n              {page === \"profile\" && <Profile />} {/* 프로필 페이지 */}\n            </S.ChallengeContentWrapper>\n          </S.ChallengeMainWrapper>\n        </S.MainWrapper>\n        <S.SideBarWrapper>\n          <S.SideBarHeaderMainWrapper>\n            <S.SideBarHeader>\n              <S.SideBarHeaderTextWrapper>\n                <S.SideBarHeaderText>내 챌린지 현황</S.SideBarHeaderText>\n              </S.SideBarHeaderTextWrapper>\n            </S.SideBarHeader>\n            {mychallenge.length === 0 ? (\n              <S.AccountLogWrapper>\n               \n                  <S.UndefinedSpan>가입된 챌린지가 없습니다.</S.UndefinedSpan>\n            \n              </S.AccountLogWrapper>\n            ) : (\n              <S.AccountLogWrapper>\n                {mychallenge.map((item, idx) => (\n                  <S.AccountLogItemWrapper key={idx}>\n                    <S.AccountLogProfileWrapper>\n                      <S.AccountLogProfileImg src={item.imageUrl} alt=\"img\" />\n                    </S.AccountLogProfileWrapper>\n                    <S.AccountLogItemDescriptionWrapper>\n                      <S.AccountLogProfileSpan>{item.title}</S.AccountLogProfileSpan>\n                    </S.AccountLogItemDescriptionWrapper>\n                  </S.AccountLogItemWrapper>\n                ))}\n              </S.AccountLogWrapper>\n            )}\n          </S.SideBarHeaderMainWrapper>\n        </S.SideBarWrapper>\n        {search === true ? <SearchModal setSearch={setSearch} serch={search}></SearchModal> : <></>}\n        {mymodal === true ? <MyChallengeModal MyRoomData={myroomdata} setModal={setMyModal} modal={mymodal} /> : <></>}\n        {makemodal === true ? <MakeModal ClickMakeModal={ClickMakeModal}></MakeModal> : <></>}\n        {modal === true ? <OtherChallengeModal RoomData={roomdata} setModal={setModal} modal={modal} /> : <></>}\n      </S.Wrapper>\n    </>\n  );\n};\n\nexport default Home;\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/pages/home/main/index.tsx b/src/pages/home/main/index.tsx
+--- a/src/pages/home/main/index.tsx	(revision 225a9dc5e972bcd8cfec1364e0689749fff6e69a)
++++ b/src/pages/home/main/index.tsx	(date 1729044088402)
+@@ -63,166 +63,166 @@
+   console.log("mychallenge", mychallenge);
+ 
+   return (
+-    <>
+-      <S.Wrapper>
+-        <S.MainWrapper>
+-          <S.HeaderNav>
+-            <S.HeaderContentWrapper>
+-              <img src={Logo} alt="logo" />
+-              <S.SearchWrapper>
+-                <S.SearchInput onClick={ClickSearchModal} placeholder="원하는 챌린지를 검색하세요" />
+-              </S.SearchWrapper>
+-              <S.MysteryBox></S.MysteryBox>
+-            </S.HeaderContentWrapper>
+-          </S.HeaderNav>
+-          <S.ChallengeMainWrapper>
+-            <S.ChallengeContentWrapper>
+-              <S.ChallengeTitleWrapper>
+-                <S.CategorrySpanWrapper>
+-                  <S.CategorrySpan onClick={() => setPage("main")} clicked={page === "main" ? true : false}>
+-                    챌린지
+-                  </S.CategorrySpan>
+-                  <S.CategorrySpan onClick={() => setPage("bank")} clicked={page === "bank" ? true : false}>
+-                    계좌
+-                  </S.CategorrySpan>
+-                  <S.CategorrySpan onClick={() => setPage("profile")} clicked={page === "profile" ? true : false}>
+-                    프로필
+-                  </S.CategorrySpan>
+-                </S.CategorrySpanWrapper>
+-                <button onClick={ClickMakeModal}>챌린지 생성하기</button>
+-              </S.ChallengeTitleWrapper>
+-              {page === "main" && (
+-                <S.MainChallengeComponent>
+-                  <S.MyChallengeWrapper>
+-                    <S.MyChallengeSpan>내 챌린지</S.MyChallengeSpan>
+-                    {mychallenge.length !== 0 ? (
+-                      <S.MyChallengeItemWrapper>
+-                        {mychallenge.slice(0, 5).map((item, idx) => (
+-                          <S.MyChallengeContentWrapper
+-                            key={idx}
+-                            onClick={() => {
+-                              ClickMyModal(item);
+-                            }}
+-                          >
+-                            <S.MyChallengeImgWrapper>
+-                              <S.MyChallengeImg src={item.imageUrl} alt="img" />
+-                              <S.BlurOveray>
+-                                <S.BlurMainWrapper>
+-                                  <S.BlurSpan>{item.title}</S.BlurSpan>
+-                                </S.BlurMainWrapper>
+-                              </S.BlurOveray>
+-                            </S.MyChallengeImgWrapper>
+-                          </S.MyChallengeContentWrapper>
+-                        ))}
+-                      </S.MyChallengeItemWrapper>
+-                    ) : (
+-                      <S.SkelethoneBox>
+-                        <span style={{ fontSize: 24 }}>챌린지를 등록해보세요!</span>
+-                      </S.SkelethoneBox>
+-                    )}
+-                  </S.MyChallengeWrapper>
+-                  <S.OtherChallengeWrapper>
+-                    <S.MyChallengeSpan>챌린지 리스트</S.MyChallengeSpan>
+-                    <S.MyChallengeItemWrapper>
+-                      {challenge.length > 0 ? (
+-                        challenge.slice(0, 4).map((item, idx) => (
+-                          <S.OtherChallenge onClick={() => ClickModal(item)} key={idx}>
+-                            <S.OtherChallengeImgWrapper src={item.imageUrl} alt="challenge" />
+-                            <S.OtherChallengeDescriptionWrapper>
+-                              <S.DescriptionMainWrapper>
+-                                <S.TitleWrapper>
+-                                  <S.TitleSpan>{item.title}</S.TitleSpan>
+-                                  <S.CategoryWrapper>
+-                                    <span style={{ fontSize: 10, color: "white" }}>#{item.category}</span>
+-                                  </S.CategoryWrapper>
+-                                </S.TitleWrapper>
+-                                <S.RoomTypeWrapper>
+-                                  {/* <span style={{ fontSize: 12, fontWeight: 700, color: "#5b94f3" }}>{item.roomType}</span> */}
+-                                </S.RoomTypeWrapper>
+-                                <S.ContentWrapper>
+-                                  <S.DisCountWrapper>
++      <>
++        <S.Wrapper>
++          <S.MainWrapper>
++            <S.HeaderNav>
++              <S.HeaderContentWrapper>
++                <img src={Logo} alt="logo" />
++                <S.SearchWrapper>
++                  <S.SearchInput onClick={ClickSearchModal} placeholder="원하는 챌린지를 검색하세요" />
++                </S.SearchWrapper>
++                <S.MysteryBox></S.MysteryBox>
++              </S.HeaderContentWrapper>
++            </S.HeaderNav>
++            <S.ChallengeMainWrapper>
++              <S.ChallengeContentWrapper>
++                <S.ChallengeTitleWrapper>
++                  <S.CategorrySpanWrapper>
++                    <S.CategorrySpan onClick={() => setPage("main")} clicked={page === "main" ? true : false}>
++                      챌린지
++                    </S.CategorrySpan>
++                    <S.CategorrySpan onClick={() => setPage("bank")} clicked={page === "bank" ? true : false}>
++                      계좌
++                    </S.CategorrySpan>
++                    <S.CategorrySpan onClick={() => setPage("profile")} clicked={page === "profile" ? true : false}>
++                      프로필
++                    </S.CategorrySpan>
++                  </S.CategorrySpanWrapper>
++                  <button onClick={ClickMakeModal}>챌린지 생성하기</button>
++                </S.ChallengeTitleWrapper>
++                {page === "main" && (
++                    <S.MainChallengeComponent>
++                      <S.MyChallengeWrapper>
++                        <S.MyChallengeSpan>내 챌린지</S.MyChallengeSpan>
++                        {mychallenge.length !== 0 ? (
++                            <S.MyChallengeItemWrapper>
++                              {mychallenge.slice(0, 5).map((item, idx) => (
++                                  <S.MyChallengeContentWrapper
++                                      key={idx}
++                                      onClick={() => {
++                                        ClickMyModal(item);
++                                      }}
++                                  >
++                                    <S.MyChallengeImgWrapper>
++                                      <S.MyChallengeImg src={item.imageUrl} alt="img" />
++                                      <S.BlurOveray>
++                                        <S.BlurMainWrapper>
++                                          <S.BlurSpan>{item.title}</S.BlurSpan>
++                                        </S.BlurMainWrapper>
++                                      </S.BlurOveray>
++                                    </S.MyChallengeImgWrapper>
++                                  </S.MyChallengeContentWrapper>
++                              ))}
++                            </S.MyChallengeItemWrapper>
++                        ) : (
++                            <S.SkelethoneBox>
++                              <span style={{ fontSize: 24 }}>챌린지를 등록해보세요!</span>
++                            </S.SkelethoneBox>
++                        )}
++                      </S.MyChallengeWrapper>
++                      <S.OtherChallengeWrapper>
++                        <S.MyChallengeSpan>챌린지 리스트</S.MyChallengeSpan>
++                        <S.MyChallengeItemWrapper>
++                          {challenge.length > 0 ? (
++                              challenge.slice(0, 4).map((item, idx) => (
++                                  <S.OtherChallenge onClick={() => ClickModal(item)} key={idx}>
++                                    <S.OtherChallengeImgWrapper src={item.imageUrl} alt="challenge" />
++                                    <S.OtherChallengeDescriptionWrapper>
++                                      <S.DescriptionMainWrapper>
++                                        <S.TitleWrapper>
++                                          <S.TitleSpan>{item.title}</S.TitleSpan>
++                                          <S.CategoryWrapper>
++                                            <span style={{ fontSize: 10, color: "white" }}>#{item.category}</span>
++                                          </S.CategoryWrapper>
++                                        </S.TitleWrapper>
++                                        <S.RoomTypeWrapper>
++                                          {/* <span style={{ fontSize: 12, fontWeight: 700, color: "#5b94f3" }}>{item.roomType}</span> */}
++                                        </S.RoomTypeWrapper>
++                                        <S.ContentWrapper>
++                                          <S.DisCountWrapper>
+                                     <span style={{ fontSize: 11, textDecoration: "line-through", color: "#aeaeae" }}>
+                                       {homeproduct?.price}원
+                                     </span>
+-                                    <span style={{ fontSize: 20, marginTop: 5 }}>{homeproduct?.discountedPrice}원</span>
+-                                  </S.DisCountWrapper>
+-                                  <span style={{ fontSize: 29, color: "red" }}>{homeproduct?.discount}%</span>
+-                                </S.ContentWrapper>
+-                              </S.DescriptionMainWrapper>
+-                            </S.OtherChallengeDescriptionWrapper>
+-                          </S.OtherChallenge>
+-                        ))
+-                      ) : (
+-                        <S.SkelethoneBox>
+-                          <span style={{ fontSize: 24 }}>챌린지가 없습니다</span>
+-                        </S.SkelethoneBox>
+-                      )}
+-                    </S.MyChallengeItemWrapper>
+-                  </S.OtherChallengeWrapper>
+-                  {challenge.length > 5 ? (
+-                    <S.ChallengeTextWrapper>
+-                      {challenge.slice(4, 7).map((item, idx) => (
+-                        <S.ChallengeText key={idx}>
+-                          <S.ChallengeTextSpan onClick={() => ClickModal(item)}>
+-                            {item.title}, {item.description.slice(0, 10)}...
+-                          </S.ChallengeTextSpan>
+-                          <S.SubTextSpan>{item.category}</S.SubTextSpan>
+-                        </S.ChallengeText>
+-                      ))}
+-                      {challenge.slice(7, 10).map((item, idx) => (
+-                        <S.ChallengeText key={idx}>
+-                          <S.ChallengeTextSpan onClick={() => ClickModal(item)}>
+-                            {item.title}, {item.description.slice(0, 10)}...
+-                          </S.ChallengeTextSpan>
+-                          <S.SubTextSpan>{item.category}</S.SubTextSpan>
+-                        </S.ChallengeText>
+-                      ))}
+-                    </S.ChallengeTextWrapper>
+-                  ) : (
+-                    <></>
+-                  )}
+-                </S.MainChallengeComponent>
+-              )}
+-              {page === "bank" && <Bank />} {/* 계좌 페이지 */}
+-              {page === "profile" && <Profile />} {/* 프로필 페이지 */}
+-            </S.ChallengeContentWrapper>
+-          </S.ChallengeMainWrapper>
+-        </S.MainWrapper>
+-        <S.SideBarWrapper>
+-          <S.SideBarHeaderMainWrapper>
+-            <S.SideBarHeader>
+-              <S.SideBarHeaderTextWrapper>
+-                <S.SideBarHeaderText>내 챌린지 현황</S.SideBarHeaderText>
+-              </S.SideBarHeaderTextWrapper>
+-            </S.SideBarHeader>
+-            {mychallenge.length === 0 ? (
+-              <S.AccountLogWrapper>
+-               
+-                  <S.UndefinedSpan>가입된 챌린지가 없습니다.</S.UndefinedSpan>
+-            
+-              </S.AccountLogWrapper>
+-            ) : (
+-              <S.AccountLogWrapper>
+-                {mychallenge.map((item, idx) => (
+-                  <S.AccountLogItemWrapper key={idx}>
+-                    <S.AccountLogProfileWrapper>
+-                      <S.AccountLogProfileImg src={item.imageUrl} alt="img" />
+-                    </S.AccountLogProfileWrapper>
+-                    <S.AccountLogItemDescriptionWrapper>
+-                      <S.AccountLogProfileSpan>{item.title}</S.AccountLogProfileSpan>
+-                    </S.AccountLogItemDescriptionWrapper>
+-                  </S.AccountLogItemWrapper>
+-                ))}
+-              </S.AccountLogWrapper>
+-            )}
+-          </S.SideBarHeaderMainWrapper>
+-        </S.SideBarWrapper>
+-        {search === true ? <SearchModal setSearch={setSearch} serch={search}></SearchModal> : <></>}
+-        {mymodal === true ? <MyChallengeModal MyRoomData={myroomdata} setModal={setMyModal} modal={mymodal} /> : <></>}
+-        {makemodal === true ? <MakeModal ClickMakeModal={ClickMakeModal}></MakeModal> : <></>}
+-        {modal === true ? <OtherChallengeModal RoomData={roomdata} setModal={setModal} modal={modal} /> : <></>}
+-      </S.Wrapper>
+-    </>
++                                            <span style={{ fontSize: 20, marginTop: 5 }}>{homeproduct?.discountedPrice}원</span>
++                                          </S.DisCountWrapper>
++                                          <span style={{ fontSize: 29, color: "red" }}>{homeproduct?.discount}%</span>
++                                        </S.ContentWrapper>
++                                      </S.DescriptionMainWrapper>
++                                    </S.OtherChallengeDescriptionWrapper>
++                                  </S.OtherChallenge>
++                              ))
++                          ) : (
++                              <S.SkelethoneBox>
++                                <span style={{ fontSize: 24 }}>챌린지가 없습니다</span>
++                              </S.SkelethoneBox>
++                          )}
++                        </S.MyChallengeItemWrapper>
++                      </S.OtherChallengeWrapper>
++                      {challenge.length > 5 ? (
++                          <S.ChallengeTextWrapper>
++                            {challenge.slice(4, 7).map((item, idx) => (
++                                <S.ChallengeText key={idx}>
++                                  <S.ChallengeTextSpan onClick={() => ClickModal(item)}>
++                                    {item.title}, {item.description.slice(0, 10)}...
++                                  </S.ChallengeTextSpan>
++                                  <S.SubTextSpan>{item.category}</S.SubTextSpan>
++                                </S.ChallengeText>
++                            ))}
++                            {challenge.slice(7, 10).map((item, idx) => (
++                                <S.ChallengeText key={idx}>
++                                  <S.ChallengeTextSpan onClick={() => ClickModal(item)}>
++                                    {item.title}, {item.description.slice(0, 10)}...
++                                  </S.ChallengeTextSpan>
++                                  <S.SubTextSpan>{item.category}</S.SubTextSpan>
++                                </S.ChallengeText>
++                            ))}
++                          </S.ChallengeTextWrapper>
++                      ) : (
++                          <></>
++                      )}
++                    </S.MainChallengeComponent>
++                )}
++                {page === "bank" && <Bank />} {/* 계좌 페이지 */}
++                {page === "profile" && <Profile />} {/* 프로필 페이지 */}
++              </S.ChallengeContentWrapper>
++            </S.ChallengeMainWrapper>
++          </S.MainWrapper>
++          <S.SideBarWrapper>
++            <S.SideBarHeaderMainWrapper>
++              <S.SideBarHeader>
++                <S.SideBarHeaderTextWrapper>
++                  <S.SideBarHeaderText>내 챌린지 현황</S.SideBarHeaderText>
++                </S.SideBarHeaderTextWrapper>
++              </S.SideBarHeader>
++              {mychallenge.length === 0 ? (
++                  <S.AccountLogWrapper>
++
++                    <S.UndefinedSpan>가입된 챌린지가 없습니다.</S.UndefinedSpan>
++
++                  </S.AccountLogWrapper>
++              ) : (
++                  <S.AccountLogWrapper>
++                    {mychallenge.map((item, idx) => (
++                        <S.AccountLogItemWrapper key={idx}>
++                          <S.AccountLogProfileWrapper>
++                            <S.AccountLogProfileImg src={item.imageUrl} alt="img" />
++                          </S.AccountLogProfileWrapper>
++                          <S.AccountLogItemDescriptionWrapper>
++                            <S.AccountLogProfileSpan>{item.title}</S.AccountLogProfileSpan>
++                          </S.AccountLogItemDescriptionWrapper>
++                        </S.AccountLogItemWrapper>
++                    ))}
++                  </S.AccountLogWrapper>
++              )}
++            </S.SideBarHeaderMainWrapper>
++          </S.SideBarWrapper>
++          {search === true ? <SearchModal setSearch={setSearch} serch={search}></SearchModal> : <></>}
++          {mymodal === true ? <MyChallengeModal MyRoomData={myroomdata} setModal={setMyModal} modal={mymodal} /> : <></>}
++          {makemodal === true ? <MakeModal ClickMakeModal={ClickMakeModal}></MakeModal> : <></>}
++          {modal === true ? <OtherChallengeModal RoomData={roomdata} setModal={setModal} modal={modal} /> : <></>}
++        </S.Wrapper>
++      </>
+   );
+ };
+ 
+Index: src/pages/home/main/style.ts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import styled from \"styled-components\";\nimport Img from \"src/assets/image 5.png\";\n\nexport const Wrapper = styled.div`\n  width: 100vw;\n  height: 100vh;\n  display: flex;\n  justify-content: space-between;\n`;\n\nexport const MainWrapper = styled.div`\n  width: 80%;\n  height: 100%;\n\n  display: flex;\n\n  flex-direction: column;\n  justify-content: space-between;\n`;\n\nexport const HeaderNav = styled.div`\n  width: 100%;\n  height: 8%;\n  display: flex;\n\n  justify-content: center;\n  align-items: center;\n`;\n\nexport const ChallengeMainWrapper = styled.div`\n  width: 90%;\n  height: 90%;\n  display: flex;\n  padding-left: 5%;\n  padding-right: 5%;\n`;\n\nexport const ChallengeContentWrapper = styled.div`\n  width: 100%;\n  height: auto;\n  display: flex;\n\n  flex-direction: column;\n`;\n\nexport const ChallengeTitleWrapper = styled.div`\n  width: 100%;\n  height: 10%;\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n`;\n\nexport const MyChallengeWrapper = styled.div`\n  width: 100%;\n  height: 38%;\n  display: flex;\n  margin-top: 3%;\n  justify-content: space-between;\n  flex-direction: column;\n`;\n\nexport const MyChallengeSpan = styled.span`\n  font-size: 22px;\n  font-weight: 500;\n`;\n\nexport const MyChallengeItemWrapper = styled.div`\n  width: 100%;\n  height: 100%;\n  display: flex;\n  gap: 1%;\n  align-items: center;\n  overflow-x: auto;\n  overflow-y: hidden;\n  margin-top: 1.5%;\n`;\n\nexport const MyChallenge = styled.div`\n  width: 19%;\n  height: 60%;\n  display: flex;\n  background-color: black;\n  border-radius: 10px;\n  min-width: 230px;\n`;\n\nexport const OtherChallengeWrapper = styled.div`\n  width: 100%;\n  height: 50%;\n  display: flex;\n  justify-content: space-between;\n  flex-direction: column;\n`;\n\nexport const OtherChallenge = styled.div`\n  width: 24%;\n  height: 100%;\n  min-width: 230px;\n  display: flex;\n  border-radius: 10px;\n  flex-direction: column;\n`;\n\nexport const OtherChallengeImgWrapper = styled.img`\n  width: 100%;\n  height: 45%;\n  object-fit: cover;\n  border-radius: 10px;\n`;\n\nexport const OtherChallengeDescriptionWrapper = styled.div`\n  width: 100%;\n  height: 60%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n`;\n\nexport const DescriptionMainWrapper = styled.div`\n  width: 95%;\n  height: 70%;\n  display: flex;\n  flex-direction: column;\n`;\n\nexport const TitleWrapper = styled.div`\n  width: 100%;\n  height: 40%;\n  display: flex;\n  flex-direction: column;\n`;\n\nexport const TitleSpan = styled.span`\n  font-size: 16px;\n`;\n\nexport const ContentWrapper = styled.div`\n  width: 100%;\n  height: auto;\n  display: flex;\n  align-items: center;\n\n  justify-content: space-between;\n  font-size: 14px;\n`;\n\nexport const CategorrySpanWrapper = styled.div`\n  width: 18%;\n  height: 80%;\n  align-items: center;\n  display: flex;\n  justify-content: space-between;\n`;\n\nexport const CategorrySpan = styled.button<{ clicked: boolean }>`\n  font-size: 26px;\n  font-weight: 700;\n  border: none;\n  background-color: white;\n  color: ${({ clicked }) => (clicked === true ? \"black\" : \"#aeaeae\")};\n`;\n\nexport const SideBarWrapper = styled.div`\n  width: 20%;\n  height: auto;\n  display: flex;\n  flex-direction: column;\n  border-left: 1px solid #dddddd;\n  background-color: #f5f5f5;\n  align-items: center;\n`;\n\nexport const SideBarHeader = styled.div`\n  width: 100%;\n  height: 7%;\n  display: flex;\n  border-bottom: 1px solid #dddddd;\n  align-items: center;\n  justify-content: center;\n`;\n\nexport const SideBarHeaderMainWrapper = styled.div`\n  width: 90%;\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n`;\n\nexport const SideBarHeaderTextWrapper = styled.div`\n  width: 100%;\n  height: 100%;\n  display: flex;\n  align-items: center;\n`;\nexport const SideBarHeaderText = styled.span`\n  font-size: 18px;\n  font-weight: 600;\n  color: #333d4b;\n`;\n\nexport const AccountLogWrapper = styled.div`\n  width: 100%;\n  height: 85%;\n  display: flex;\n\n  flex-direction: column;\n  margin-top: 10%;\n`;\n\nexport const AccountLogItemWrapper = styled.div`\n  width: 100%;\n  height: 20%;\n  background-color: #fff;\n  display: flex;\n  border-radius: 10px;\n  transition: background-color 0.3s ease;\n  &:hover {\n    background-color: #eaecef;\n  }\n  justify-content: space-around;\n`;\n\nexport const AccountLogProfileWrapper = styled.div`\n  width: 10%;\n  height: 100%;\n  word-break: normal;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n`;\n\nexport const AccountLogProfileImg = styled.img`\n  width: 40px;\n  height: 40px;\n  border-radius: 100px;\n  object-fit: cover;\n  background-color: #aeaeae;\n`;\n\nexport const AccountLogProfileSpan = styled.span`\n  font-size: 13px;\n`;\nexport const AccountLogItemDescriptionWrapper = styled.div`\n  width: 60%;\n  height: 100%;\n\n  align-items: center;\n  display: flex;\n  justify-content: space-between;\n  flex-direction: row-reverse;\n`;\n\nexport const AccountLogSpan = styled.span`\n  font-size: 13px;\n`;\n\nexport const CategoryWrapper = styled.div`\n  width: 100%;\n  height: 30%;\n  display: flex;\n\n  margin-top: 3%;\n`;\n\nexport const RoomTypeWrapper = styled.div`\n  width: 20%;\n  height: 25%;\n  display: flex;\n  border-radius: 5px;\n  align-items: center;\n  justify-content: center;\n`;\n\nexport const MainChallengeComponent = styled.div`\n  width: 100%;\n  height: 80%;\n  display: flex;\n\n  flex-direction: column;\n  justify-content: space-between;\n  margin-top: 2%;\n`;\n\nexport const DisCountWrapper = styled.div`\n  display: flex;\n  width: 45%;\n  height: 100%;\n\n  flex-direction: column;\n`;\n\nexport const MyChallengeContentWrapper = styled.div`\n  width: 24%;\n  height: 100%;\n  min-width: 230px;\n  display: flex;\n  border-radius: 10px;\n  flex-direction: column;\n  justify-content: space-between;\n`;\n\nexport const MyChallengeImgWrapper = styled.div`\n  width: 100%;\n  height: 70%;\n  border-radius: 10px;\n  display: flex;\n`;\n\nexport const MyChallengeImg = styled.img`\n  width: 100%;\n  height: 100%;\n  border-radius: 10px;\n`;\n\nexport const BlurOveray = styled.div`\n  display: flex;\n  position: absolute;\n  width: 17.2%;\n  height: 16.1%;\n  border-radius: 10px;\n  justify-content: center;\n  align-items: center;\n  background: linear-gradient(3deg, rgba(0, 0, 0, 0.64) 3.49%, rgba(102, 102, 102, 0) 84.55%);\n`;\n\nexport const BlurMainWrapper = styled.div`\n  display: flex;\n  flex-direction: column-reverse;\n  width: 90%;\n  height: 80%;\n`;\n\nexport const BlurSpan = styled.span`\n  color: white;\n  font-size: 16px;\n`;\n\nexport const SearchWrapper = styled.div`\n  width: 30%;\n  height: 60%;\n`;\n\nexport const SearchInput = styled.input`\n  width: 90%;\n  height: 100%;\n  border-radius: 2rem;\n  border: none;\n  background-color: rgba(2, 32, 71, 0.09);\n  padding-left: 10%;\n`;\n\nexport const MysteryBox = styled.div`\n  width: 10%;\n  height: 100%;\n`;\n\nexport const HeaderContentWrapper = styled.div`\n  width: 97%;\n  height: 100%;\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n`;\n\nexport const SkelethoneBox = styled.div`\n  width: 100%;\n  height: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n\n  border-radius: 10px;\n`;\n\nexport const ChallengeTextWrapper = styled.div`\n  width: 100%;\n  height: 100px;\n  display: flex;\n\n  justify-content: space-between;\n  flex-wrap: wrap;\n`;\n\nexport const ChallengeText = styled.div`\n  width: 49%;\n  height: auto;\n  display: flex;\n  text-align: center;\n`;\n\nexport const ChallengeTextSpan = styled.span`\n  font-size: 14px;\n  color: #333d4b;\n  margin-right: 2%;\n`;\n\nexport const SubTextSpan = styled.span`\n  font-size: 12px;\n  color: #aeaeae;\n`;\n\nexport const Footer = styled.div`\n  width: 100%;\n  height: 400px;\n  background-color: #fff;\n`;\n\nexport const AccountUndefined = styled.div`\n  width: 100%;\n  height: 100%;\n  display: flex;\n  background-color: #c7c7c7;\n  align-items: center;\n  justify-content: center;\n  border-radius: 1rem;\n`;\n\nexport const UndefinedSpan = styled.div`\n  font-family: \"pretendard\";\n  font-weight: 600;\n`;\n\nexport const CateGorry = styled.div`\n  width: 30%;\n  height: 100%;\n  background-color: #6b7684;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n`;\n\nexport const RoomType = styled.div`\n  height: 100%;\n  width: 30%;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  background-color: blue;\n`;\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/pages/home/main/style.ts b/src/pages/home/main/style.ts
+--- a/src/pages/home/main/style.ts	(revision 225a9dc5e972bcd8cfec1364e0689749fff6e69a)
++++ b/src/pages/home/main/style.ts	(date 1729044144776)
+@@ -2,439 +2,439 @@
+ import Img from "src/assets/image 5.png";
+ 
+ export const Wrapper = styled.div`
+-  width: 100vw;
+-  height: 100vh;
+-  display: flex;
+-  justify-content: space-between;
++    width: 100vw;
++    height: 100vh;
++    display: flex;
++    justify-content: space-between;
+ `;
+ 
+ export const MainWrapper = styled.div`
+-  width: 80%;
+-  height: 100%;
++    width: 80%;
++    height: 100%;
+ 
+-  display: flex;
++    display: flex;
+ 
+-  flex-direction: column;
+-  justify-content: space-between;
++    flex-direction: column;
++    justify-content: space-between;
+ `;
+ 
+ export const HeaderNav = styled.div`
+-  width: 100%;
+-  height: 8%;
+-  display: flex;
++    width: 100%;
++    height: 8%;
++    display: flex;
+ 
+-  justify-content: center;
+-  align-items: center;
++    justify-content: center;
++    align-items: center;
+ `;
+ 
+ export const ChallengeMainWrapper = styled.div`
+-  width: 90%;
+-  height: 90%;
+-  display: flex;
+-  padding-left: 5%;
+-  padding-right: 5%;
++    width: 90%;
++    height: 90%;
++    display: flex;
++    padding-left: 5%;
++    padding-right: 5%;
+ `;
+ 
+ export const ChallengeContentWrapper = styled.div`
+-  width: 100%;
+-  height: auto;
+-  display: flex;
++    width: 100%;
++    height: auto;
++    display: flex;
+ 
+-  flex-direction: column;
++    flex-direction: column;
+ `;
+ 
+ export const ChallengeTitleWrapper = styled.div`
+-  width: 100%;
+-  height: 10%;
+-  display: flex;
+-  align-items: center;
+-  justify-content: space-between;
++    width: 100%;
++    height: 10%;
++    display: flex;
++    align-items: center;
++    justify-content: space-between;
+ `;
+ 
+ export const MyChallengeWrapper = styled.div`
+-  width: 100%;
+-  height: 38%;
+-  display: flex;
+-  margin-top: 3%;
+-  justify-content: space-between;
+-  flex-direction: column;
++    width: 100%;
++    height: 38%;
++    display: flex;
++    margin-top: 3%;
++    justify-content: space-between;
++    flex-direction: column;
+ `;
+ 
+ export const MyChallengeSpan = styled.span`
+-  font-size: 22px;
+-  font-weight: 500;
++    font-size: 22px;
++    font-weight: 500;
+ `;
+ 
+ export const MyChallengeItemWrapper = styled.div`
+-  width: 100%;
+-  height: 100%;
+-  display: flex;
+-  gap: 1%;
+-  align-items: center;
+-  overflow-x: auto;
+-  overflow-y: hidden;
+-  margin-top: 1.5%;
++    width: 100%;
++    height: 100%;
++    display: flex;
++    gap: 1%;
++    align-items: center;
++    overflow-x: auto;
++    overflow-y: hidden;
++    margin-top: 1.5%;
+ `;
+ 
+ export const MyChallenge = styled.div`
+-  width: 19%;
+-  height: 60%;
+-  display: flex;
+-  background-color: black;
+-  border-radius: 10px;
+-  min-width: 230px;
++    width: 19%;
++    height: 60%;
++    display: flex;
++    background-color: black;
++    border-radius: 10px;
++    min-width: 230px;
+ `;
+ 
+ export const OtherChallengeWrapper = styled.div`
+-  width: 100%;
+-  height: 50%;
+-  display: flex;
+-  justify-content: space-between;
+-  flex-direction: column;
++    width: 100%;
++    height: 50%;
++    display: flex;
++    justify-content: space-between;
++    flex-direction: column;
+ `;
+ 
+ export const OtherChallenge = styled.div`
+-  width: 24%;
+-  height: 100%;
+-  min-width: 230px;
+-  display: flex;
+-  border-radius: 10px;
+-  flex-direction: column;
++    width: 24%;
++    height: 100%;
++    min-width: 230px;
++    display: flex;
++    border-radius: 10px;
++    flex-direction: column;
+ `;
+ 
+ export const OtherChallengeImgWrapper = styled.img`
+-  width: 100%;
+-  height: 45%;
+-  object-fit: cover;
+-  border-radius: 10px;
++    width: 100%;
++    height: 45%;
++    object-fit: cover;
++    border-radius: 10px;
+ `;
+ 
+ export const OtherChallengeDescriptionWrapper = styled.div`
+-  width: 100%;
+-  height: 60%;
+-  display: flex;
+-  justify-content: center;
+-  align-items: center;
++    width: 100%;
++    height: 60%;
++    display: flex;
++    justify-content: center;
++    align-items: center;
+ `;
+ 
+ export const DescriptionMainWrapper = styled.div`
+-  width: 95%;
+-  height: 70%;
+-  display: flex;
+-  flex-direction: column;
++    width: 95%;
++    height: 70%;
++    display: flex;
++    flex-direction: column;
+ `;
+ 
+ export const TitleWrapper = styled.div`
+-  width: 100%;
+-  height: 40%;
+-  display: flex;
+-  flex-direction: column;
++    width: 100%;
++    height: 40%;
++    display: flex;
++    flex-direction: column;
+ `;
+ 
+ export const TitleSpan = styled.span`
+-  font-size: 16px;
++    font-size: 16px;
+ `;
+ 
+ export const ContentWrapper = styled.div`
+-  width: 100%;
+-  height: auto;
+-  display: flex;
+-  align-items: center;
++    width: 100%;
++    height: auto;
++    display: flex;
++    align-items: center;
+ 
+-  justify-content: space-between;
+-  font-size: 14px;
++    justify-content: space-between;
++    font-size: 14px;
+ `;
+ 
+ export const CategorrySpanWrapper = styled.div`
+-  width: 18%;
+-  height: 80%;
+-  align-items: center;
+-  display: flex;
+-  justify-content: space-between;
++    width: 18%;
++    height: 80%;
++    align-items: center;
++    display: flex;
++    justify-content: space-between;
+ `;
+ 
+ export const CategorrySpan = styled.button<{ clicked: boolean }>`
+-  font-size: 26px;
+-  font-weight: 700;
+-  border: none;
+-  background-color: white;
+-  color: ${({ clicked }) => (clicked === true ? "black" : "#aeaeae")};
++    font-size: 26px;
++    font-weight: 700;
++    border: none;
++    background-color: white;
++    color: ${({ clicked }) => (clicked === true ? "black" : "#aeaeae")};
+ `;
+ 
+ export const SideBarWrapper = styled.div`
+-  width: 20%;
+-  height: auto;
+-  display: flex;
+-  flex-direction: column;
+-  border-left: 1px solid #dddddd;
+-  background-color: #f5f5f5;
+-  align-items: center;
++    width: 20%;
++    height: auto;
++    display: flex;
++    flex-direction: column;
++    border-left: 1px solid #dddddd;
++    background-color: #f5f5f5;
++    align-items: center;
+ `;
+ 
+ export const SideBarHeader = styled.div`
+-  width: 100%;
+-  height: 7%;
+-  display: flex;
+-  border-bottom: 1px solid #dddddd;
+-  align-items: center;
+-  justify-content: center;
++    width: 100%;
++    height: 7%;
++    display: flex;
++    border-bottom: 1px solid #dddddd;
++    align-items: center;
++    justify-content: center;
+ `;
+ 
+ export const SideBarHeaderMainWrapper = styled.div`
+-  width: 90%;
+-  height: 100%;
+-  display: flex;
+-  flex-direction: column;
++    width: 90%;
++    height: 100%;
++    display: flex;
++    flex-direction: column;
+ `;
+ 
+ export const SideBarHeaderTextWrapper = styled.div`
+-  width: 100%;
+-  height: 100%;
+-  display: flex;
+-  align-items: center;
++    width: 100%;
++    height: 100%;
++    display: flex;
++    align-items: center;
+ `;
+ export const SideBarHeaderText = styled.span`
+-  font-size: 18px;
+-  font-weight: 600;
+-  color: #333d4b;
++    font-size: 18px;
++    font-weight: 600;
++    color: #333d4b;
+ `;
+ 
+ export const AccountLogWrapper = styled.div`
+-  width: 100%;
+-  height: 85%;
+-  display: flex;
++    width: 100%;
++    height: 85%;
++    display: flex;
+ 
+-  flex-direction: column;
+-  margin-top: 10%;
++    flex-direction: column;
++    margin-top: 10%;
+ `;
+ 
+ export const AccountLogItemWrapper = styled.div`
+-  width: 100%;
+-  height: 20%;
+-  background-color: #fff;
+-  display: flex;
+-  border-radius: 10px;
+-  transition: background-color 0.3s ease;
+-  &:hover {
+-    background-color: #eaecef;
+-  }
+-  justify-content: space-around;
++    width: 100%;
++    height: 20%;
++    background-color: #fff;
++    display: flex;
++    border-radius: 10px;
++    transition: background-color 0.3s ease;
++    &:hover {
++        background-color: #eaecef;
++    }
++    justify-content: space-around;
+ `;
+ 
+ export const AccountLogProfileWrapper = styled.div`
+-  width: 10%;
+-  height: 100%;
+-  word-break: normal;
+-  display: flex;
+-  justify-content: space-between;
+-  align-items: center;
++    width: 10%;
++    height: 100%;
++    word-break: normal;
++    display: flex;
++    justify-content: space-between;
++    align-items: center;
+ `;
+ 
+ export const AccountLogProfileImg = styled.img`
+-  width: 40px;
+-  height: 40px;
+-  border-radius: 100px;
+-  object-fit: cover;
+-  background-color: #aeaeae;
++    width: 40px;
++    height: 40px;
++    border-radius: 100px;
++    object-fit: cover;
++    background-color: #aeaeae;
+ `;
+ 
+ export const AccountLogProfileSpan = styled.span`
+-  font-size: 13px;
++    font-size: 13px;
+ `;
+ export const AccountLogItemDescriptionWrapper = styled.div`
+-  width: 60%;
+-  height: 100%;
++    width: 60%;
++    height: 100%;
+ 
+-  align-items: center;
+-  display: flex;
+-  justify-content: space-between;
+-  flex-direction: row-reverse;
++    align-items: center;
++    display: flex;
++    justify-content: space-between;
++    flex-direction: row-reverse;
+ `;
+ 
+ export const AccountLogSpan = styled.span`
+-  font-size: 13px;
++    font-size: 13px;
+ `;
+ 
+ export const CategoryWrapper = styled.div`
+-  width: 100%;
+-  height: 30%;
+-  display: flex;
++    width: 100%;
++    height: 30%;
++    display: flex;
+ 
+-  margin-top: 3%;
++    margin-top: 3%;
+ `;
+ 
+ export const RoomTypeWrapper = styled.div`
+-  width: 20%;
+-  height: 25%;
+-  display: flex;
+-  border-radius: 5px;
+-  align-items: center;
+-  justify-content: center;
++    width: 20%;
++    height: 25%;
++    display: flex;
++    border-radius: 5px;
++    align-items: center;
++    justify-content: center;
+ `;
+ 
+ export const MainChallengeComponent = styled.div`
+-  width: 100%;
+-  height: 80%;
+-  display: flex;
++    width: 100%;
++    height: 80%;
++    display: flex;
+ 
+-  flex-direction: column;
+-  justify-content: space-between;
+-  margin-top: 2%;
++    flex-direction: column;
++    justify-content: space-between;
++    margin-top: 2%;
+ `;
+ 
+ export const DisCountWrapper = styled.div`
+-  display: flex;
+-  width: 45%;
+-  height: 100%;
++    display: flex;
++    width: 45%;
++    height: 100%;
+ 
+-  flex-direction: column;
++    flex-direction: column;
+ `;
+ 
+ export const MyChallengeContentWrapper = styled.div`
+-  width: 24%;
+-  height: 100%;
+-  min-width: 230px;
+-  display: flex;
+-  border-radius: 10px;
+-  flex-direction: column;
+-  justify-content: space-between;
++    width: 24%;
++    height: 100%;
++    min-width: 230px;
++    display: flex;
++    border-radius: 10px;
++    flex-direction: column;
++    justify-content: space-between;
+ `;
+ 
+ export const MyChallengeImgWrapper = styled.div`
+-  width: 100%;
+-  height: 70%;
+-  border-radius: 10px;
+-  display: flex;
++    width: 100%;
++    height: 70%;
++    border-radius: 10px;
++    display: flex;
+ `;
+ 
+ export const MyChallengeImg = styled.img`
+-  width: 100%;
+-  height: 100%;
+-  border-radius: 10px;
++    width: 100%;
++    height: 100%;
++    border-radius: 10px;
+ `;
+ 
+ export const BlurOveray = styled.div`
+-  display: flex;
+-  position: absolute;
+-  width: 17.2%;
+-  height: 16.1%;
+-  border-radius: 10px;
+-  justify-content: center;
+-  align-items: center;
+-  background: linear-gradient(3deg, rgba(0, 0, 0, 0.64) 3.49%, rgba(102, 102, 102, 0) 84.55%);
++    display: flex;
++    position: absolute;
++    width: 17.2%;
++    height: 16.1%;
++    border-radius: 10px;
++    justify-content: center;
++    align-items: center;
++    background: linear-gradient(3deg, rgba(0, 0, 0, 0.64) 3.49%, rgba(102, 102, 102, 0) 84.55%);
+ `;
+ 
+ export const BlurMainWrapper = styled.div`
+-  display: flex;
+-  flex-direction: column-reverse;
+-  width: 90%;
+-  height: 80%;
++    display: flex;
++    flex-direction: column-reverse;
++    width: 90%;
++    height: 80%;
+ `;
+ 
+ export const BlurSpan = styled.span`
+-  color: white;
+-  font-size: 16px;
++    color: white;
++    font-size: 16px;
+ `;
+ 
+ export const SearchWrapper = styled.div`
+-  width: 30%;
+-  height: 60%;
++    width: 30%;
++    height: 60%;
+ `;
+ 
+ export const SearchInput = styled.input`
+-  width: 90%;
+-  height: 100%;
+-  border-radius: 2rem;
+-  border: none;
+-  background-color: rgba(2, 32, 71, 0.09);
+-  padding-left: 10%;
++    width: 90%;
++    height: 100%;
++    border-radius: 2rem;
++    border: none;
++    background-color: rgba(2, 32, 71, 0.09);
++    padding-left: 10%;
+ `;
+ 
+ export const MysteryBox = styled.div`
+-  width: 10%;
+-  height: 100%;
++    width: 10%;
++    height: 100%;
+ `;
+ 
+ export const HeaderContentWrapper = styled.div`
+-  width: 97%;
+-  height: 100%;
+-  display: flex;
+-  align-items: center;
+-  justify-content: space-between;
++    width: 97%;
++    height: 100%;
++    display: flex;
++    align-items: center;
++    justify-content: space-between;
+ `;
+ 
+ export const SkelethoneBox = styled.div`
+-  width: 100%;
+-  height: 100%;
+-  display: flex;
+-  justify-content: center;
+-  align-items: center;
++    width: 100%;
++    height: 100%;
++    display: flex;
++    justify-content: center;
++    align-items: center;
+ 
+-  border-radius: 10px;
++    border-radius: 10px;
+ `;
+ 
+ export const ChallengeTextWrapper = styled.div`
+-  width: 100%;
+-  height: 100px;
+-  display: flex;
++    width: 100%;
++    height: 100px;
++    display: flex;
+ 
+-  justify-content: space-between;
+-  flex-wrap: wrap;
++    justify-content: space-between;
++    flex-wrap: wrap;
+ `;
+ 
+ export const ChallengeText = styled.div`
+-  width: 49%;
+-  height: auto;
+-  display: flex;
+-  text-align: center;
++    width: 49%;
++    height: auto;
++    display: flex;
++    text-align: center;
+ `;
+ 
+ export const ChallengeTextSpan = styled.span`
+-  font-size: 14px;
+-  color: #333d4b;
+-  margin-right: 2%;
++    font-size: 14px;
++    color: #333d4b;
++    margin-right: 2%;
+ `;
+ 
+ export const SubTextSpan = styled.span`
+-  font-size: 12px;
+-  color: #aeaeae;
++    font-size: 12px;
++    color: #aeaeae;
+ `;
+ 
+ export const Footer = styled.div`
+-  width: 100%;
+-  height: 400px;
+-  background-color: #fff;
++    width: 100%;
++    height: 400px;
++    background-color: #fff;
+ `;
+ 
+ export const AccountUndefined = styled.div`
+-  width: 100%;
+-  height: 100%;
+-  display: flex;
+-  background-color: #c7c7c7;
+-  align-items: center;
+-  justify-content: center;
+-  border-radius: 1rem;
++    width: 100%;
++    height: 100%;
++    display: flex;
++    background-color: #c7c7c7;
++    align-items: center;
++    justify-content: center;
++    border-radius: 1rem;
+ `;
+ 
+ export const UndefinedSpan = styled.div`
+-  font-family: "pretendard";
+-  font-weight: 600;
++    font-family: "pretendard";
++    font-weight: 600;
+ `;
+ 
+ export const CateGorry = styled.div`
+-  width: 30%;
+-  height: 100%;
+-  background-color: #6b7684;
+-  display: flex;
+-  align-items: center;
+-  justify-content: center;
++    width: 30%;
++    height: 100%;
++    background-color: #6b7684;
++    display: flex;
++    align-items: center;
++    justify-content: center;
+ `;
+ 
+ export const RoomType = styled.div`
+-  height: 100%;
+-  width: 30%;
+-  display: flex;
+-  align-items: center;
+-  justify-content: center;
+-  background-color: blue;
+-`;
++    height: 100%;
++    width: 30%;
++    display: flex;
++    align-items: center;
++    justify-content: center;
++    background-color: blue;
++`;
+\ No newline at end of file

@@ -1,128 +1,132 @@
-import { useState, useEffect } from 'react';
-import axios, { AxiosError } from 'axios';
-import Cookies from 'js-cookie';
-import CONFIG from 'src/config/config.json';
-import { ProductRegistrationProps } from 'src/type/productRegistration.types';
-
-interface APIErrorResponse {
-    message: string;
-}
+import { useState, useEffect } from "react";
+import axios from "axios";
+import Cookies from "js-cookie";
+import { ProductRegistrationProps } from "src/type/productRegistration.types";
+import CONFIG from "src/config/config.json";
 
 const useProductRegistration = () => {
-    const [productData, setProductData] = useState<ProductRegistrationProps>({
+    const [products, setProducts] = useState<ProductRegistrationProps>({
         name: "",
         description: "",
         price: 0,
         discount: 0,
-        imageUrl: ""
+        imageUrl: "",
     });
 
-    const [discountPercentage, setDiscountPercentage] = useState<number>(0);
-    const [token, setToken] = useState<string | undefined>(undefined);
+    const [status, setStatus] = useState<number | null>(null);
+    const [message, setMessage] = useState<string>("");
+    const [discountRate, setDiscountRate] = useState<number>(0); // 할인율 상태 추가
 
+    // 할인률 계산
     useEffect(() => {
-        const storedToken = Cookies.get("token");
-        setToken(storedToken);
-    }, []);
-
-    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files?.[0];
-        if (file) {
-            setProductData((prevData) => ({
-                ...prevData,
-                imageUrl: URL.createObjectURL(file),
-            }));
+        if (products.price > 0 && products.discount > 0) {
+            const rate = ((products.price - products.discount) / products.price) * 100;
+            setDiscountRate(rate);
+        } else {
+            setDiscountRate(0);
         }
-    };
+    }, [products.price, products.discount]);
 
-    const removeImage = () => {
-        setProductData((prevData) => ({
-            ...prevData,
-            imageUrl: '',
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const { name, value } = e.target;
+        setProducts((prev) => ({
+            ...prev,
+            [name]: name === "price" || name === "discount" ? Number(value) : value,
         }));
     };
 
-    useEffect(() => {
-        if (productData.price > 0 && productData.discount > 0) {
-            const calculatedDiscountPercentage = ((productData.price - productData.discount) / productData.price) * 100;
-            setDiscountPercentage(parseFloat(calculatedDiscountPercentage.toFixed(2)));
-        }
-    }, [productData.price, productData.discount]);
-
-    const productPost = async (data: ProductRegistrationProps) => {
-        if (!data.name || !data.description || data.price <= 0 || data.discount <= 0 || !data.imageUrl) {
-            window.alert("모든 정보를 정확하게 입력해주세요.");
+    const registerProduct = (imageFile: File | null) => {
+        if (!imageFile) {
+            setMessage("이미지를 선택해 주세요.");
             return;
         }
 
-        const token = Cookies.get("token");
-        if (!token) {
-            window.alert("인증되지 않은 사용자입니다. 로그인 해주세요.");
-            return;
-        }
+        const formData = new FormData();
+        formData.append("image", imageFile);
 
-        try {
-            const formData = new FormData();
-            formData.append('name', data.name);
-            formData.append('description', data.description);
-            formData.append('price', data.price.toString());
-            formData.append('discount', data.discount.toString());
+        axios.post(`${CONFIG.serverUrl}/s3`, formData, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+                "Authorization": `Bearer ${Cookies.get('accessToken')}`,
+            },
+        })
+            .then((imageResponse) => {
+                const imageUrl = imageResponse.data.url;
 
-            // 이미지 파일 추가
-            const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
-            const file = fileInput?.files?.[0];
-            if (file) {
-                formData.append('image', file);
-            } else {
-                window.alert("이미지를 선택해 주세요.");
-                return;
-            }
+                const productData = {
+                    ...products,
+                    image: imageUrl,
+                };
 
-            const response = await axios.post(`${CONFIG.serverUrl}/product`, formData, {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                    "Authorization": `Bearer ${token}`
+                return axios.post(`${CONFIG.serverUrl}/product`, productData, {
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${Cookies.get('accessToken')}`,
+                    },
+                });
+            })
+            .then((response) => {
+                setStatus(response.status);
+                setMessage(response.data.message);
+
+                if (response.status === 201) {
+                    setProducts({
+                        name: "",
+                        description: "",
+                        price: 0,
+                        discount: 0,
+                        imageUrl: "",
+                    });
                 }
-            });
-
-            window.alert("제품이 성공적으로 등록되었습니다.");
-
-            setProductData({
-                name: "",
-                description: "",
-                price: 0,
-                discount: 0,
-                imageUrl: "",
-            });
-
-            setDiscountPercentage(0);
-
-            return response.data;
-        } catch (error) {
-            const axiosError = error as AxiosError<APIErrorResponse>;
-
-            if (axiosError.response) {
-                console.error('Response error:', axiosError.response.data);
-                if (axiosError.response.status === 401) {
-                    window.alert("인증 실패. 다시 로그인 해주세요.");
+            })
+            .catch((error) => {
+                if (axios.isAxiosError(error)) {
+                    setStatus(error.response?.status || 500);
+                    setMessage(error.response?.data.message || "제품 등록에 실패했습니다.");
                 } else {
-                    window.alert("오류 발생: " + axiosError.response.data.message);
+                    console.error("Error registering product:", error);
+                    setStatus(500);
+                    setMessage("제품 등록에 실패했습니다.");
                 }
-            } else {
-                console.error('Request error:', error);
-                window.alert("서버와의 통신에 문제가 발생했습니다.");
-            }
-            throw error;
+            });
+    };
+
+    const deleteImage = (imageUrl: string) => {
+        if (!imageUrl) {
+            setMessage("삭제할 이미지 URL이 필요합니다.");
+            return;
         }
+
+        axios.delete(`${CONFIG.serverUrl}/s3`, {
+            params: { imageUrl },
+            headers: {
+                "Authorization": `Bearer ${Cookies.get('accessToken')}`,
+            },
+        })
+            .then((response) => {
+                setStatus(response.status);
+                setMessage(response.data.message);
+            })
+            .catch((error) => {
+                if (axios.isAxiosError(error)) {
+                    setStatus(error.response?.status || 500);
+                    setMessage(error.response?.data.message || "이미지 삭제에 실패했습니다.");
+                } else {
+                    console.error("Error deleting image:", error);
+                    setStatus(500);
+                    setMessage("이미지 삭제에 실패했습니다.");
+                }
+            });
     };
 
     return {
-        productData,
-        setProductData,
-        productPost,
-        discountPercentage,
-        handleImageChange,
-        removeImage,
+        products,
+        handleChange,
+        registerProduct,
+        deleteImage,
+        discountRate, // 할인율 반환
+        status,
+        message,
     };
 };
 
