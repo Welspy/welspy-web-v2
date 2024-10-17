@@ -38,6 +38,7 @@ export const ImgWrapper = styled.div`
 
 export const ProductImgInput = styled.input`
     //width: 100%;
+    display: none;
     height: 80%;
     padding: 10px;
     margin: 10px 0;
@@ -47,7 +48,7 @@ export const ProductImgInput = styled.input`
 
 export const ProductInputWrapper = styled.div`
     width: 100%;
-    margin: 10px 0;
+    margin: 0 10px;
 `;
 export const ProductRegistrationInputWrapper = styled.div`
     display: flex;
@@ -59,6 +60,8 @@ export const TitleInput = styled.input`
     margin: 10px 0;
     border: 1px solid #ccc;
     border-radius: 5px;
+    font-family: 'pretendard';
+    font-weight: 500;
 `;
 
 export const ProductDescriptionInput = styled.textarea`
@@ -69,6 +72,8 @@ export const ProductDescriptionInput = styled.textarea`
     border-radius: 5px;
     resize: none;
     height: 60px;
+    font-family: 'pretendard';
+    font-weight: 500;
 `;
 
 export const PriceInputWrapper = styled.div`
@@ -86,7 +91,8 @@ export const PriceInput = styled.input`
     margin: 10px 0;
     border: 1px solid #ccc;
     border-radius: 5px;
-
+    font-family: 'pretendard';
+    font-weight: 500;
     @media (max-width: 600px) {
         width: 100%;
         margin-bottom: 10px;
@@ -95,22 +101,21 @@ export const PriceInput = styled.input`
 
 export const SubmitButton = styled.button`
     width: 100%;
-    padding: 10px;
+    padding: 15px 10px;
     margin-top: 20px;
     border: none;
     border-radius: 5px;
-    background-color: black;
+    background-color: #446FB6;
     color: white;
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s;
-
+    font-family: 'pretendard';
+    font-weight: 500;
     &:hover {
-        background-color: #444;
+        background-color: #375992;
     }
 `;
-
-// 기존 스타일에 추가
 
 export const PreviewImage = styled.img`
     width: 100%;
@@ -135,3 +140,44 @@ export const DeleteButton = styled.button`
         background-color: darkred;
     }
 `;
+
+export const ImageWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    //height: 80%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+`;
+
+export const CustomButton = styled.label`
+    display: inline-block;
+    padding: 15px 20px;
+    background-color: #5B94F3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    font-family: 'pretendard';
+    font-weight: 500;
+
+    &:hover {
+        background-color: #5285DB;
+    }
+`;
+
+export const SetDiscountRate = styled.p`
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    font-size: 20px;
+    font-family: 'pretendard';
+    font-weight: 500;
+`

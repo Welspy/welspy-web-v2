@@ -43,7 +43,6 @@ const Home = () => {
     };
 
     const ClickProductModal = () => {
-        console.log("click ProductModal")
         setProductModal(!productmodal);
     }
 
@@ -79,7 +78,7 @@ const Home = () => {
                             <S.SearchWrapper>
                                 <S.SearchInput onClick={ClickSearchModal} placeholder="원하는 챌린지를 검색하세요"/>
                             </S.SearchWrapper>
-                            <button onClick={ClickProductModal}>제품 등록하기</button>
+                            <S.ProductRegistrationButton onClick={ClickProductModal}>제품 등록하기</S.ProductRegistrationButton>
                         </S.HeaderContentWrapper>
                     </S.HeaderNav>
                     <S.ChallengeMainWrapper>
@@ -99,7 +98,7 @@ const Home = () => {
                                         프로필
                                     </S.CategorrySpan>
                                 </S.CategorrySpanWrapper>
-                                <button onClick={ClickMakeModal}>챌린지 생성하기</button>
+                                {/*<button onClick={ClickMakeModal}>챌린지 생성하기</button>*/}
                             </S.ChallengeTitleWrapper>
                             {page === "main" && (
                                 <S.MainChallengeComponent>

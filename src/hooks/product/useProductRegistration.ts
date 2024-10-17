@@ -15,13 +15,13 @@ const useProductRegistration = () => {
 
     const [status, setStatus] = useState<number | null>(null);
     const [message, setMessage] = useState<string>("");
-    const [discountRate, setDiscountRate] = useState<number>(0); // 할인율 상태 추가
+    const [discountRate, setDiscountRate] = useState<number>(0);
 
     // 할인률 계산
     useEffect(() => {
         if (products.price > 0 && products.discount > 0) {
             const rate = ((products.price - products.discount) / products.price) * 100;
-            setDiscountRate(rate);
+            setDiscountRate(Math.floor(rate));
         } else {
             setDiscountRate(0);
         }
@@ -55,7 +55,7 @@ const useProductRegistration = () => {
 
                 const productData = {
                     ...products,
-                    image: imageUrl,
+                    imageUrl, // 수정: imageUrl에 저장
                 };
 
                 return axios.post(`${CONFIG.serverUrl}/product`, productData, {
@@ -124,7 +124,7 @@ const useProductRegistration = () => {
         handleChange,
         registerProduct,
         deleteImage,
-        discountRate, // 할인율 반환
+        discountRate,
         status,
         message,
     };

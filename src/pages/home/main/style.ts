@@ -425,3 +425,33 @@ export const UndefinedSpan = styled.div`
   font-family: "pretendard";
   font-weight: 600;
 `;
+
+export const ProductRegistrationButton = styled.button`
+    border-radius: 10px;
+    background-color: #5B94F3;
+    padding: 15px 20px;
+    border: none;
+    font-family: "pretendard";
+    font-weight: 500;
+    color: white;
+`
+
+export const CustomButton = styled.label`
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #4CAF50; /* 버튼 배경 색상 */
+    color: white; /* 텍스트 색상 */
+    border: none;
+    border-radius: 5px; /* 둥근 모서리 */
+    cursor: pointer;
+    text-align: center;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    flex-direction: column; /* 수직 정렬 */
+    align-items: center; /* 가로 중앙 정렬 */
+    justify-content: center; /* 세로 중앙 정렬 */
+
+    &:hover {
+        background-color: #45a049; /* 호버 시 색상 변화 */
+    }
+`;
