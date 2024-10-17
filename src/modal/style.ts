@@ -46,6 +46,7 @@ export const MainContentWrapper = styled.div`
   width: 85%;
   height: auto;
 
+
   display: flex;
 
   align-self: center;
@@ -109,27 +110,25 @@ export const ChallengeImgWrapper = styled.img`
 export const ChallengeContentWrapper = styled.div`
   display: flex;
   width: 70%;
-  height: 18%;
-
+  height: 350px;
+  justify-content :space-between;
   align-self: center;
   align-items: center;
-  justify-content: center;
+
 `;
 
 export const ChallengeContentMainWrapper = styled.div`
   width: 100%;
-  height: 100px;
+  height: 80%;
   display: flex;
-
+  justify-content: space-between;
   flex-direction: column;
 `;
 
 export const GoalMoneyWrapper = styled.div`
   width: 100%;
   height: 30%;
-
   display: flex;
-  margin-bottom: 5%;
   justify-content: center;
 `;
 
@@ -150,8 +149,9 @@ export const DescriptionWrapper = styled.div`
   width: 100%;
   height: auto;
   display: flex;
-
   justify-content: center;
+  
+ 
 `;
 
 export const DescriptionSpan = styled.span`
@@ -161,12 +161,11 @@ export const DescriptionSpan = styled.span`
 
 export const ChallengeButtonWrapper = styled.div`
   width: 70%;
-  height: 8%;
+  height: 70px;
   display: flex;
-  margin-top: 20%;
 
   align-self: center;
-  margin-bottom: 10%;
+  margin-bottom: 80px;
   justify-content: space-between;
 `;
 
@@ -174,7 +173,7 @@ export const OtherChallengeButtonWrapper = styled.div`
   width: 70%;
   height: 8%;
   display: flex;
-  margin-top: 20%;
+
 
   align-self: center;
   margin-bottom: 10%;
@@ -183,9 +182,8 @@ export const OtherChallengeButtonWrapper = styled.div`
 
 export const ChallengeCommentWrapper = styled.div`
   width: 70%;
-  height: 10%;
+  height: auto;
   display: flex;
-
   align-self: center;
   flex-direction: column-reverse;
 `;

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Img from "src/assets/SignInBackgroundImg.svg";
 
 export const Wrapper = styled.div`
   width: 100vw;
@@ -6,60 +7,46 @@ export const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  background-image: url(${Img});
+  background-size: cover;
+  background-repeat: no-repeat;
 `;
 
 export const MainWrapper = styled.div`
-  width: 40%;
-  height: 50%;
+  width: 35%;
+  height: 70%;
+
   display: flex;
-  border: 1px solid black;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
 `;
 
-export const SignInMainWrapper = styled.div`
-  width: 90%;
-  height: 70%;
-  display: flex;
-
-  justify-content: space-between;
-  flex-direction: column;
-`;
-
-export const TitleSpan = styled.span`
-  font-size: 26px;
-  font-weight: 700;
-  margin-left: 10%;
-`;
-
-export const InputWrapper = styled.div`
-  width: 70%;
-  height: 70%;
-  display: flex;
-  align-self: center;
-
-  flex-direction: column;
-  justify-content: space-between;
-`;
-
-export const EmailInput = styled.input`
-  width: 98%;
-  height: 25%;
-  border-radius: 10px;
-`;
-
-export const PwInput = styled.input`
-  width: 98%;
-  height: 25%;
-  border-radius: 10px;
-`;
-
-export const SignInButton = styled.button`
+export const ContentWrapper = styled.div`
   width: 100%;
-  height: 25%;
-  background-color: black;
-  font-size: 18px;
-  color: white;
+  height: 85%;
+  background: linear-gradient(180deg, #fbfbfb 0%, #ccdefb 315.91%);
+  display: flex;
   border-radius: 10px;
-  border: none;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const SignInWrapper = styled.div`
+  width: 80%;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+  align-items: center;
+`;
+
+export const SignInTitleWrapper = styled.div`
+  width: 90%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: "pretendard";
+  font-weight: bold;
 `;

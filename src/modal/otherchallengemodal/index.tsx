@@ -96,7 +96,7 @@ const OtherChallengeModal = ({ setModal, modal, RoomData }: Props) => {
                 <S.ChallengeCommentClickSpan>댓글보기</S.ChallengeCommentClickSpan>
               </S.ChallengeCommentClickWrapper>
             </S.ChallengeCommentWrapper>
-            <S.TextBox />
+      
           </S.MainContentWrapper>
         </S.MainWrapper>
       </S.PositionWrapper>

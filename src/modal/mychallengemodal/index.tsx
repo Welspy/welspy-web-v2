@@ -62,8 +62,9 @@ const MyChallengeModal = ({ MyRoomData, setModal, modal }: MyProps) => {
                 <S.ChallengeCommentClickSpan>댓글보기</S.ChallengeCommentClickSpan>
               </S.ChallengeCommentClickWrapper>
             </S.ChallengeCommentWrapper>
-            <S.TextBox />
+            {/* <S.TextBox /> */}
           </S.MainContentWrapper>
+          
         </S.MainWrapper>
         {chargemodal === true && <SavingModal />}
       </S.PositionWrapper>
