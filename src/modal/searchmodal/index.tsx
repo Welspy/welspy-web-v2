@@ -30,7 +30,7 @@ const SearchModal = ({ setSearch, serch }: Props) => {
           <SearchTitleWrapper>
             {title.length <= 0 ? <TitleSpan>전체 챌린지</TitleSpan> : <TitleSpan>검색 내용</TitleSpan>}
 
-            <TitleSpan>오늘 14:38기준</TitleSpan>
+            <TitleSpan style={{ color: "gray" }}>오늘 14:38기준</TitleSpan>
           </SearchTitleWrapper>
           <SearchContentWrapper>
             {searchData.map((item, idx) => (
@@ -39,14 +39,13 @@ const SearchModal = ({ setSearch, serch }: Props) => {
                   <NumberSpan>{idx + 1}</NumberSpan>
                   <SearchContentItemNumberProfileWrapper>
                     <ProfileImg src={item.imageUrl} alt="img" />
-                    <NumberSpan style={{ marginLeft: "5%", fontSize: 14 }}>{item.title}</NumberSpan>
+                    <NumberSpan style={{ marginLeft: "5%", fontSize: 16 }}>{item.title}</NumberSpan>
                   </SearchContentItemNumberProfileWrapper>
                 </SearchContentItemNumberWrppaer>
                 <SearchContentItemInfoWrapper>
-                  <span style={{ fontSize: 12 }}> 목표금액 :</span>
-                  <span style={{ fontSize: 12, color: " red" }}>
-                    {item.goalMoney.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}
-                ₩</span> 
+                  <span style={{ fontSize: 16, color: " red" }}>
+                    {item.goalMoney.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}원
+                  </span>
                 </SearchContentItemInfoWrapper>
               </SearchContentItemWrapper>
             ))}
@@ -154,7 +153,6 @@ export const SearchContentItemNumberProfileWrapper = styled.div`
 export const NumberSpan = styled.span`
   font-size: 13px;
   font-weight: bold;
-  font-family: "pretendard";
 `;
 
 export const ProfileImg = styled.img`

@@ -155,7 +155,12 @@ const Home = () => {
                                     <span style={{ fontSize: 11, textDecoration: "line-through", color: "#aeaeae" }}>
                                       {item.product.price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}원
                                     </span>
-                                    <span style={{ fontSize: 20, marginTop: 5 }}>{item.product.discountedPrice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}원</span>
+                                    <span style={{ fontSize: 20, marginTop: 5 }}>
+                                      {item.product.discountedPrice
+                                        .toString()
+                                        .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}
+                                      원
+                                    </span>
                                   </S.DisCountWrapper>
                                   <span style={{ fontSize: 29, color: "red" }}>{item.product.discount}%</span>
                                 </S.ContentWrapper>
@@ -217,14 +222,14 @@ const Home = () => {
                     <S.AccountLogMainWrapper>
                       <S.AccountLogTextSpanWrapper>
                         <S.AccountLogSpan>{item.title}</S.AccountLogSpan>
-                        <S.AccountLogDesSpan>{item.description.slice(0, 30)}...</S.AccountLogDesSpan>
                       </S.AccountLogTextSpanWrapper>
                       <S.AccountLogContentWrapper>
                         <S.AccountLogContentImg src={item.imageUrl} alt="img" />
                         <S.AccountLogContentImgDescription>
                           <S.AccountLogContentImgDescriptionSpan>{item.title}</S.AccountLogContentImgDescriptionSpan>
                           <S.AccountLogContentImgDescriptionSpan>
-                            목표금액: <span>{item.goalMoney.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}</span> 원
+                            목표금액:{" "}
+                            <span>{item.goalMoney.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}</span> 원
                           </S.AccountLogContentImgDescriptionSpan>
                         </S.AccountLogContentImgDescription>
                       </S.AccountLogContentWrapper>

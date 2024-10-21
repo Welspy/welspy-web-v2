@@ -37,7 +37,6 @@ const MyChallengeModal = ({ MyRoomData, setModal, modal }: MyProps) => {
             <S.ContentTitleWrapper>
               <S.TitleSpan>{MyRoomData?.title}</S.TitleSpan>
             </S.ContentTitleWrapper>
-
             <S.ChallengeImgWrapper src={MyRoomData?.imageUrl} alt="img" />
             <S.ChallengeContentWrapper>
               <S.ChallengeContentMainWrapper>
@@ -58,8 +57,8 @@ const MyChallengeModal = ({ MyRoomData, setModal, modal }: MyProps) => {
             </S.ChallengeButtonWrapper>
             <S.ChallengeCommentWrapper>
               <S.ChallengeCommentClickWrapper>
-                <img src={Arrow} alt="img" />
-                <S.ChallengeCommentClickSpan>댓글보기</S.ChallengeCommentClickSpan>
+                {/* <img src={Arrow} alt="img" />
+                <S.ChallengeCommentClickSpan>댓글보기</S.ChallengeCommentClickSpan> */}
               </S.ChallengeCommentClickWrapper>
             </S.ChallengeCommentWrapper>
             {/* <S.TextBox /> */}

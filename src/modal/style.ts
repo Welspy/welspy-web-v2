@@ -45,10 +45,7 @@ export const ModalDeleteButtonWrapper = styled.div`
 export const MainContentWrapper = styled.div`
   width: 85%;
   height: auto;
-
-
   display: flex;
-
   align-self: center;
   flex-direction: column;
 `;
@@ -60,6 +57,7 @@ export const ContentTitleWrapper = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  margin-bottom: 5%;
 `;
 
 export const TitleSpan = styled.span`
@@ -105,13 +103,13 @@ export const ChallengeImgWrapper = styled.img`
   width: 75%;
   height: 300px;
   margin-bottom: 2%;
+
 `;
 
 export const ChallengeContentWrapper = styled.div`
   display: flex;
   width: 70%;
   height: 350px;
-  justify-content :space-between;
   align-self: center;
   align-items: center;
 
@@ -121,13 +119,15 @@ export const ChallengeContentMainWrapper = styled.div`
   width: 100%;
   height: 80%;
   display: flex;
-  justify-content: space-between;
+  
   flex-direction: column;
 `;
 
 export const GoalMoneyWrapper = styled.div`
   width: 100%;
-  height: 30%;
+  height: auto;
+  margin-bottom: 5%;
+  align-items: center;
   display: flex;
   justify-content: center;
 `;
