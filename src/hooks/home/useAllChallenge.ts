@@ -10,7 +10,7 @@ const UseAllChallenge = () => {
   const AllChallenge = async () => {
     try {
       const token = Cookies.get("accessToken");
-      console.log("AccessToken:", token);
+      // console.log("AccessToken:", token);
 
       const page = 1;
       const size = 10;

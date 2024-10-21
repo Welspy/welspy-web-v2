@@ -9,7 +9,7 @@ interface Props {
 const ProductModal = ({ ClickProductModal }: Props) => {
     const { products, handleChange, registerProduct, deleteImage, discountRate, status, message } = useProductRegistration();
     const [selectedImage, setSelectedImage] = useState<File | null>(null);
-    const [imageUrl, setImageUrl] = useState<string | null>(null);
+    const [imageUrl, setImageUrl] = useState<string | null>(null); // 등록된 이미지 URL 상태 추가
 
     // 이미지 선택 핸들러
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,18 +34,18 @@ const ProductModal = ({ ClickProductModal }: Props) => {
     // 이미지 삭제 핸들러
     const handleImageDelete = () => {
         if (imageUrl) {
-            deleteImage(imageUrl);
-            setImageUrl(null);
-            setSelectedImage(null);
+            deleteImage(imageUrl); // 등록된 이미지 URL로 삭제 요청
+            setImageUrl(null); // 이미지 삭제 후 URL 초기화
+            setSelectedImage(null); // 선택한 이미지 초기화
         }
     };
 
     // 상태 메시지 alert 처리
     useEffect(() => {
         if (status) {
-            alert(message);
+            alert(message); // 메시지를 alert로 표시
         }
-    }, [status, message]);
+    }, [status, message]); // 상태나 메시지가 변경될 때마다 alert 표시
 
     return (
         <S.Wrapper>
