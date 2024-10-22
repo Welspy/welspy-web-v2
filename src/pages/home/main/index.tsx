@@ -9,15 +9,12 @@ import UseMyChallenge from "src/hooks/home/useMyChallenge";
 import MyChallengeModal from "src/modal/mychallengemodal";
 import Bank from "./pageComponents/bank";
 import Profile from "./pageComponents/profile";
-import UseHomeProduct from "src/hooks/home/useHomeProduct";
 import Logo from "src/assets/Logo.svg";
 import SearchModal from "src/modal/searchmodal";
 import UseMyProduct from "src/hooks/modal/useMyProduct";
-import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [modal, setModal] = useState<boolean>(false);
-  const [makemodal, setMakeModal] = useState<boolean>(false);
   const [mymodal, setMyModal] = useState<boolean>(false);
   const [productmodal, setProductModal] = useState<boolean>(false);
   const [search, setSearch] = useState<boolean>(false);
@@ -34,10 +31,6 @@ const Home = () => {
   const ClickModal = (item: AllChallengeProps) => {
     setModal(!modal);
     setRoomData(item);
-  };
-
-  const ClickMakeModal = () => {
-    setMakeModal(!makemodal);
   };
 
   const ClickMyModal = (item: MyChallengeProps) => {
@@ -66,12 +59,26 @@ const Home = () => {
 
   useEffect(() => {
     setChallengeList(
-      challenge.map((item) => {
-        return {
-          challenge: challenge.filter((i) => i.roomId === item.roomId)[0],
-          product: myproduct.filter((i) => Number(i.idx) === Number(item.productId))[0],
-        };
-      })
+      challenge
+        .map((item) => {
+          if (challenge && myproduct !== undefined) {
+            const filteredChallenge = challenge.filter((i) => i.roomId === item.roomId)[0];
+            const filteredProduct = myproduct.filter((i) => Number(i.idx) === Number(item.productId))[0];
+            console.log("filteredChallenge:", filteredChallenge);
+            console.log("filteredProduct:", filteredProduct);
+            if (filteredChallenge && filteredProduct) {
+              return {
+                challenge: filteredChallenge,
+                product: filteredProduct,
+              };
+            }
+            return {
+              challenge: null,
+              product: null,
+            };
+          }
+        })
+        .filter((item) => item?.challenge !== null && item?.product !== null)
     );
   }, [challenge, myproduct]);
 
