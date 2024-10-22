@@ -19,31 +19,48 @@ const useProductRegistration = () => {
 
     const [status, setStatus] = useState<number | null>(null);
     const [message, setMessage] = useState<string>("");
-    const [discountRate, setDiscountRate] = useState<number>(0);
+    const [discountedPrice, setDiscountedPrice] = useState<number>(0); // 할인된 가격 상태 추가
 
-    // 할인률 계산
+    // 할인된 가격 계산
     useEffect(() => {
         const { price, discount } = products;
-        if (price > 0 && discount >= 0) {
-            const rate = ((price - discount) / price) * 100;
-            setDiscountRate(Math.floor(rate));
+        if (price > 0) {
+            // 할인된 가격 계산 (소수점 제외)
+            const calculatedDiscountedPrice = Math.floor(price - (price * discount / 100));
+            setDiscountedPrice(calculatedDiscountedPrice); // 할인된 가격 업데이트
         } else {
-            setDiscountRate(0);
+            setDiscountedPrice(0); // 가격 리셋
         }
     }, [products.price, products.discount]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
+        const numericValue = name === "price" || name === "discount" ? Number(value) : value;
+
+        // 할인율이 0 이상으로 제한
+        if (name === "discount" && numericValue < 0) {
+            setMessage("할인율은 0 이상이어야 합니다.");
+            return;
+        }
+
         setProducts((prev) => ({
             ...prev,
-            [name]: name === "price" || name === "discount" ? Number(value) : value,
+            [name]: numericValue,
         }));
     };
 
     const validateProductData = () => {
         const { name, description, price, discount } = products;
-        if (!name || !description || price <= 0 || discount < 0) {
+        if (!name || !description || price <= 0) {
             setMessage("모든 필드를 올바르게 입력해 주세요.");
+            return false;
+        }
+        if (discount < 0 || discount > 100) {
+            setMessage("할인율은 0에서 100 사이의 값이어야 합니다.");
+            return false;
+        }
+        if (price - (price * discount / 100) < 0) {
+            setMessage("할인된 가격이 0보다 작을 수 없습니다.");
             return false;
         }
         return true;
@@ -72,8 +89,9 @@ const useProductRegistration = () => {
     };
 
     const registerProduct = (imageFile: File | null) => {
-        if (!imageFile) {
-            setMessage("이미지를 선택해 주세요.");
+        // 입력값 유효성 검사
+        if (!products.name || !products.description || products.price <= 0 || !imageFile) {
+            setMessage("모든 필드를 올바르게 입력해 주세요.");
             return;
         }
 
@@ -88,7 +106,7 @@ const useProductRegistration = () => {
 
                 // imageUrl이 존재하는지 확인
                 if (!imageUrl) {
-                    throw new Error("이미지 업로드에 실패했습니다."); // 에러 발생
+                    throw new Error("이미지 업로드에 실패했습니다.");
                 }
 
                 // blob: 제거
@@ -125,6 +143,7 @@ const useProductRegistration = () => {
             discount: 0,
             imageUrl: "",
         });
+        setDiscountedPrice(0); // 할인된 가격 리셋
     };
 
     const deleteImage = (imageUrl: string) => {
@@ -133,7 +152,6 @@ const useProductRegistration = () => {
             return;
         }
 
-        // blob: 제거
         const cleanedImageUrl = imageUrl.replace(/^blob:/, "");
 
         const token = Cookies.get('accessToken');
@@ -170,7 +188,7 @@ const useProductRegistration = () => {
         handleChange,
         registerProduct,
         deleteImage,
-        discountRate,
+        discountedPrice, // 할인된 가격 상태 반환
         status,
         message,
     };
