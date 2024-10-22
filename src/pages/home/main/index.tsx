@@ -19,6 +19,7 @@ const Home = () => {
   const [modal, setModal] = useState<boolean>(false);
   const [makemodal, setMakeModal] = useState<boolean>(false);
   const [mymodal, setMyModal] = useState<boolean>(false);
+  const [productmodal, setProductModal] = useState<boolean>(false);
   const [search, setSearch] = useState<boolean>(false);
   const [page, setPage] = useState<string>("main");
   const [roomdata, setRoomData] = useState<AllChallengeProps>();
@@ -46,6 +47,10 @@ const Home = () => {
 
   const ClickSearchModal = () => {
     setSearch(!search);
+  };
+
+  const ClickProductModal = () => {
+    setProductModal(!productmodal);
   };
 
   useEffect(() => {
@@ -80,6 +85,7 @@ const Home = () => {
               <S.SearchWrapper>
                 <S.SearchInput onClick={ClickSearchModal} placeholder="원하는 챌린지를 검색하세요" />
               </S.SearchWrapper>
+
               <S.MysteryBox></S.MysteryBox>
             </S.HeaderContentWrapper>
           </S.HeaderNav>
@@ -97,7 +103,7 @@ const Home = () => {
                     프로필
                   </S.CategorrySpan>
                 </S.CategorrySpanWrapper>
-                <button onClick={ClickMakeModal}>챌린지 생성하기</button>
+                <S.ProductRegistrationButton onClick={ClickProductModal}>제품 등록하기</S.ProductRegistrationButton>
               </S.ChallengeTitleWrapper>
               {page === "main" && (
                 <S.MainChallengeComponent>
@@ -243,7 +249,7 @@ const Home = () => {
 
         {search === true ? <SearchModal setSearch={setSearch} serch={search}></SearchModal> : <></>}
         {mymodal === true ? <MyChallengeModal MyRoomData={myroomdata} setModal={setMyModal} modal={mymodal} /> : <></>}
-        {makemodal === true ? <MakeModal ClickMakeModal={ClickMakeModal}></MakeModal> : <></>}
+        {productmodal === true ? <MakeModal ClickProductModal={ClickProductModal}></MakeModal> : <></>}
         {modal === true ? <OtherChallengeModal RoomData={roomdata} setModal={setModal} modal={modal} /> : <></>}
       </S.Wrapper>
     </>

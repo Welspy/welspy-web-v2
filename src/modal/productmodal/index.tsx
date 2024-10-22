@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import * as S from "./style";
+import * as S from "./style"
 import useProductRegistration from "src/hooks/product/useProductRegistration";
-import { CateGorry } from "src/pages/home/main/style";
 
 interface Props {
   ClickProductModal: () => void;
@@ -12,15 +11,6 @@ const ProductModal = ({ ClickProductModal }: Props) => {
     useProductRegistration();
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null); // 등록된 이미지 URL 상태 추가
-
-  const categoriesEnum = {
-    TRAVEL: "여행",
-    DIGITAL: "디지털",
-    FASHION: "패션",
-    TOYS: "취미",
-    INTERIOR: "인테리어",
-    ETC: "기타",
-  };
 
   // 이미지 선택 핸들러
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -118,16 +108,6 @@ const ProductModal = ({ ClickProductModal }: Props) => {
 
             {products.price > 0 && <S.DiscountedPrice>할인가: {discountedPrice}원</S.DiscountedPrice>}
           </S.ProductInputWrapper>
-          <S.CateGorryWrapper>
-            <S.CateGorryMainWrapper>
-              <S.CateGorryItem>{categoriesEnum.DIGITAL}</S.CateGorryItem>
-              <S.CateGorryItem>{categoriesEnum.ETC}</S.CateGorryItem>
-              <S.CateGorryItem>{categoriesEnum.FASHION}</S.CateGorryItem>
-              <S.CateGorryItem>{categoriesEnum.INTERIOR}</S.CateGorryItem>
-              <S.CateGorryItem>{categoriesEnum.TOYS}</S.CateGorryItem>
-              <S.CateGorryItem>{categoriesEnum.TRAVEL}</S.CateGorryItem>
-            </S.CateGorryMainWrapper>
-          </S.CateGorryWrapper>
         </S.ProductRegistrationInputWrapper>
         <S.SubmitButton
           onClick={handleProductSubmit}

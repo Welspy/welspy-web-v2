@@ -288,7 +288,6 @@ export const Status = styled.div<{ statusBar: number }>`
   height: 100%;
   background-color: #5184d6;
   border-radius: 10px;
-
 `;
 
 export const SuccessButton = styled.button`
@@ -299,7 +298,6 @@ export const SuccessButton = styled.button`
   border: none;
   background-color: #5184d6;
   border-radius: 10px;
-
 `;
 
 export const CategoryWrapper = styled.div`
@@ -487,4 +485,14 @@ export const RoomType = styled.div`
   align-items: center;
   justify-content: center;
   background-color: blue;
+`;
+
+export const ProductRegistrationButton = styled.button`
+  border-radius: 10px;
+  background-color: #5b94f3;
+  padding: 15px 20px;
+  border: none;
+  font-family: "pretendard";
+  font-weight: 500;
+  color: white;
 `;
