@@ -1,6 +1,6 @@
-import { AllChallengeProps } from "src/type/challenge.types";
+import { AllChallengeProps, MyChallengeProps } from "src/type/challenge.types";
 import * as S from "../style";
-import { useEffect} from "react";
+import { useEffect } from "react";
 import UseProduct from "src/hooks/modal/useProduct";
 import UseJoinChallenge from "src/hooks/modal/useJoinChallenge";
 import RoomJoinButton from "src/components/common/roomjoinbutton";
@@ -9,19 +9,17 @@ interface Props {
   setModal: React.Dispatch<React.SetStateAction<boolean>>;
   modal: boolean;
   RoomData: AllChallengeProps | undefined;
+
 }
 
-const OtherChallengeModal = ({ setModal, modal, RoomData }: Props) => {
-  const { product, Product } = UseProduct({ RoomData });
+const OtherChallengeModal = ({ setModal, modal, RoomData}: Props) => {
+
   const { JoinChallengeButton } = UseJoinChallenge({ RoomData });
 
   const ClickModal = () => {
     setModal(!modal);
   };
 
-  useEffect(() => {
-    Product();
-  }, []);
 
   return (
     <S.Wrapper>
@@ -50,9 +48,7 @@ const OtherChallengeModal = ({ setModal, modal, RoomData }: Props) => {
                   </S.GoalMoneySpan>
                 </S.GoalMoneyWrapper>
                 <S.DescriptionWrapper>
-                  <S.DescriptionSpan>
-                    {RoomData?.description}
-                  </S.DescriptionSpan>
+                  <S.DescriptionSpan>{RoomData?.description}</S.DescriptionSpan>
                 </S.DescriptionWrapper>
               </S.ChallengeContentMainWrapper>
             </S.ChallengeContentWrapper>

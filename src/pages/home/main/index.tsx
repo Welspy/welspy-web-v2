@@ -13,6 +13,7 @@ import UseHomeProduct from "src/hooks/home/useHomeProduct";
 import Logo from "src/assets/Logo.svg";
 import SearchModal from "src/modal/searchmodal";
 import UseMyProduct from "src/hooks/modal/useMyProduct";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [modal, setModal] = useState<boolean>(false);
@@ -68,10 +69,6 @@ const Home = () => {
       })
     );
   }, [challenge, myproduct]);
-
-  useEffect(() => {
-    console.log("test!", challengeList);
-  }, [challengeList]);
 
   return (
     <>
@@ -196,8 +193,8 @@ const Home = () => {
                   )}
                 </S.MainChallengeComponent>
               )}
-              {page === "bank" && <Bank />} {/* 계좌 페이지 */}
-              {page === "profile" && <Profile />} {/* 프로필 페이지 */}
+              {page === "bank" && <Bank />}
+              {page === "profile" && <Profile />}
             </S.ChallengeContentWrapper>
           </S.ChallengeMainWrapper>
         </S.MainWrapper>
@@ -229,9 +226,13 @@ const Home = () => {
                           </S.AccountLogContentImgDescriptionSpan>
                         </S.AccountLogContentImgDescription>
                       </S.AccountLogContentWrapper>
-                      <S.AccountLogStatusBar>
-                        <S.Status statusBar={(item.balance / item.goalMoney) * 100} />
-                      </S.AccountLogStatusBar>
+                      {item.goalMoney >= item.balance ? (
+                        <S.AccountLogStatusBar>
+                          <S.Status statusBar={(item.balance / item.goalMoney) * 100} />
+                        </S.AccountLogStatusBar>
+                      ) : (
+                        <S.SuccessButton onClick={() => setPage("profile")}>챌린지 성공!</S.SuccessButton>
+                      )}
                     </S.AccountLogMainWrapper>
                   </S.AccountLogItemWrapper>
                 ))}
@@ -239,7 +240,7 @@ const Home = () => {
             )}
           </S.SideBarHeaderMainWrapper>
         </S.SideBarWrapper>
-       
+
         {search === true ? <SearchModal setSearch={setSearch} serch={search}></SearchModal> : <></>}
         {mymodal === true ? <MyChallengeModal MyRoomData={myroomdata} setModal={setMyModal} modal={mymodal} /> : <></>}
         {makemodal === true ? <MakeModal ClickMakeModal={ClickMakeModal}></MakeModal> : <></>}

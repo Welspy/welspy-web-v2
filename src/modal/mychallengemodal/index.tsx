@@ -20,6 +20,8 @@ const MyChallengeModal = ({ MyRoomData, setModal, modal }: MyProps) => {
   const RoomId = MyRoomData?.roomId;
   const ClickModal = () => {
     setModal(!modal);
+
+  
   };
 
   useEffect(() => {

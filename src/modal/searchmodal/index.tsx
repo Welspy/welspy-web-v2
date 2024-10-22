@@ -1,5 +1,4 @@
-import { SetStateAction, useEffect, useState } from "react";
-import UseSavingButton from "src/hooks/modal/useSavingButton";
+import { SetStateAction, useEffect } from "react";
 import UseSearch from "src/hooks/modal/useSearch";
 import styled from "styled-components";
 
@@ -9,7 +8,6 @@ interface Props {
 }
 
 const SearchModal = ({ setSearch, serch }: Props) => {
-  const {setMoney,setRoomId,SavingButton} = UseSavingButton()
   const { setTitle, SearchChallenge, title, searchData } = UseSearch();
 
   useEffect(() => {
@@ -51,6 +49,7 @@ const SearchModal = ({ setSearch, serch }: Props) => {
                 </SearchContentItemInfoWrapper>
               </SearchContentItemWrapper>
             ))}
+            
           </SearchContentWrapper>
         </SearchContetentWrapper>
       </SearchWrapper>
@@ -80,6 +79,7 @@ export const SearchWrapper = styled.div`
   border-radius: 20px;
   flex-direction: column;
   align-items: center;
+  overflow-y: scroll;
 `;
 
 export const SearchInput = styled.input`
@@ -120,7 +120,7 @@ export const TitleSpan = styled.span`
 export const SearchContentWrapper = styled.div`
   width: 100%;
   height: 90%;
-
+  margin-bottom: 5%;
   display: flex;
   flex-direction: column;
 `;
@@ -135,6 +135,7 @@ export const SearchContentItemWrapper = styled.div`
   display: flex;
   border-radius: 5px;
   justify-content: space-between;
+
 `;
 
 export const SearchContentItemNumberWrppaer = styled.div`

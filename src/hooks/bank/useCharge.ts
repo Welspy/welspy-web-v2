@@ -20,7 +20,12 @@ const UseCharge = () => {
         }
       )
       .then((res) => {
-        alert("충전 성공!");
+        if (res.status === 200) {
+          alert("충전 성공!");
+        }
+      })
+      .catch((err) => {
+        console.error(err);
       });
   };
   return {

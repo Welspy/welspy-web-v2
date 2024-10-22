@@ -237,8 +237,6 @@ export const AccountLogTextSpanWrapper = styled.div`
   height: auto;
   display: flex;
   flex-direction: column;
-
-
 `;
 
 export const AccountLogSpan = styled.span`
@@ -252,7 +250,7 @@ export const AccountLogDesSpan = styled.span`
 
 export const AccountLogContentWrapper = styled.div`
   width: 100%;
-  height: 50%;
+  height: 40%;
   display: flex;
   justify-content: space-between;
 `;
@@ -269,12 +267,10 @@ export const AccountLogContentImgDescription = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-
 `;
 
 export const AccountLogContentImgDescriptionSpan = styled.div`
-  font-size: 15px;
-  font-family: "pretendard";
+  font-size: 16px;
   span {
     color: blue;
   }
@@ -292,6 +288,18 @@ export const Status = styled.div<{ statusBar: number }>`
   height: 100%;
   background-color: #5184d6;
   border-radius: 10px;
+
+`;
+
+export const SuccessButton = styled.button`
+  width: 100%;
+  height: 15%;
+  color: #fff;
+  font-size: 14px;
+  border: none;
+  background-color: #5184d6;
+  border-radius: 10px;
+
 `;
 
 export const CategoryWrapper = styled.div`

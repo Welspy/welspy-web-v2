@@ -1,9 +1,14 @@
 import CONFIG from "src/config/config.json";
 import axios from "axios";
-import { useState } from "react";
+import { SetStateAction, useState } from "react";
 import Cookies from "js-cookie";
 
-const UseSavingButton = () => {
+interface Props {
+  setState: React.Dispatch<SetStateAction<boolean>>;
+  state: boolean;
+}
+
+const UseSavingButton = ({ setState, state }: Props) => {
   const [roomId, setRoomId] = useState<number | undefined>(0);
   const [money, setMoney] = useState<number>(0);
   const Token = Cookies.get("accessToken");
@@ -21,6 +26,12 @@ const UseSavingButton = () => {
           },
         }
       )
+      .then((res) => {
+        if (res.status === 200) {
+          alert("충전 성공!");
+        }
+        setState(!state);
+      })
       .catch((err) => {
         console.error(err);
       });
@@ -29,6 +40,7 @@ const UseSavingButton = () => {
     setRoomId,
     setMoney,
     SavingButton,
+    money
   };
 };
 

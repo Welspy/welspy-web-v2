@@ -1,7 +1,7 @@
-import { SetStateAction } from "react";
+import { SetStateAction, useEffect } from "react";
 import styled from "styled-components";
 import UseSavingButton from "src/hooks/modal/useSavingButton";
-
+import UseBank from "src/hooks/bank/useBank";
 interface Props {
   setState: React.Dispatch<SetStateAction<boolean>>;
   state: boolean;
@@ -9,7 +9,12 @@ interface Props {
 }
 
 const SavingModal = ({ setState, state, roomId }: Props) => {
-  const { SavingButton, setMoney, setRoomId } = UseSavingButton();
+  const { SavingButton, setMoney, setRoomId, money } = UseSavingButton({ setState: setState, state: state });
+  const { UserBank, bank } = UseBank();
+
+  useEffect(() => {
+    UserBank();
+  }, []);
 
   return (
     <BackGroundWrapper
@@ -25,6 +30,12 @@ const SavingModal = ({ setState, state, roomId }: Props) => {
         <MainWrapper>
           <TitleSpan>저금 액수를 입력해주세요</TitleSpan>
           <ChargeInput onChange={(e) => setMoney(Number(e.target.value))} placeholder="저금 액수를 입력해주세요" />
+          {bank?.balance! <= money ? (
+            <span style={{ position: "absolute", bottom: 75, color: "red" ,fontSize: 12}}>가진 금액보다 많습니다.</span>
+          ) : (
+            <></>
+          )}
+
           <BottomWrapper>
             <ButtonWrapper>
               <ChargeButton>확인</ChargeButton>

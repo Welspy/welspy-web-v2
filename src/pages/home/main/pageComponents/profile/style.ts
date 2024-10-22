@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import Img from "src/assets/rotion_dummy.png";
 
 export const Wrapper = styled.div`
   width: 100%;
@@ -123,7 +122,6 @@ export const ProfileChallengeWrapper = styled.div`
   display: flex;
 
   flex-direction: column;
-
 `;
 
 export const ProfileChallengeBankWrapper = styled.div`
@@ -195,6 +193,7 @@ export const ProfileChallengeGoalContentWrapper = styled.div`
   flex-direction: column;
   background-color: #f5f5f5;
   border-radius: 10px;
+  overflow-y: scroll;
 `;
 
 export const MoreProfileChallenge = styled.div`
@@ -220,18 +219,42 @@ export const ProfileChallengeGoalMainWrapper = styled.div`
 export const ProfileChallengeItemWrapper = styled.div`
   width: 90%;
   height: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+`;
 
+export const ProfileChallengeItemContentWrapper = styled.div`
+  width: 100%;
+  height: 70%;
   display: flex;
   justify-content: space-between;
+`;
+
+export const ProfileChallengeItemContentDescriptionWrapper = styled.div`
+  width: 65%;
+  height: 100%;
+  display: flex;
   align-items: center;
+  justify-content: center;
 `;
 
-export const ProfileChallengeItemPicture = styled.div`
-  width: 18%;
-  height: 90%;
+export const ProfileChallengeSuccess = styled.a`
+  width: 40%;
+  height: 82%;
+  background-color: #5b94f3;
+  border: none;
   border-radius: 10px;
+  color: #fff;
+  font-size: 20px;
+  font-family: "pretendard";
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items :center;
+  margin-right: 5%;
 `;
-
 export const ProfileChallengeItemDesWrapper = styled.div`
   width: 75%;
   height: 90%;

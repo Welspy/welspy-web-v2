@@ -6,6 +6,5 @@ export interface ProductProps {
   discount: number;
   discountedPrice: number;
   imageUrl: string;
+  productUrl: string;
 }
-
-

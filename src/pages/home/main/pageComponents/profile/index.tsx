@@ -1,13 +1,17 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import * as S from "./style";
 import UseProfile from "src/hooks/profile/useProfile";
 import UseMyChallenge from "src/hooks/home/useMyChallenge";
 import UseBank from "src/hooks/bank/useBank";
+import UseProduct from "src/hooks/modal/useProduct";
+import ExitButton from "src/components/common/exitbutton";
 
 const Profile = () => {
   const { profile, UserProfile } = UseProfile();
   const { mychallenge, MyChallenge } = UseMyChallenge();
   const { UserBank, bank } = UseBank();
+  const [idx, setIdx] = useState<number>(0);
+  const { product, Product } = UseProduct(idx);
 
   useEffect(() => {
     UserProfile();
@@ -15,7 +19,9 @@ const Profile = () => {
     UserBank();
   }, []);
 
-
+  useEffect(() => {
+    Product();
+  }, [idx]);
   return (
     <>
       <S.Wrapper>
@@ -53,22 +59,39 @@ const Profile = () => {
             </S.ProfileChallengeBankContentWrapper>
           </S.ProfileChallengeBankWrapper>
           <S.ProfileChallengeGoalWrapper>
-            <S.ProfileChallengeGoalTitleSpan>내가남긴 댓글</S.ProfileChallengeGoalTitleSpan>
+            <S.ProfileChallengeGoalTitleSpan>성공한 챌린지</S.ProfileChallengeGoalTitleSpan>
             {mychallenge.length !== 0 ? (
               <S.ProfileChallengeGoalContentWrapper>
                 {mychallenge.slice(0, 3).map((item, idx) => (
-                  <S.ProfileChallengeGoalMainWrapper key={idx}></S.ProfileChallengeGoalMainWrapper>
+                  <>
+                    {item.goalMoney <= item.balance ? (
+                      <S.ProfileChallengeGoalMainWrapper key={idx}>
+                        <S.ProfileChallengeItemWrapper>
+                          <span>{item.title}</span>
+                          <S.ProfileChallengeItemContentWrapper>
+                            <img
+                              src={item.imageUrl}
+                              alt="img"
+                              style={{ width: "30%", height: "100%", objectFit: "cover", borderRadius: 10 }}
+                            />
+                            <S.ProfileChallengeItemContentDescriptionWrapper>
+                              <S.ProfileChallengeSuccess onClick={() => setIdx(item.roomId)} href={product?.productUrl}>
+                                상품 구매
+                              </S.ProfileChallengeSuccess>
+                              <ExitButton RoomId={item.roomId} />
+                            </S.ProfileChallengeItemContentDescriptionWrapper>
+                          </S.ProfileChallengeItemContentWrapper>
+                        </S.ProfileChallengeItemWrapper>
+                      </S.ProfileChallengeGoalMainWrapper>
+                    ) : (
+                      <></>
+                    )}
+                  </>
                 ))}
-
-                <S.MoreProfileChallenge>
-                  <span style={{ fontSize: 20, color: "#aeaeae", fontWeight: 500, fontFamily: "pretendard" }}>
-                    더보기
-                  </span>
-                </S.MoreProfileChallenge>
               </S.ProfileChallengeGoalContentWrapper>
             ) : (
               <S.UndefinedChallenge>
-                <S.UndefinedSpan>남긴 댓글이 없습니다</S.UndefinedSpan>
+                <S.UndefinedSpan>진행중인 챌린지가 없습니다</S.UndefinedSpan>
               </S.UndefinedChallenge>
             )}
           </S.ProfileChallengeGoalWrapper>
