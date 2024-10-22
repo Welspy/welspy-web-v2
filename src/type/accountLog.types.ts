@@ -1,6 +1,10 @@
 export interface AccountLogProps {
-  idx: number;
-  accountNumber: string;
-  money: number;
-  
+  data: [
+    {
+      idx: number;
+      accountNumber: string;
+      money: number;
+      bankType: string;
+    }
+  ];
 }

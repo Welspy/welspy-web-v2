@@ -1,22 +1,51 @@
+import { SetStateAction } from "react";
 import styled from "styled-components";
+import UseSavingButton from "src/hooks/modal/useSavingButton";
 
-const SavingModal = () => {
+interface Props {
+  setState: React.Dispatch<SetStateAction<boolean>>;
+  state: boolean;
+  roomId: number | undefined;
+}
+
+const SavingModal = ({ setState, state, roomId }: Props) => {
+  const { SavingButton, setMoney, setRoomId } = UseSavingButton();
+
   return (
-    <Wrapper>
-      <MainWrapper>
-        <TitleSpan>저금 액수를 입력해주세요</TitleSpan>
-        <ChargeInput placeholder="저금 액수를 입력해주세요" />
-        <BottomWrapper>
-          <ButtonWrapper>
-            <ChargeButton>확인</ChargeButton>
-          </ButtonWrapper>
-        </BottomWrapper>
-      </MainWrapper>
-    </Wrapper>
+    <BackGroundWrapper
+      onClick={(e) => {
+        SavingButton();
+        setRoomId(roomId);
+        if (e.target === e.currentTarget) {
+          setState(!state);
+        }
+      }}
+    >
+      <Wrapper>
+        <MainWrapper>
+          <TitleSpan>저금 액수를 입력해주세요</TitleSpan>
+          <ChargeInput onChange={(e) => setMoney(Number(e.target.value))} placeholder="저금 액수를 입력해주세요" />
+          <BottomWrapper>
+            <ButtonWrapper>
+              <ChargeButton>확인</ChargeButton>
+            </ButtonWrapper>
+          </BottomWrapper>
+        </MainWrapper>
+      </Wrapper>
+    </BackGroundWrapper>
   );
 };
 
 export default SavingModal;
+
+const BackGroundWrapper = styled.div`
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+`;
 
 const Wrapper = styled.div`
   width: 500px;
@@ -65,9 +94,8 @@ const ButtonWrapper = styled.div`
   width: 55%;
   height: 100%;
   display: flex;
-flex-direction: row-reverse;
+  flex-direction: row-reverse;
 `;
-
 
 const ChargeButton = styled.button`
   width: 45%;
@@ -76,5 +104,5 @@ const ChargeButton = styled.button`
   border-radius: 15px;
   border: none;
   color: white;
-  font-size: 15px
+  font-size: 15px;
 `;

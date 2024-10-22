@@ -4,7 +4,7 @@ import { useState } from "react";
 import Cookies from "js-cookie";
 
 const UseSavingButton = () => {
-  const [roomId, setRoomId] = useState<number>(0);
+  const [roomId, setRoomId] = useState<number | undefined>(0);
   const [money, setMoney] = useState<number>(0);
   const Token = Cookies.get("accessToken");
   const SavingButton = async () => {
@@ -25,7 +25,11 @@ const UseSavingButton = () => {
         console.error(err);
       });
   };
-  return {};
+  return {
+    setRoomId,
+    setMoney,
+    SavingButton,
+  };
 };
 
 export default UseSavingButton;

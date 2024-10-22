@@ -57,6 +57,7 @@ export const ContentTitleWrapper = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  text-align: center;
   margin-bottom: 5%;
 `;
 
@@ -157,6 +158,7 @@ export const DescriptionWrapper = styled.div`
 export const DescriptionSpan = styled.span`
   font-size: 22px;
   font-family: "pretendard";
+  text-align: center;
 `;
 
 export const ChallengeButtonWrapper = styled.div`

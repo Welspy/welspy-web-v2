@@ -11,11 +11,9 @@ const UseAccountLog = () => {
   const page = 1;
   const size = 10;
 
- 
-
   const AccountLog = async () => {
     try {
-     await axios
+      await axios
         .get(`${CONFIG.serverUrl}/bank/log-all`, {
           headers: {
             Authorization: `Bearer ${Token}`,

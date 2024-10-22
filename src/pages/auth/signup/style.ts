@@ -16,7 +16,6 @@ export const Wrapper = styled.div`
 export const MainWrapper = styled.div`
   width: 35%;
   height: 80%;
-
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -32,6 +31,8 @@ export const ContentWrapper = styled.div`
   border-radius: 20px;
   align-items: center;
   justify-content: center;
+
+  flex-direction: column;
 `;
 
 export const SignUpWrapper = styled.div`
@@ -75,7 +76,6 @@ export const UserInfoInput = styled.input`
   font-family: "pretendard";
   outline: none;
 `;
-
 
 export const SignUpButton = styled.button`
   width: 100%;

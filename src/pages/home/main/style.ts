@@ -261,6 +261,7 @@ export const AccountLogContentImg = styled.img`
   width: 30%;
   height: 100%;
   object-fit: cover;
+  border-radius: 5px;
 `;
 
 export const AccountLogContentImgDescription = styled.div`
@@ -268,6 +269,7 @@ export const AccountLogContentImgDescription = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
+
 `;
 
 export const AccountLogContentImgDescriptionSpan = styled.div`

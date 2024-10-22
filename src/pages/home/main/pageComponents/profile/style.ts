@@ -123,6 +123,7 @@ export const ProfileChallengeWrapper = styled.div`
   display: flex;
 
   flex-direction: column;
+
 `;
 
 export const ProfileChallengeBankWrapper = styled.div`

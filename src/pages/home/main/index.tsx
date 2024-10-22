@@ -20,17 +20,14 @@ const Home = () => {
   const [mymodal, setMyModal] = useState<boolean>(false);
   const [search, setSearch] = useState<boolean>(false);
   const [page, setPage] = useState<string>("main");
-
   const [roomdata, setRoomData] = useState<AllChallengeProps>();
   const [myroomdata, setMyRoomData] = useState<MyChallengeProps>();
   const [challengeList, setChallengeList] = useState<any[]>([]);
-
   const [productid, setProductId] = useState<number[]>([]);
   const { MyProduct, myproduct } = UseMyProduct();
   const { challenge, AllChallenge } = UseAllChallenge();
   const { accountlog, AccountLog } = UseAccountLog();
   const { mychallenge, MyChallenge } = UseMyChallenge();
-  const { homeproduct } = UseHomeProduct({ productid });
 
   const ClickModal = (item: AllChallengeProps) => {
     setModal(!modal);
@@ -122,7 +119,7 @@ const Home = () => {
                               <S.MyChallengeImg src={item.imageUrl} alt="img" />
                               <S.BlurOveray>
                                 <S.BlurMainWrapper>
-                                  <S.BlurSpan>{item.title}</S.BlurSpan>
+                                  <S.BlurSpan>{item.title.toString().substr(0, 24)}...</S.BlurSpan>
                                 </S.BlurMainWrapper>
                               </S.BlurOveray>
                             </S.MyChallengeImgWrapper>
@@ -145,7 +142,7 @@ const Home = () => {
                             <S.OtherChallengeDescriptionWrapper>
                               <S.DescriptionMainWrapper>
                                 <S.TitleWrapper>
-                                  <S.TitleSpan>{item.challenge.title}</S.TitleSpan>
+                                  <S.TitleSpan>{item.challenge.title.toString().substr(0, 24)}...</S.TitleSpan>
                                   <S.CategoryWrapper>
                                     <span style={{ fontSize: 10, color: "white" }}>#{item.challenge.category}</span>
                                   </S.CategoryWrapper>
@@ -221,12 +218,11 @@ const Home = () => {
                   <S.AccountLogItemWrapper key={idx}>
                     <S.AccountLogMainWrapper>
                       <S.AccountLogTextSpanWrapper>
-                        <S.AccountLogSpan>{item.title}</S.AccountLogSpan>
+                        <S.AccountLogSpan>{item.title.toString().substr(0, 24)}...</S.AccountLogSpan>
                       </S.AccountLogTextSpanWrapper>
                       <S.AccountLogContentWrapper>
                         <S.AccountLogContentImg src={item.imageUrl} alt="img" />
                         <S.AccountLogContentImgDescription>
-                          <S.AccountLogContentImgDescriptionSpan>{item.title}</S.AccountLogContentImgDescriptionSpan>
                           <S.AccountLogContentImgDescriptionSpan>
                             목표금액:{" "}
                             <span>{item.goalMoney.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}</span> 원
@@ -243,6 +239,7 @@ const Home = () => {
             )}
           </S.SideBarHeaderMainWrapper>
         </S.SideBarWrapper>
+       
         {search === true ? <SearchModal setSearch={setSearch} serch={search}></SearchModal> : <></>}
         {mymodal === true ? <MyChallengeModal MyRoomData={myroomdata} setModal={setMyModal} modal={mymodal} /> : <></>}
         {makemodal === true ? <MakeModal ClickMakeModal={ClickMakeModal}></MakeModal> : <></>}

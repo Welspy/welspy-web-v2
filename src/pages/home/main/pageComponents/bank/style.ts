@@ -84,6 +84,8 @@ export const BankLogWrapper = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
+
+  overflow-y: scroll;
 `;
 
 export const BankLogItemWrapper = styled.div`
@@ -114,6 +116,7 @@ export const BankLogInfoWrapper = styled.div`
   height: auto;
   flex-direction: column;
   display: flex;
+  overflow-y: scroll;
   margin-top: 30px;
 `;
 
@@ -135,6 +138,7 @@ export const BankLogInfoPic = styled.img`
   height: 50px;
   background-color: #aeaeae;
   border-radius: 100px;
+  object-fit: cover;
 `;
 
 export const BankLogInfoContent = styled.div`

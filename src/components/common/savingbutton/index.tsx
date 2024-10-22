@@ -1,4 +1,5 @@
 import React, { SetStateAction } from "react";
+
 import styled from "styled-components";
 
 interface Props {
@@ -7,8 +8,13 @@ interface Props {
 }
 
 const SavingButton = ({ state, setState }: Props) => {
+  
   return (
-    <ButtonWrapper onClick={() => setState(!state)}>
+    <ButtonWrapper
+      onClick={() => {
+        setState(!state);
+      }}
+    >
       <SavingButtonItem color={state}>{state === true ? "취소" : "저금하기"}</SavingButtonItem>
     </ButtonWrapper>
   );

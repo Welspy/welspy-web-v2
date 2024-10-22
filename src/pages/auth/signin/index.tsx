@@ -1,10 +1,10 @@
-
+import { useNavigate } from "react-router-dom";
 import UseSignIn from "../../../hooks/auth/useSignIn";
 import * as S from "./style";
 
-
 const SignIn = () => {
   const { handleInputChange, SignInButton } = UseSignIn();
+  const naviagte = useNavigate();
 
   return (
     <S.Wrapper>
@@ -27,7 +27,12 @@ const SignIn = () => {
               <S.SignInButton onClick={SignInButton}>로그인</S.SignInButton>
               <S.TextWrapper>
                 <span style={{ fontFamily: "pretendard", marginRight: "2%", fontSize: 18 }}>계정이 없으신가요?</span>
-                <span style={{ fontFamily: "pretendard", color: "#5B94F3", fontSize: 18 }}>회원가입 하기</span>
+                <span
+                  onClick={() => naviagte("/sign-up")}
+                  style={{ fontFamily: "pretendard", color: "#5B94F3", fontSize: 18 }}
+                >
+                  회원가입 하기
+                </span>
               </S.TextWrapper>
             </S.SignInBottomWrapper>
           </S.SignInWrapper>

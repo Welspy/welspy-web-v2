@@ -1,4 +1,5 @@
 import { SetStateAction, useEffect, useState } from "react";
+import UseSavingButton from "src/hooks/modal/useSavingButton";
 import UseSearch from "src/hooks/modal/useSearch";
 import styled from "styled-components";
 
@@ -8,6 +9,7 @@ interface Props {
 }
 
 const SearchModal = ({ setSearch, serch }: Props) => {
+  const {setMoney,setRoomId,SavingButton} = UseSavingButton()
   const { setTitle, SearchChallenge, title, searchData } = UseSearch();
 
   useEffect(() => {
@@ -29,8 +31,6 @@ const SearchModal = ({ setSearch, serch }: Props) => {
         <SearchContetentWrapper>
           <SearchTitleWrapper>
             {title.length <= 0 ? <TitleSpan>전체 챌린지</TitleSpan> : <TitleSpan>검색 내용</TitleSpan>}
-
-            <TitleSpan style={{ color: "gray" }}>오늘 14:38기준</TitleSpan>
           </SearchTitleWrapper>
           <SearchContentWrapper>
             {searchData.map((item, idx) => (
@@ -39,7 +39,9 @@ const SearchModal = ({ setSearch, serch }: Props) => {
                   <NumberSpan>{idx + 1}</NumberSpan>
                   <SearchContentItemNumberProfileWrapper>
                     <ProfileImg src={item.imageUrl} alt="img" />
-                    <NumberSpan style={{ marginLeft: "5%", fontSize: 16 }}>{item.title}</NumberSpan>
+                    <NumberSpan style={{ marginLeft: "5%", fontSize: 16 }}>
+                      {item.title.toString().substring(0, 26)}...
+                    </NumberSpan>
                   </SearchContentItemNumberProfileWrapper>
                 </SearchContentItemNumberWrppaer>
                 <SearchContentItemInfoWrapper>
@@ -110,7 +112,7 @@ export const SearchTitleWrapper = styled.div`
 `;
 
 export const TitleSpan = styled.span`
-  font-size: 13px;
+  font-size: 15px;
   font-weight: bold;
   font-family: "pretendard";
 `;
@@ -125,9 +127,13 @@ export const SearchContentWrapper = styled.div`
 
 export const SearchContentItemWrapper = styled.div`
   width: 100%;
-  height: 45px;
+  height: 50px;
+  transition: background-color 0.3s ease;
+  &:hover {
+    background-color: #eaecef;
+  }
   display: flex;
-
+  border-radius: 5px;
   justify-content: space-between;
 `;
 
@@ -136,7 +142,7 @@ export const SearchContentItemNumberWrppaer = styled.div`
   height: 100%;
 
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   margin-bottom: 10%;
 `;
@@ -151,13 +157,13 @@ export const SearchContentItemNumberProfileWrapper = styled.div`
 `;
 
 export const NumberSpan = styled.span`
-  font-size: 13px;
+  font-size: 16px;
   font-weight: bold;
 `;
 
 export const ProfileImg = styled.img`
-  width: 25px;
-  height: 25px;
+  width: 30px;
+  height: 30px;
   border-radius: 100px;
   background-color: #aeaeae;
   object-fit: cover;

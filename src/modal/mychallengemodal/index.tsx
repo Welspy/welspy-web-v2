@@ -3,9 +3,9 @@ import { MyChallengeProps } from "src/type/challenge.types";
 import { SetStateAction, useEffect, useState } from "react";
 import UseMyProduct from "src/hooks/modal/useMyProduct";
 import ExitButton from "src/components/common/exitbutton";
-import SavingButton from "src/components/common/savingbutton/indexl";
-import Arrow from "src/assets/bottomArrow.svg";
+import UseSavingButton from "src/hooks/modal/useSavingButton";
 import SavingModal from "./savingModal";
+import SavingButton from "src/components/common/savingbutton";
 
 interface MyProps {
   MyRoomData: MyChallengeProps | undefined;
@@ -26,7 +26,7 @@ const MyChallengeModal = ({ MyRoomData, setModal, modal }: MyProps) => {
     MyProduct();
   }, []);
 
-  console.log("modal",chargemodal)
+  console.log("modal", chargemodal);
 
   return (
     <S.Wrapper>
@@ -52,21 +52,16 @@ const MyChallengeModal = ({ MyRoomData, setModal, modal }: MyProps) => {
               </S.ChallengeContentMainWrapper>
             </S.ChallengeContentWrapper>
             <S.ChallengeButtonWrapper>
-              <ExitButton RoomId={RoomId} /> 
+              <ExitButton RoomId={RoomId} />
               <SavingButton state={chargemodal} setState={setChalgeModal} />
             </S.ChallengeButtonWrapper>
             <S.ChallengeCommentWrapper>
-              <S.ChallengeCommentClickWrapper>
-                {/* <img src={Arrow} alt="img" />
-                <S.ChallengeCommentClickSpan>댓글보기</S.ChallengeCommentClickSpan> */}
-              </S.ChallengeCommentClickWrapper>
+              <S.ChallengeCommentClickWrapper></S.ChallengeCommentClickWrapper>
             </S.ChallengeCommentWrapper>
-            {/* <S.TextBox /> */}
           </S.MainContentWrapper>
-          
         </S.MainWrapper>
-        {chargemodal === true && <SavingModal />}
       </S.PositionWrapper>
+      {chargemodal === true && <SavingModal roomId={RoomId} setState={setChalgeModal} state={chargemodal} />}
     </S.Wrapper>
   );
 };

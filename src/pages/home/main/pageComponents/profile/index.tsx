@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import * as S from "./style";
-import Img from "src/assets/rotion_dummy.png";
 import UseProfile from "src/hooks/profile/useProfile";
 import UseMyChallenge from "src/hooks/home/useMyChallenge";
 import UseBank from "src/hooks/bank/useBank";
@@ -16,11 +15,7 @@ const Profile = () => {
     UserBank();
   }, []);
 
-  console.log("profile", profile);
-  console.log(
-    "mychallenge",
-    mychallenge.map((item) => item.imageUrl)
-  );
+
   return (
     <>
       <S.Wrapper>
