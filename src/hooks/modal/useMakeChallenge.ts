@@ -1,14 +1,11 @@
+interface Props {
+  ProductId: number | undefined;
+}
 
-
-const UseMakeChallenge = () => {
-
+const UseMakeChallenge = ({ ProductId }: Props) => {
 
   
-
-
-  return {
-   
-  };
+  return {};
 };
 
 export default UseMakeChallenge;

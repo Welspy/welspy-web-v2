@@ -1,17 +1,31 @@
 import React, { useState, useEffect } from "react";
 import * as S from "./style";
 import useProductRegistration from "src/hooks/product/useProductRegistration";
-import { CateGorry } from "src/pages/home/main/style";
+import UseMakeChallenge from "src/hooks/modal/useMakeChallenge";
 
 interface Props {
   ClickProductModal: () => void;
 }
 
 const ProductModal = ({ ClickProductModal }: Props) => {
-  const { products, handleChange, registerProduct, deleteImage, discountedPrice, status, message } =
-    useProductRegistration();
+  const [productType, setProduct] = useState<boolean>(false);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null); // 등록된 이미지 URL 상태 추가
+
+  const {
+    products,
+    handleChange,
+    registerProduct,
+    deleteImage,
+    discountedPrice,
+    status,
+    message,
+    getProduct,
+    product,
+  } = useProductRegistration();
+  const ProductId = product?.data![0].idx;
+
+  const {} = UseMakeChallenge({ ProductId: ProductId });
 
   const categoriesEnum = {
     TRAVEL: "여행",
@@ -21,6 +35,12 @@ const ProductModal = ({ ClickProductModal }: Props) => {
     INTERIOR: "인테리어",
     ETC: "기타",
   };
+
+  console.log("product", product?.data![0].idx);
+
+  useEffect(() => {
+    getProduct();
+  }, []);
 
   // 이미지 선택 핸들러
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -68,6 +88,7 @@ const ProductModal = ({ ClickProductModal }: Props) => {
     <S.Wrapper>
       <S.MainWrapper>
         <S.ModalCloseButton onClick={ClickProductModal}>×</S.ModalCloseButton>
+
         <h2 style={{ textAlign: "center", margin: "10px 0" }}>제품 등록하기</h2>
         <S.ProductRegistrationInputWrapper>
           <S.ImageWrapper>
@@ -129,12 +150,24 @@ const ProductModal = ({ ClickProductModal }: Props) => {
             </S.CateGorryMainWrapper>
           </S.CateGorryWrapper>
         </S.ProductRegistrationInputWrapper>
-        <S.SubmitButton
-          onClick={handleProductSubmit}
-          disabled={!products.name || !products.description || products.price <= 0 || !selectedImage}
-        >
-          등록하기
-        </S.SubmitButton>
+        {productType === false ? (
+          <S.SubmitButton
+            onClick={() => {
+              handleProductSubmit();
+              setProduct(true);
+            }}
+            disabled={!products.name || !products.description || products.price <= 0 || !selectedImage}
+          >
+            등록하기
+          </S.SubmitButton>
+        ) : (
+          <S.SubmitButton
+            onClick={handleProductSubmit}
+            disabled={!products.name || !products.description || products.price <= 0 || !selectedImage}
+          >
+            방 만들기
+          </S.SubmitButton>
+        )}
       </S.MainWrapper>
     </S.Wrapper>
   );

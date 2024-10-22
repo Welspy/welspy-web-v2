@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, SetStateAction } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { ProductRegistrationProps } from "src/type/productRegistration";
 import CONFIG from "src/config/config.json";
+import { ProductProps } from "src/type/product.types";
 
 // 상수 정의
 const MAX_IMAGE_SIZE_MB = 1; // 최대 이미지 크기 (MB)
@@ -20,6 +21,7 @@ const useProductRegistration = () => {
   const [status, setStatus] = useState<number | null>(null);
   const [message, setMessage] = useState<string>("");
   const [discountedPrice, setDiscountedPrice] = useState<number>(0); // 할인된 가격 상태 추가
+  const [product, setProduct] = useState<ProductProps>();
 
   // 할인된 가격 계산
   useEffect(() => {
@@ -172,6 +174,32 @@ const useProductRegistration = () => {
       });
   };
 
+  const Token = Cookies.get("accessToken");
+
+  const getProduct = async () => {
+   
+    try {
+      await axios
+        .get(`${CONFIG.serverUrl}/product/list`, {
+          headers: {
+            Authorization: `Bearer ${Token}`,
+          },
+          params: {
+            page: 1,
+            size: 999,
+          },
+        })
+        .then((res) => {
+          if (res.status === 200) {
+            console.log(res.data);
+            setProduct(res.data);
+          }
+        });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const handleError = (error: any) => {
     if (axios.isAxiosError(error)) {
       setStatus(error.response?.status || 500);
@@ -192,6 +220,8 @@ const useProductRegistration = () => {
     discountedPrice, // 할인된 가격 상태 반환
     status,
     message,
+    getProduct,
+    product,
   };
 };
 
