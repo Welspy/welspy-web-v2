@@ -7,7 +7,7 @@ interface Props {
 }
 
 const ProductModal = ({ ClickProductModal }: Props) => {
-    const { products, handleChange, registerProduct, deleteImage, discountRate, status, message } = useProductRegistration();
+    const { products, handleChange, registerProduct, deleteImage, discountedPrice, status, message } = useProductRegistration();
     const [selectedImage, setSelectedImage] = useState<File | null>(null);
     const [imageUrl, setImageUrl] = useState<string | null>(null); // 등록된 이미지 URL 상태 추가
 
@@ -29,7 +29,13 @@ const ProductModal = ({ ClickProductModal }: Props) => {
         if (products.imageUrl) {
             setImageUrl(products.imageUrl); // 제품 등록 후 이미지 URL 설정
         }
-    }, [products.imageUrl]);
+
+        // 제품 등록 후 이미지와 선택한 이미지 초기화
+        if (status === 201) {
+            setImageUrl(null);
+            setSelectedImage(null);
+        }
+    }, [products.imageUrl, status]); // status 추가
 
     // 이미지 삭제 핸들러
     const handleImageDelete = () => {
@@ -59,13 +65,17 @@ const ProductModal = ({ ClickProductModal }: Props) => {
                                 <S.PreviewImage src={imageUrl} alt="Selected" />
                                 <S.DeleteButton onClick={handleImageDelete}>이미지 삭제</S.DeleteButton>
                             </>
-                        ) : selectedImage ? (
-                            <S.PreviewImage src={URL.createObjectURL(selectedImage)} alt="Selected" />
-                        ) : null}
-                        <S.CustomButton>
-                            이미지 선택
-                            <S.ProductImgInput type="file" accept="image/*" onChange={handleImageChange} />
-                        </S.CustomButton>
+                        ) : (
+                            <>
+                                {selectedImage && (
+                                    <S.PreviewImage src={URL.createObjectURL(selectedImage)} alt="Selected" />
+                                )}
+                                <S.CustomButton>
+                                    이미지 선택
+                                    <S.ProductImgInput type="file" accept="image/*" onChange={handleImageChange} />
+                                </S.CustomButton>
+                            </>
+                        )}
                     </S.ImageWrapper>
                     <S.ProductInputWrapper>
                         <S.TitleInput
@@ -89,19 +99,24 @@ const ProductModal = ({ ClickProductModal }: Props) => {
                                 onChange={handleChange}
                             />
                             <S.PriceInput
-                                placeholder="할인된 가격"
+                                placeholder="할인율"
                                 name="discount"
                                 type="number"
                                 value={products.discount || ''}
                                 onChange={handleChange}
                             />
                         </S.PriceInputWrapper>
-                        {discountRate > 0 && (
-                            <S.SetDiscountRate>할인율: {discountRate}%</S.SetDiscountRate>
+
+                        {products.price > 0 && (
+                            <S.DiscountedPrice>
+                                할인가: {discountedPrice}원
+                            </S.DiscountedPrice>
                         )}
                     </S.ProductInputWrapper>
                 </S.ProductRegistrationInputWrapper>
-                <S.SubmitButton onClick={handleProductSubmit}>등록하기</S.SubmitButton>
+                <S.SubmitButton onClick={handleProductSubmit} disabled={!products.name || !products.description || products.price <= 0 || !selectedImage}>
+                    등록하기
+                </S.SubmitButton>
             </S.MainWrapper>
         </S.Wrapper>
     );

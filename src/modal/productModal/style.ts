@@ -181,3 +181,8 @@ export const SetDiscountRate = styled.p`
     font-family: 'pretendard';
     font-weight: 500;
 `
+export const DiscountedPrice = styled.div`
+    font-family: "pretendard";
+    color: red; // 예시 스타일
+    font-size: 16px; // 예시 스타일
+`;
