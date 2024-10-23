@@ -496,3 +496,5 @@ export const ProductRegistrationButton = styled.button`
   font-weight: 500;
   color: white;
 `;
+
+

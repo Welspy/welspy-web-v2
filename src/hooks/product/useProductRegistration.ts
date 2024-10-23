@@ -102,40 +102,42 @@ const useProductRegistration = () => {
     const token = Cookies.get("accessToken");
 
     uploadImage(imageFile)
-      .then((imageResponse) => {
-        const imageUrl = imageResponse?.data?.data;
-        console.log("Received imageUrl:", imageUrl);
+        .then((imageResponse) => {
+          const imageUrl = imageResponse?.data?.data;
+          console.log("Received imageUrl:", imageUrl);
 
-        // imageUrl이 존재하는지 확인
-        if (!imageUrl) {
-          throw new Error("이미지 업로드에 실패했습니다.");
-        }
+          // imageUrl이 존재하는지 확인
+          if (!imageUrl) {
+            throw new Error("이미지 업로드에 실패했습니다.");
+          }
 
-        // blob: 제거
-        const cleanedImageUrl = imageUrl.replace(/^blob:/, "");
+          // blob: 제거
+          const cleanedImageUrl = imageUrl.replace(/^blob:/, "");
 
-        const productData = { ...products, imageUrl: cleanedImageUrl };
-        console.log("Product data before sending:", productData); // productData 로그 출력
+          const productData = { ...products, imageUrl: cleanedImageUrl };
+          console.log("Product data before sending:", productData); // productData 로그 출력
 
-        return axios.post(`${CONFIG.serverUrl}/product`, productData, {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
+          return axios.post(`${CONFIG.serverUrl}/product`, productData, {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          });
+        })
+        .then((response) => {
+          setStatus(response.status);
+          setMessage(response.data.message);
+
+          // 제품 등록 후 상태를 초기화하지 않음
+          if (response.status === 201) {
+            // 필요한 경우 추가 처리
+          }
+        })
+        .catch((error) => {
+          handleError(error);
         });
-      })
-      .then((response) => {
-        setStatus(response.status);
-        setMessage(response.data.message);
-
-        if (response.status === 201) {
-          resetProductForm();
-        }
-      })
-      .catch((error) => {
-        handleError(error);
-      });
   };
+
 
   const resetProductForm = () => {
     setProducts({

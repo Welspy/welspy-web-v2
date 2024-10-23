@@ -193,24 +193,78 @@ export const CateGorryWrapper = styled.div`
   justify-content: center;
 `;
 
-export const CateGorryMainWrapper = styled.div`
-  width: 100%;
-  height: 82%;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  padding: 10px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
+// export const CateGorryMainWrapper = styled.div`
+//   width: 100%;
+//   height: 82%;
+//   border-radius: 5px;
+//   border: 1px solid #ccc;
+//   padding: 10px;
+//   display: flex;
+//   flex-wrap: wrap;
+//   gap: 5px;
+// `;
+
+export const Cartegory = styled.select`
+    background-color: #5b94f3;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+`
+
+export const RadioLabel = styled.label`
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    cursor: pointer;
+
+    input {
+        display: none;
+    }
+
+    span {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        border: 2px solid #007bff;
+        border-radius: 50%;
+        margin-right: 10px;
+        position: relative;
+        background: white;
+        transition: background 0.2s;
+    }
+
+    input:checked + span {
+        background: #007bff;
+    }
+
+    input:checked + span::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: white;
+    }
 `;
 
-export const CateGorryItem = styled.button`
-  padding: 10px;
-  font-size: 16px;
-  font-family: "pretendard";
-  font-weight: 500px;
-  background-color: #5b94f3;
-  border-radius: 5px;
-  color: #fff;
-  border: none;
+export const CateGorryMainWrapper = styled.div`
+    margin-top: 15px;
+`;
+
+export const InputWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    margin-top: 15px;
+
+    input {
+        margin-bottom: 10px; // 각 입력 필드 간격
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 16px;
+    }
 `;
