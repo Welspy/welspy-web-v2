@@ -106,7 +106,6 @@ const useProductRegistration = () => {
           const imageUrl = imageResponse?.data?.data;
           console.log("Received imageUrl:", imageUrl);
 
-          // imageUrl이 존재하는지 확인
           if (!imageUrl) {
             throw new Error("이미지 업로드에 실패했습니다.");
           }
@@ -128,10 +127,8 @@ const useProductRegistration = () => {
           setStatus(response.status);
           setMessage(response.data.message);
 
-          // 제품 등록 후 상태를 초기화하지 않음
-          if (response.status === 201) {
-            // 필요한 경우 추가 처리
-          }
+          // if (response.status === 201) {
+          // }
         })
         .catch((error) => {
           handleError(error);

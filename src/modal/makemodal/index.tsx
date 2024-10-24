@@ -26,12 +26,15 @@ const ProductModal = ({ ClickProductModal }: Props) => {
         message,
         getProduct,
         product,
+        // isImageFileValid,
     } = useProductRegistration();
 
     const ProductId = product?.data![0].idx;
 
     // UseMakeChallenge 훅 사용
     const { MakeChallengeButton } = UseMakeChallenge({
+        ClickProductModal(): void {
+        },
         ProductId,
         productData: {
             name: products.name,
@@ -173,13 +176,13 @@ const ProductModal = ({ ClickProductModal }: Props) => {
                                                 checked={selectedCategory === key}
                                                 onChange={() => setSelectedCategory(key)}
                                             />
-                                            <span /> {/* 사용자 정의 스타일을 적용한 라디오 버튼 */}
+                                            <span />
                                             {value}
                                         </S.RadioLabel>
                                     ))}
+
                                 </S.CateGorryMainWrapper>
                             </S.CateGorryWrapper>
-
                             <S.CateGorryWrapper>
                                 <S.CateGorryMainWrapper>
                                     {Object.entries(roomTypesEnum).map(([key, value]) => (
@@ -195,23 +198,20 @@ const ProductModal = ({ ClickProductModal }: Props) => {
                                             {value}
                                         </S.RadioLabel>
                                     ))}
+                                    <S.EEE
+                                        placeholder="목표 금액"
+                                        type="number"
+
+                                        onChange={(e) => setGoalMoney(Number(e.target.value))}
+                                    />
+                                    <S.EEE
+                                        placeholder="최대 멤버 수"
+                                        type="number"
+
+                                        onChange={(e) => setMemberLimit(Number(e.target.value))}
+                                    />
                                 </S.CateGorryMainWrapper>
                             </S.CateGorryWrapper>
-
-                            <S.InputWrapper>
-                                <S.PriceInput
-                                    placeholder="목표 금액"
-                                    type="number"
-
-                                    onChange={(e) => setGoalMoney(Number(e.target.value))}
-                                />
-                                <S.PriceInput
-                                    placeholder="최대 멤버 수"
-                                    type="number"
-
-                                    onChange={(e) => setMemberLimit(Number(e.target.value))}
-                                />
-                            </S.InputWrapper>
                         </>
                     )}
                 </S.ProductRegistrationInputWrapper>
@@ -219,7 +219,7 @@ const ProductModal = ({ ClickProductModal }: Props) => {
                 {isProductRegistered ? (
                     <S.SubmitButton
                         onClick={MakeChallengeButton}
-                        disabled={!ProductId}
+                        disabled={!ClickProductModal}
                     >
                         방 만들기
                     </S.SubmitButton>
